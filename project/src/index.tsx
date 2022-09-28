@@ -7,10 +7,10 @@ const data: {
   genre: string,
   year: number
 } = {
-  title: "The Grand Budapest Hotel",
-  genre: "Drama",
+  title: 'The Grand Budapest Hotel',
+  genre: 'Drama',
   year: 2014
-}
+};
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

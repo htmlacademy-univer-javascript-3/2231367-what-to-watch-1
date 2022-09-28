@@ -1,5 +1,5 @@
-import {Fragment} from "react";
-import FilmCard from "../../components/filmCard/filmCard";
+import {Fragment} from 'react';
+import FilmCard from '../../components/filmCard/filmCard';
 
 type MainPageProps = {
   title: string,
@@ -16,26 +16,37 @@ function MainPage(props: MainPageProps): JSX.Element {
             <title>+</title>
             <desc>Created with Sketch.</desc>
             <g id="Page-1" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-              <polygon id="+" fill="#EEE5B5"
-                       points="10.777832 11.2880859 10.777832 19.5527344 8.41650391 19.5527344 8.41650391 11.2880859 0.627929688 11.2880859 0.627929688 8.92675781 8.41650391 8.92675781 8.41650391 0.662109375 10.777832 0.662109375 10.777832 8.92675781 18.5664062 8.92675781 18.5664062 11.2880859"/>
+              <polygon
+                id="+" fill="#EEE5B5"
+                points="10.777832 11.2880859 10.777832 19.5527344 8.41650391 19.5527344 8.41650391 11.2880859 0.627929688 11.2880859 0.627929688 8.92675781 8.41650391 8.92675781 8.41650391 0.662109375 10.777832 0.662109375 10.777832 8.92675781 18.5664062 8.92675781 18.5664062 11.2880859"
+              />
             </g>
           </symbol>
           <symbol id="full-screen" viewBox="0 0 27 27">
-            <path fillRule="evenodd" clipRule="evenodd" d="M23.8571 0H16V3.14286H23.8571V11H27V3.14286V0H23.8571Z"
-                  fill="#FFF9D9" fillOpacity="0.7"/>
-            <path fillRule="evenodd" clipRule="evenodd"
-                  d="M27 23.8571V16H23.8571V23.8571H16V27H23.8571H27L27 23.8571Z" fill="#FFF9D9" fillOpacity="0.7"/>
-            <path fillRule="evenodd" clipRule="evenodd"
-                  d="M0 3.14286L0 11H3.14286L3.14286 3.14286L11 3.14286V0H3.14286H0L0 3.14286Z" fill="#FFF9D9"
-                  fillOpacity="0.7"/>
-            <path fillRule="evenodd" clipRule="evenodd"
-                  d="M3.14286 27H11V23.8571H3.14286L3.14286 16H0L0 23.8571V27H3.14286Z" fill="#FFF9D9"
-                  fillOpacity="0.7"/>
+            <path
+              fillRule="evenodd" clipRule="evenodd" d="M23.8571 0H16V3.14286H23.8571V11H27V3.14286V0H23.8571Z"
+              fill="#FFF9D9" fillOpacity="0.7"
+            />
+            <path
+              fillRule="evenodd" clipRule="evenodd"
+              d="M27 23.8571V16H23.8571V23.8571H16V27H23.8571H27L27 23.8571Z" fill="#FFF9D9" fillOpacity="0.7"
+            />
+            <path
+              fillRule="evenodd" clipRule="evenodd"
+              d="M0 3.14286L0 11H3.14286L3.14286 3.14286L11 3.14286V0H3.14286H0L0 3.14286Z" fill="#FFF9D9"
+              fillOpacity="0.7"
+            />
+            <path
+              fillRule="evenodd" clipRule="evenodd"
+              d="M3.14286 27H11V23.8571H3.14286L3.14286 16H0L0 23.8571V27H3.14286Z" fill="#FFF9D9" fillOpacity="0.7"
+            />
           </symbol>
           <symbol id="in-list" viewBox="0 0 18 14">
-            <path fillRule="evenodd" clipRule="evenodd"
-                  d="M2.40513 5.35353L6.1818 8.90902L15.5807 0L18 2.80485L6.18935 14L0 8.17346L2.40513 5.35353Z"
-                  fill="#EEE5B5"/>
+            <path
+              fillRule="evenodd" clipRule="evenodd"
+              d="M2.40513 5.35353L6.1818 8.90902L15.5807 0L18 2.80485L6.18935 14L0 8.17346L2.40513 5.35353Z"
+              fill="#EEE5B5"
+            />
           </symbol>
           <symbol id="pause" viewBox="0 0 14 21">
             <symbol id="play-s" viewBox="0 0 19 19">
@@ -44,10 +55,12 @@ function MainPage(props: MainPageProps): JSX.Element {
             <title>Artboard</title>
             <desc>Created with Sketch.</desc>
             <g id="Artboard" stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-              <polygon id="Line" fill="#EEE5B5" fillRule="nonzero"
-                       points="0 -1.11910481e-13 4 -1.11910481e-13 4 21 0 21"/>
-              <polygon id="Line" fill="#EEE5B5" fillRule="nonzero"
-                       points="10 -1.11910481e-13 14 -1.11910481e-13 14 21 10 21"/>
+              <polygon
+                id="Line" fill="#EEE5B5" fillRule="nonzero" points="0 -1.11910481e-13 4 -1.11910481e-13 4 21 0 21"
+              />
+              <polygon
+                id="Line" fill="#EEE5B5" fillRule="nonzero" points="10 -1.11910481e-13 14 -1.11910481e-13 14 21 10 21"
+              />
             </g>
           </symbol>
         </svg>
@@ -84,8 +97,10 @@ function MainPage(props: MainPageProps): JSX.Element {
         <div className="film-card__wrap">
           <div className="film-card__info">
             <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
-                   height="327"/>
+              <img
+                src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+                height="327"
+              />
             </div>
 
             <div className="film-card__desc">
@@ -153,124 +168,144 @@ function MainPage(props: MainPageProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <FilmCard src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-                      alt="Fantastic Beasts: The Crimes of Grindelwald"
-                      href="film-page.html"
-                      name="Fantastic Beasts: The Crimes of Grindelwald"
+            <FilmCard
+              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
+              alt="Fantastic Beasts: The Crimes of Grindelwald"
+              href="film-page.html"
+              name="Fantastic Beasts: The Crimes of Grindelwald"
             />
 
-            <FilmCard src="img/bohemian-rhapsody.jpg"
-                      alt="Bohemian Rhapsody"
-                      href="film-page.html"
-                      name="Bohemian Rhapsody"
+            <FilmCard
+              src="img/bohemian-rhapsody.jpg"
+              alt="Bohemian Rhapsody"
+              href="film-page.html"
+              name="Bohemian Rhapsody"
             />
 
-            <FilmCard src="img/macbeth.jpg"
-                      alt="Macbeth"
-                      href="film-page.html"
-                      name="Macbeth"
+            <FilmCard
+              src="img/macbeth.jpg"
+              alt="Macbeth"
+              href="film-page.html"
+              name="Macbeth"
             />
 
-            <FilmCard src="img/aviator.jpg"
-                      alt="Aviator"
-                      href="film-page.html"
-                      name="Aviator"
+            <FilmCard
+              src="img/aviator.jpg"
+              alt="Aviator"
+              href="film-page.html"
+              name="Aviator"
             />
 
-            <FilmCard src="img/we-need-to-talk-about-kevin.jpg"
-                      alt="We need to talk about Kevin"
-                      href="film-page.html"
-                      name="We need to talk about Kevin"
+            <FilmCard
+              src="img/we-need-to-talk-about-kevin.jpg"
+              alt="We need to talk about Kevin"
+              href="film-page.html"
+              name="We need to talk about Kevin"
             />
 
-            <FilmCard src="img/what-we-do-in-the-shadows.jpg"
-                      alt="What We Do in the Shadows"
-                      href="film-page.html"
-                      name="What We Do in the Shadows"
+            <FilmCard
+              src="img/what-we-do-in-the-shadows.jpg"
+              alt="What We Do in the Shadows"
+              href="film-page.html"
+              name="What We Do in the Shadows"
             />
 
-            <FilmCard src="img/revenant.jpg"
-                      alt="Revenant"
-                      href="film-page.html"
-                      name="Revenant"
+            <FilmCard
+              src="img/revenant.jpg"
+              alt="Revenant"
+              href="film-page.html"
+              name="Revenant"
             />
 
-            <FilmCard src="img/johnny-english.jpg"
-                      alt="Johnny English"
-                      href="film-page.html"
-                      name="Johnny English"
+            <FilmCard
+              src="img/johnny-english.jpg"
+              alt="Johnny English"
+              href="film-page.html"
+              name="Johnny English"
             />
 
-            <FilmCard src="img/shutter-island.jpg"
-                      alt="Shutter Island"
-                      href="film-page.html"
-                      name="Shutter Island"
+            <FilmCard
+              src="img/shutter-island.jpg"
+              alt="Shutter Island"
+              href="film-page.html"
+              name="Shutter Island"
             />
 
-            <FilmCard src="img/pulp-fiction.jpg"
-                      alt="Pulp Fiction"
-                      href="film-page.html"
-                      name="Pulp Fiction"
+            <FilmCard
+              src="img/pulp-fiction.jpg"
+              alt="Pulp Fiction"
+              href="film-page.html"
+              name="Pulp Fiction"
             />
 
-            <FilmCard src="img/no-country-for-old-men.jpg"
-                      alt="No Country for Old Men"
-                      href="film-page.html"
-                      name="No Country for Old Men"
+            <FilmCard
+              src="img/no-country-for-old-men.jpg"
+              alt="No Country for Old Men"
+              href="film-page.html"
+              name="No Country for Old Men"
             />
 
-            <FilmCard src="img/snatch.jpg"
-                      alt="Snatch"
-                      href="film-page.html"
-                      name="Snatch"
+            <FilmCard
+              src="img/snatch.jpg"
+              alt="Snatch"
+              href="film-page.html"
+              name="Snatch"
             />
 
-            <FilmCard src="img/moonrise-kingdom.jpg"
-                      alt="Moonrise Kingdom"
-                      href="film-page.html"
-                      name="Moonrise Kingdom"
+            <FilmCard
+              src="img/moonrise-kingdom.jpg"
+              alt="Moonrise Kingdom"
+              href="film-page.html"
+              name="Moonrise Kingdom"
             />
 
-            <FilmCard src="img/seven-years-in-tibet.jpg"
-                      alt="Seven Years in Tibet"
-                      href="film-page.html"
-                      name="Seven Years in Tibet"
+            <FilmCard
+              src="img/seven-years-in-tibet.jpg"
+              alt="Seven Years in Tibet"
+              href="film-page.html"
+              name="Seven Years in Tibet"
             />
 
-            <FilmCard src="img/midnight-special.jpg"
-                      alt="Midnight Special"
-                      href="film-page.html"
-                      name="Midnight Special"
+            <FilmCard
+              src="img/midnight-special.jpg"
+              alt="Midnight Special"
+              href="film-page.html"
+              name="Midnight Special"
             />
 
-            <FilmCard src="img/war-of-the-worlds.jpg"
-                      alt="War of the Worlds"
-                      href="film-page.html"
-                      name="War of the Worlds"
+            <FilmCard
+              src="img/war-of-the-worlds.jpg"
+              alt="War of the Worlds"
+              href="film-page.html"
+              name="War of the Worlds"
             />
 
-            <FilmCard src="img/dardjeeling-limited.jpg"
-                      alt="Dardjeeling Limited"
-                      href="film-page.html"
-                      name="Dardjeeling Limited"
+            <FilmCard
+              src="img/dardjeeling-limited.jpg"
+              alt="Dardjeeling Limited"
+              href="film-page.html"
+              name="Dardjeeling Limited"
             />
 
-            <FilmCard src="img/orlando.jpg"
-                      alt="Orlando"
-                      href="film-page.html"
-                      name="Orlando"
+            <FilmCard
+              src="img/orlando.jpg"
+              alt="Orlando"
+              href="film-page.html"
+              name="Orlando"
             />
 
-            <FilmCard src="img/mindhunter.jpg"
-                      alt="Mindhunter"
-                      href="film-page.html"
-                      name="Mindhunter"
+            <FilmCard
+              src="img/mindhunter.jpg"
+              alt="Mindhunter"
+              href="film-page.html"
+              name="Mindhunter"
             />
 
-            <FilmCard src="img/midnight-special.jpg"
-                      alt="Midnight Special"
-                      href="film-page.html"
-                      name="Midnight Special"
+            <FilmCard
+              src="img/midnight-special.jpg"
+              alt="Midnight Special"
+              href="film-page.html"
+              name="Midnight Special"
             />
           </div>
 
