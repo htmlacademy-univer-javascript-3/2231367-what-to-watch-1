@@ -1,10 +1,136 @@
 import {Fragment} from 'react';
-import FilmCard from '../../components/filmCard/filmCard';
+import FilmCard from '../../components/film-card/film-card';
+
+type FilmCardType = {
+  src: string,
+  alt: string,
+  href: string,
+  name: string
+}
+
+const mockFilmCards: FilmCardType[] = [
+  {
+    src: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
+    alt: 'Fantastic Beasts: The Crimes of Grindelwald',
+    href: 'film-page.html',
+    name: 'Fantastic Beasts: The Crimes of Grindelwald'
+  },
+  {
+    src: 'img/bohemian-rhapsody.jpg',
+    alt: 'Bohemian Rhapsody',
+    href: 'film-page.html',
+    name: 'Bohemian Rhapsody' },
+  {
+    src: 'img/macbeth.jpg',
+    alt: 'Macbeth',
+    href: 'film-page.html',
+    name: 'Macbeth' },
+  {
+    src: 'img/aviator.jpg',
+    alt: 'Aviator',
+    href: 'film-page.html',
+    name: 'Aviator' },
+  {
+    src: 'img/we-need-to-talk-about-kevin.jpg',
+    alt: 'We need to talk about Kevin',
+    href: 'film-page.html',
+    name: 'We need to talk about Kevin' },
+  {
+    src: 'img/what-we-do-in-the-shadows.jpg',
+    alt: 'What We Do in the Shadows',
+    href: 'film-page.html',
+    name: 'What We Do in the Shadows' },
+  {
+    src: 'img/revenant.jpg',
+    alt: 'Revenant',
+    href: 'film-page.html',
+    name: 'Revenant' },
+  {
+    src: 'img/johnny-english.jpg',
+    alt: 'Johnny English',
+    href: 'film-page.html',
+    name: 'Johnny English' },
+  {
+    src: 'img/shutter-island.jpg',
+    alt: 'Shutter Island',
+    href: 'film-page.html',
+    name: 'Shutter Island' },
+  {
+    src: 'img/pulp-fiction.jpg',
+    alt: 'Pulp Fiction',
+    href: 'film-page.html',
+    name: 'Pulp Fiction' },
+  {
+    src: 'img/no-country-for-old-men.jpg',
+    alt: 'No Country for Old Men',
+    href: 'film-page.html',
+    name: 'No Country for Old Men' },
+  {
+    src: 'img/snatch.jpg',
+    alt: 'Snatch',
+    href: 'film-page.html',
+    name: 'Snatch' },
+  {
+    src: 'img/moonrise-kingdom.jpg',
+    alt: 'Moonrise Kingdom',
+    href: 'film-page.html',
+    name: 'Moonrise Kingdom' },
+  {
+    src: 'img/seven-years-in-tibet.jpg',
+    alt: 'Seven Years in Tibet',
+    href: 'film-page.html',
+    name: 'Seven Years in Tibet' },
+  {
+    src: 'img/midnight-special.jpg',
+    alt: 'Midnight Special',
+    href: 'film-page.html',
+    name: 'Midnight Special' },
+  {
+    src: 'img/war-of-the-worlds.jpg',
+    alt: 'War of the Worlds',
+    href: 'film-page.html',
+    name: 'War of the Worlds' },
+  {
+    src: 'img/dardjeeling-limited.jpg',
+    alt: 'Dardjeeling Limited',
+    href: 'film-page.html',
+    name: 'Dardjeeling Limited' },
+  {
+    src: 'img/orlando.jpg',
+    alt: 'Orlando',
+    href: 'film-page.html',
+    name: 'Orlando' },
+  {
+    src: 'img/mindhunter.jpg',
+    alt: 'Mindhunter',
+    href: 'film-page.html',
+    name: 'Mindhunter' },
+  {
+    src: 'img/midnight-special.jpg',
+    alt: 'Midnight Special',
+    href: 'film-page.html',
+    name: 'Midnight Special' },
+];
+
+const getFilmList = (filmCards: FilmCardType[]) => {
+  const list = [];
+  for (const film of filmCards) {
+    list.push(
+      <FilmCard
+        src={film.src}
+        alt={film.alt}
+        href={film.href}
+        name={film.name}
+      />
+    );
+  }
+  return list;
+};
 
 type MainPageProps = {
   title: string,
   genre: string,
-  year: number
+  year: number,
 }
 
 function MainPage(props: MainPageProps): JSX.Element {
@@ -168,145 +294,7 @@ function MainPage(props: MainPageProps): JSX.Element {
           </ul>
 
           <div className="catalog__films-list">
-            <FilmCard
-              src="img/fantastic-beasts-the-crimes-of-grindelwald.jpg"
-              alt="Fantastic Beasts: The Crimes of Grindelwald"
-              href="film-page.html"
-              name="Fantastic Beasts: The Crimes of Grindelwald"
-            />
-
-            <FilmCard
-              src="img/bohemian-rhapsody.jpg"
-              alt="Bohemian Rhapsody"
-              href="film-page.html"
-              name="Bohemian Rhapsody"
-            />
-
-            <FilmCard
-              src="img/macbeth.jpg"
-              alt="Macbeth"
-              href="film-page.html"
-              name="Macbeth"
-            />
-
-            <FilmCard
-              src="img/aviator.jpg"
-              alt="Aviator"
-              href="film-page.html"
-              name="Aviator"
-            />
-
-            <FilmCard
-              src="img/we-need-to-talk-about-kevin.jpg"
-              alt="We need to talk about Kevin"
-              href="film-page.html"
-              name="We need to talk about Kevin"
-            />
-
-            <FilmCard
-              src="img/what-we-do-in-the-shadows.jpg"
-              alt="What We Do in the Shadows"
-              href="film-page.html"
-              name="What We Do in the Shadows"
-            />
-
-            <FilmCard
-              src="img/revenant.jpg"
-              alt="Revenant"
-              href="film-page.html"
-              name="Revenant"
-            />
-
-            <FilmCard
-              src="img/johnny-english.jpg"
-              alt="Johnny English"
-              href="film-page.html"
-              name="Johnny English"
-            />
-
-            <FilmCard
-              src="img/shutter-island.jpg"
-              alt="Shutter Island"
-              href="film-page.html"
-              name="Shutter Island"
-            />
-
-            <FilmCard
-              src="img/pulp-fiction.jpg"
-              alt="Pulp Fiction"
-              href="film-page.html"
-              name="Pulp Fiction"
-            />
-
-            <FilmCard
-              src="img/no-country-for-old-men.jpg"
-              alt="No Country for Old Men"
-              href="film-page.html"
-              name="No Country for Old Men"
-            />
-
-            <FilmCard
-              src="img/snatch.jpg"
-              alt="Snatch"
-              href="film-page.html"
-              name="Snatch"
-            />
-
-            <FilmCard
-              src="img/moonrise-kingdom.jpg"
-              alt="Moonrise Kingdom"
-              href="film-page.html"
-              name="Moonrise Kingdom"
-            />
-
-            <FilmCard
-              src="img/seven-years-in-tibet.jpg"
-              alt="Seven Years in Tibet"
-              href="film-page.html"
-              name="Seven Years in Tibet"
-            />
-
-            <FilmCard
-              src="img/midnight-special.jpg"
-              alt="Midnight Special"
-              href="film-page.html"
-              name="Midnight Special"
-            />
-
-            <FilmCard
-              src="img/war-of-the-worlds.jpg"
-              alt="War of the Worlds"
-              href="film-page.html"
-              name="War of the Worlds"
-            />
-
-            <FilmCard
-              src="img/dardjeeling-limited.jpg"
-              alt="Dardjeeling Limited"
-              href="film-page.html"
-              name="Dardjeeling Limited"
-            />
-
-            <FilmCard
-              src="img/orlando.jpg"
-              alt="Orlando"
-              href="film-page.html"
-              name="Orlando"
-            />
-
-            <FilmCard
-              src="img/mindhunter.jpg"
-              alt="Mindhunter"
-              href="film-page.html"
-              name="Mindhunter"
-            />
-
-            <FilmCard
-              src="img/midnight-special.jpg"
-              alt="Midnight Special"
-              href="film-page.html"
-              name="Midnight Special"
-            />
+            {getFilmList(mockFilmCards)}
           </div>
 
           <div className="catalog__more">
