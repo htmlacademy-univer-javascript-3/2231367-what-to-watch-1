@@ -1,5 +1,9 @@
 import {Fragment} from 'react';
 import FilmCard from '../../components/film-card/film-card';
+import {FimlType} from "../../types/FilmType";
+import Logo from "../../components/logo/logo";
+import GenresCatalog from "../../components/genres-catalog/genres-catalog";
+import FilmList from "../../components/film-list/film-list";
 
 type FilmCardType = {
   src: string,
@@ -8,129 +12,128 @@ type FilmCardType = {
   name: string
 }
 
-const mockFilmCards: FilmCardType[] = [
-  {
-    src: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
-    alt: 'Fantastic Beasts: The Crimes of Grindelwald',
-    href: 'film-page.html',
-    name: 'Fantastic Beasts: The Crimes of Grindelwald'
-  },
-  {
-    src: 'img/bohemian-rhapsody.jpg',
-    alt: 'Bohemian Rhapsody',
-    href: 'film-page.html',
-    name: 'Bohemian Rhapsody' },
-  {
-    src: 'img/macbeth.jpg',
-    alt: 'Macbeth',
-    href: 'film-page.html',
-    name: 'Macbeth' },
-  {
-    src: 'img/aviator.jpg',
-    alt: 'Aviator',
-    href: 'film-page.html',
-    name: 'Aviator' },
-  {
-    src: 'img/we-need-to-talk-about-kevin.jpg',
-    alt: 'We need to talk about Kevin',
-    href: 'film-page.html',
-    name: 'We need to talk about Kevin' },
-  {
-    src: 'img/what-we-do-in-the-shadows.jpg',
-    alt: 'What We Do in the Shadows',
-    href: 'film-page.html',
-    name: 'What We Do in the Shadows' },
-  {
-    src: 'img/revenant.jpg',
-    alt: 'Revenant',
-    href: 'film-page.html',
-    name: 'Revenant' },
-  {
-    src: 'img/johnny-english.jpg',
-    alt: 'Johnny English',
-    href: 'film-page.html',
-    name: 'Johnny English' },
-  {
-    src: 'img/shutter-island.jpg',
-    alt: 'Shutter Island',
-    href: 'film-page.html',
-    name: 'Shutter Island' },
-  {
-    src: 'img/pulp-fiction.jpg',
-    alt: 'Pulp Fiction',
-    href: 'film-page.html',
-    name: 'Pulp Fiction' },
-  {
-    src: 'img/no-country-for-old-men.jpg',
-    alt: 'No Country for Old Men',
-    href: 'film-page.html',
-    name: 'No Country for Old Men' },
-  {
-    src: 'img/snatch.jpg',
-    alt: 'Snatch',
-    href: 'film-page.html',
-    name: 'Snatch' },
-  {
-    src: 'img/moonrise-kingdom.jpg',
-    alt: 'Moonrise Kingdom',
-    href: 'film-page.html',
-    name: 'Moonrise Kingdom' },
-  {
-    src: 'img/seven-years-in-tibet.jpg',
-    alt: 'Seven Years in Tibet',
-    href: 'film-page.html',
-    name: 'Seven Years in Tibet' },
-  {
-    src: 'img/midnight-special.jpg',
-    alt: 'Midnight Special',
-    href: 'film-page.html',
-    name: 'Midnight Special' },
-  {
-    src: 'img/war-of-the-worlds.jpg',
-    alt: 'War of the Worlds',
-    href: 'film-page.html',
-    name: 'War of the Worlds' },
-  {
-    src: 'img/dardjeeling-limited.jpg',
-    alt: 'Dardjeeling Limited',
-    href: 'film-page.html',
-    name: 'Dardjeeling Limited' },
-  {
-    src: 'img/orlando.jpg',
-    alt: 'Orlando',
-    href: 'film-page.html',
-    name: 'Orlando' },
-  {
-    src: 'img/mindhunter.jpg',
-    alt: 'Mindhunter',
-    href: 'film-page.html',
-    name: 'Mindhunter' },
-  {
-    src: 'img/midnight-special.jpg',
-    alt: 'Midnight Special',
-    href: 'film-page.html',
-    name: 'Midnight Special' },
-];
-
-const getFilmList = (filmCards: FilmCardType[]) => {
-  const list = [];
-  for (const film of filmCards) {
-    list.push(
-      <FilmCard
-        src={film.src}
-        alt={film.alt}
-        href={film.href}
-        name={film.name}
-      />
-    );
-  }
-  return list;
-};
+// const mockFilmCards: FilmCardType[] = [
+//   {
+//     src: 'img/fantastic-beasts-the-crimes-of-grindelwald.jpg',
+//     alt: 'Fantastic Beasts: The Crimes of Grindelwald',
+//     href: 'film-page.html',
+//     name: 'Fantastic Beasts: The Crimes of Grindelwald'
+//   },
+//   {
+//     src: 'img/bohemian-rhapsody.jpg',
+//     alt: 'Bohemian Rhapsody',
+//     href: 'film-page.html',
+//     name: 'Bohemian Rhapsody' },
+//   {
+//     src: 'img/macbeth.jpg',
+//     alt: 'Macbeth',
+//     href: 'film-page.html',
+//     name: 'Macbeth' },
+//   {
+//     src: 'img/aviator.jpg',
+//     alt: 'Aviator',
+//     href: 'film-page.html',
+//     name: 'Aviator' },
+//   {
+//     src: 'img/we-need-to-talk-about-kevin.jpg',
+//     alt: 'We need to talk about Kevin',
+//     href: 'film-page.html',
+//     name: 'We need to talk about Kevin' },
+//   {
+//     src: 'img/what-we-do-in-the-shadows.jpg',
+//     alt: 'What We Do in the Shadows',
+//     href: 'film-page.html',
+//     name: 'What We Do in the Shadows' },
+//   {
+//     src: 'img/revenant.jpg',
+//     alt: 'Revenant',
+//     href: 'film-page.html',
+//     name: 'Revenant' },
+//   {
+//     src: 'img/johnny-english.jpg',
+//     alt: 'Johnny English',
+//     href: 'film-page.html',
+//     name: 'Johnny English' },
+//   {
+//     src: 'img/shutter-island.jpg',
+//     alt: 'Shutter Island',
+//     href: 'film-page.html',
+//     name: 'Shutter Island' },
+//   {
+//     src: 'img/pulp-fiction.jpg',
+//     alt: 'Pulp Fiction',
+//     href: 'film-page.html',
+//     name: 'Pulp Fiction' },
+//   {
+//     src: 'img/no-country-for-old-men.jpg',
+//     alt: 'No Country for Old Men',
+//     href: 'film-page.html',
+//     name: 'No Country for Old Men' },
+//   {
+//     src: 'img/snatch.jpg',
+//     alt: 'Snatch',
+//     href: 'film-page.html',
+//     name: 'Snatch' },
+//   {
+//     src: 'img/moonrise-kingdom.jpg',
+//     alt: 'Moonrise Kingdom',
+//     href: 'film-page.html',
+//     name: 'Moonrise Kingdom' },
+//   {
+//     src: 'img/seven-years-in-tibet.jpg',
+//     alt: 'Seven Years in Tibet',
+//     href: 'film-page.html',
+//     name: 'Seven Years in Tibet' },
+//   {
+//     src: 'img/midnight-special.jpg',
+//     alt: 'Midnight Special',
+//     href: 'film-page.html',
+//     name: 'Midnight Special' },
+//   {
+//     src: 'img/war-of-the-worlds.jpg',
+//     alt: 'War of the Worlds',
+//     href: 'film-page.html',
+//     name: 'War of the Worlds' },
+//   {
+//     src: 'img/dardjeeling-limited.jpg',
+//     alt: 'Dardjeeling Limited',
+//     href: 'film-page.html',
+//     name: 'Dardjeeling Limited' },
+//   {
+//     src: 'img/orlando.jpg',
+//     alt: 'Orlando',
+//     href: 'film-page.html',
+//     name: 'Orlando' },
+//   {
+//     src: 'img/mindhunter.jpg',
+//     alt: 'Mindhunter',
+//     href: 'film-page.html',
+//     name: 'Mindhunter' },
+//   {
+//     src: 'img/midnight-special.jpg',
+//     alt: 'Midnight Special',
+//     href: 'film-page.html',
+//     name: 'Midnight Special' },
+// ];
+//
+// const getFilmList = (filmCards: FilmCardType[]) => {
+//   const list = [];
+//   for (const film of filmCards) {
+//     list.push(
+//       <FilmCard
+//         src={film.src}
+//         alt={film.alt}
+//         href={film.href}
+//         name={film.name}
+//       />
+//     );
+//   }
+//   return list;
+// };
 
 type MainPageProps = {
-  title: string,
-  genre: string,
-  year: number,
+  selectedFilm: FimlType,
+  films: FimlType[]
 }
 
 function MainPage(props: MainPageProps): JSX.Element {
@@ -194,19 +197,13 @@ function MainPage(props: MainPageProps): JSX.Element {
 
       <section className="film-card">
         <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+          <img src={props.selectedFilm.backgroundImg} alt={props.selectedFilm.title}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
 
         <header className="page-header film-card__head">
-          <div className="logo">
-            <a className="logo__link">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
+          <Logo />
 
           <ul className="user-block">
             <li className="user-block__item">
@@ -224,16 +221,16 @@ function MainPage(props: MainPageProps): JSX.Element {
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+                src={props.selectedFilm.posterImg} alt={props.selectedFilm.title + " poster"} width="218"
                 height="327"
               />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.title}</h2>
+              <h2 className="film-card__title">{props.selectedFilm.title}</h2>
               <p className="film-card__meta">
-                <span className="film-card__genre">{props.genre}</span>
-                <span className="film-card__year">{props.year}</span>
+                <span className="film-card__genre">{props.selectedFilm.genre}</span>
+                <span className="film-card__year">{props.selectedFilm.year}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -260,41 +257,10 @@ function MainPage(props: MainPageProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <ul className="catalog__genres-list">
-            <li className="catalog__genres-item catalog__genres-item--active">
-              <a href="#" className="catalog__genres-link">All genres</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Comedies</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Crime</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Documentary</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Dramas</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Horror</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Kids & Family</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Romance</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Sci-Fi</a>
-            </li>
-            <li className="catalog__genres-item">
-              <a href="#" className="catalog__genres-link">Thrillers</a>
-            </li>
-          </ul>
+          <GenresCatalog />
 
           <div className="catalog__films-list">
-            {getFilmList(mockFilmCards)}
+            <FilmList filmList={props.films} />
           </div>
 
           <div className="catalog__more">
@@ -303,14 +269,7 @@ function MainPage(props: MainPageProps): JSX.Element {
         </section>
 
         <footer className="page-footer">
-          <div className="logo">
-            <a className="logo__link logo__link--light">
-              <span className="logo__letter logo__letter--1">W</span>
-              <span className="logo__letter logo__letter--2">T</span>
-              <span className="logo__letter logo__letter--3">W</span>
-            </a>
-          </div>
-
+          <Logo />
           <div className="copyright">
             <p>© 2019 What to watch Ltd.</p>
           </div>
