@@ -1,6 +1,11 @@
 import {Fragment} from 'react';
+import {FimlType} from "../../types/FilmType";
 
-function PlayerPage(): JSX.Element {
+type PlayerPageProps = {
+  film: FimlType
+}
+
+function PlayerPage(props: PlayerPageProps): JSX.Element {
   return (
     <Fragment>
       <div className="visually-hidden">

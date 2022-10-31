@@ -35,7 +35,7 @@ function App(props: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.Player}
-          element={<PlayerPage/>}
+          element={<PlayerPage film={props.selectedFilm}/>}
         />
         <Route
           path={AppRoute.SignIn}
@@ -44,14 +44,14 @@ function App(props: AppProps): JSX.Element {
         <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NonAuthorized}>
-              <MyListPage/>
+            <PrivateRoute authorizationStatus={AuthorizationStatus.Authorized}>
+              <MyListPage films={props.films}/>
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.AddReview}
-          element={<AddReviewPage/>}
+          element={<AddReviewPage film={props.selectedFilm}/>}
         />
         <Route
           path='*'
