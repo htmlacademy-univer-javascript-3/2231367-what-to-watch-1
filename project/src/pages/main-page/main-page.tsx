@@ -1,9 +1,8 @@
 import {Fragment} from 'react';
-import FilmCard from '../../components/film-card/film-card';
-import {FimlType} from "../../types/FilmType";
-import Logo from "../../components/logo/logo";
-import GenresCatalog from "../../components/genres-catalog/genres-catalog";
-import FilmList from "../../components/film-list/film-list";
+import {FimlType} from '../../types/FilmType';
+import Logo from '../../components/logo/logo';
+import GenresCatalog from '../../components/genres-catalog/genres-catalog';
+import FilmList from '../../components/film-list/film-list';
 
 type MainPageProps = {
   selectedFilm: FimlType,
@@ -95,7 +94,7 @@ function MainPage(props: MainPageProps): JSX.Element {
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src={props.selectedFilm.posterImg} alt={props.selectedFilm.title + " poster"} width="218"
+                src={props.selectedFilm.posterImg} alt={`${props.selectedFilm.title } poster`} width="218"
                 height="327"
               />
             </div>

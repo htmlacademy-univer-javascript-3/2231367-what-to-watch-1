@@ -1,4 +1,4 @@
-import {RatingDescription} from "../types/RatingDescription";
+import {RatingDescription} from '../types/RatingDescription';
 
 export type FimlType = {
   id: number;

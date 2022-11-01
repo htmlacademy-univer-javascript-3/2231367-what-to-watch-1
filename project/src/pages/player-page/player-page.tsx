@@ -1,5 +1,5 @@
 import {Fragment} from 'react';
-import {FimlType} from "../../types/FilmType";
+import {FimlType} from '../../types/FilmType';
 
 type PlayerPageProps = {
   film: FimlType
@@ -62,7 +62,7 @@ function PlayerPage(props: PlayerPageProps): JSX.Element {
       </div>
 
       <div className="player">
-        <video src="#" className="player__video" poster="img/player-poster.jpg"></video>
+        <video src={props.film.link} className="player__video" poster="img/player-poster.jpg"></video>
 
         <button type="button" className="player__exit">Exit</button>
 

@@ -1,7 +1,6 @@
-import {FimlType} from "../../types/FilmType";
-import FilmCard from "../film-card/film-card";
-import {Fragment} from "react";
-import {useState} from "react";
+import {FimlType} from '../../types/FilmType';
+import FilmCard from '../film-card/film-card';
+import {useState} from 'react';
 
 type FilmListProps = {
   filmList: FimlType[]
@@ -11,8 +10,8 @@ function FilmList(props: FilmListProps) {
   const list = [];
   const [, setActiveFilmCard] = useState(-1);
   const setActive = (id: number) => {
-    setActiveFilmCard(id)
-  }
+    setActiveFilmCard(id);
+  };
   for (const film of props.filmList) {
     list.push(
       <FilmCard
@@ -22,9 +21,7 @@ function FilmList(props: FilmListProps) {
     );
   }
   return (
-    <Fragment>
-      {list}
-    </Fragment>
+    list
   );
 }
 

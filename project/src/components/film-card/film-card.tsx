@@ -1,5 +1,5 @@
-import {FimlType} from "../../types/FilmType";
-import {Link} from "react-router-dom";
+import {FimlType} from '../../types/FilmType';
+import {Link} from 'react-router-dom';
 
 type FilmCardProps = {
   film: FimlType
@@ -9,9 +9,9 @@ type FilmCardProps = {
 function FilmCard(props: FilmCardProps): JSX.Element {
   return (
     <article className="small-film-card catalog__films-card"
-             onMouseEnter={() => {props.onHover(props.film.id)}}
-             onMouseLeave={() => {props.onHover(-1)}
-    }>
+      onMouseEnter={() => {props.onHover(props.film.id);}}
+      onMouseLeave={() => {props.onHover(-1);}}
+    >
       <div className="small-film-card__image">
         <img src={props.film.img} alt={props.film.title} width='280' height='175'/>
       </div>

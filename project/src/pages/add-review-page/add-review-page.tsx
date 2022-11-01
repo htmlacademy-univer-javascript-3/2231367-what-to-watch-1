@@ -1,7 +1,7 @@
 import {Fragment} from 'react';
-import Logo from "../../components/logo/logo";
-import {FimlType} from "../../types/FilmType";
-import AddReviewForm from "../../components/add-review-form/add-review-form";
+import Logo from '../../components/logo/logo';
+import {FimlType} from '../../types/FilmType';
+import AddReviewForm from '../../components/add-review-form/add-review-form';
 
 type AddReviewPageProps = {
   film: FimlType
@@ -69,7 +69,7 @@ function AddReviewPage(props: AddReviewPageProps): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__header">
           <div className="film-card__bg">
-            <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
+            <img src={props.film.backgroundImg} alt={props.film.title}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -80,7 +80,7 @@ function AddReviewPage(props: AddReviewPageProps): JSX.Element {
             <nav className="breadcrumbs">
               <ul className="breadcrumbs__list">
                 <li className="breadcrumbs__item">
-                  <a href="film-page.html" className="breadcrumbs__link">The Grand Budapest Hotel</a>
+                  <a href="film-page.html" className="breadcrumbs__link">{props.film.title}</a>
                 </li>
                 <li className="breadcrumbs__item">
                   <a className="breadcrumbs__link">Add review</a>
@@ -102,7 +102,7 @@ function AddReviewPage(props: AddReviewPageProps): JSX.Element {
 
           <div className="film-card__poster film-card__poster--small">
             <img
-              src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218"
+              src={props.film.posterImg} alt={`${props.film.title} poster`} width="218"
               height="327"
             />
           </div>

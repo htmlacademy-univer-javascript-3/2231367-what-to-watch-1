@@ -1,5 +1,5 @@
-import {FimlType} from "../types/FilmType";
-import {RatingDescription} from "../types/RatingDescription";
+import {FimlType} from '../types/FilmType';
+import {RatingDescription} from '../types/RatingDescription';
 
 export const mockSelectedFilm: FimlType = {
   id: 1,
@@ -156,4 +156,4 @@ export const mockFilms: FimlType[] = [
     duration: 120,
     link: 'https://download.blender.org/durian/trailer/sintel_trailer-480p.mp4'
   }
-]
+];
