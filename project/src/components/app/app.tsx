@@ -9,29 +9,23 @@ import PrivateRoute from '../private-route/private-route';
 import MyListPage from '../../pages/my-list-page/my-list-page';
 import AddReviewPage from '../../pages/add-review-page/add-review-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
+import {FimlType} from '../../types/FilmType';
 
 type AppProps = {
-  title: string,
-  genre: string,
-  year: number
+  selectedFilm: FimlType;
+  films: FimlType[]
 }
 
 function App(props: AppProps): JSX.Element {
   return (
-    // <MainPage
-    //   title={props.title}
-    //   genre={props.genre}
-    //   year={props.year}
-    // />
     <BrowserRouter>
       <Routes>
         <Route
           path={AppRoute.Main}
           element={
             <MainPage
-              title={props.title}
-              genre={props.genre}
-              year={props.year}
+              selectedFilm={props.selectedFilm}
+              films={props.films}
             />
           }
         />
@@ -41,7 +35,7 @@ function App(props: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.Player}
-          element={<PlayerPage/>}
+          element={<PlayerPage film={props.selectedFilm}/>}
         />
         <Route
           path={AppRoute.SignIn}
@@ -50,14 +44,14 @@ function App(props: AppProps): JSX.Element {
         <Route
           path={AppRoute.MyList}
           element={
-            <PrivateRoute authorizationStatus={AuthorizationStatus.NonAuthorized}>
-              <MyListPage/>
+            <PrivateRoute authorizationStatus={AuthorizationStatus.Authorized}>
+              <MyListPage films={props.films}/>
             </PrivateRoute>
           }
         />
         <Route
           path={AppRoute.AddReview}
-          element={<AddReviewPage/>}
+          element={<AddReviewPage film={props.selectedFilm}/>}
         />
         <Route
           path='*'
