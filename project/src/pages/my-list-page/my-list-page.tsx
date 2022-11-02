@@ -2,7 +2,7 @@ import {Fragment} from 'react';
 import Logo from '../../components/logo/logo';
 import {FimlType} from '../../types/FilmType';
 import FilmList from '../../components/film-list/film-list';
-import Footer from "../../components/footer/footer";
+import Footer from '../../components/footer/footer';
 
 type MyListPageProps = {
   films: FimlType[];

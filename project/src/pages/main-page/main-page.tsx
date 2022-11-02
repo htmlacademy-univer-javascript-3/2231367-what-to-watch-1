@@ -3,7 +3,7 @@ import {FimlType} from '../../types/FilmType';
 import Logo from '../../components/logo/logo';
 import GenresCatalog from '../../components/genres-catalog/genres-catalog';
 import FilmList from '../../components/film-list/film-list';
-import Footer from "../../components/footer/footer";
+import Footer from '../../components/footer/footer';
 
 type MainPageProps = {
   selectedFilm: FimlType,

@@ -1,6 +1,5 @@
 import {Fragment} from 'react';
-import Logo from '../../components/logo/logo';
-import Footer from "../../components/footer/footer";
+import Footer from '../../components/footer/footer';
 
 function FilmPage(): JSX.Element {
   return (
