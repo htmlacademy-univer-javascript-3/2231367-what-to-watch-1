@@ -3,6 +3,7 @@ import {FimlType} from '../../types/FilmType';
 import Logo from '../../components/logo/logo';
 import GenresCatalog from '../../components/genres-catalog/genres-catalog';
 import FilmList from '../../components/film-list/film-list';
+import Footer from "../../components/footer/footer";
 
 type MainPageProps = {
   selectedFilm: FimlType,
@@ -141,12 +142,7 @@ function MainPage(props: MainPageProps): JSX.Element {
           </div>
         </section>
 
-        <footer className="page-footer">
-          <Logo />
-          <div className="copyright">
-            <p>© 2019 What to watch Ltd.</p>
-          </div>
-        </footer>
+        <Footer/>
       </div>
     </Fragment>
   );
