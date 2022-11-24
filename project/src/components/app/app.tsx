@@ -25,7 +25,6 @@ function App(props: AppProps): JSX.Element {
           element={
             <MainPage
               selectedFilm={props.selectedFilm}
-              films={props.films}
             />
           }
         />
