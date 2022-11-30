@@ -21,7 +21,7 @@ function FilmList(props: FilmListProps) {
     );
   }
   return (
-    <div>
+    <div className="catalog__films-list">
       {list}
     </div>
   );

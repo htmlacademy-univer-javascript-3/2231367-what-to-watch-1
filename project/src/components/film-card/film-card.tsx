@@ -3,11 +3,11 @@ import {Link} from 'react-router-dom';
 import {useEffect, useState} from 'react';
 import Videoplayer from '../videoplayer/videoplayer';
 
-const delay = 1000;
-const previewWidth = 280;
-const previewHeight = 175;
-const previewMuted = true;
-const needToLoop = true;
+const DELAY = 1000;
+const PREVIEW_WIDTH = 280;
+const PREVIEW_HEIGHT = 175;
+const PREVIEW_MUTED = true;
+const NEED_TO_LOOP = true;
 
 type FilmCardProps = {
   film: FimlType;
@@ -21,7 +21,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   useEffect(() => {
     let stillHovered = true;
     if (isCardHovered) {
-      setTimeout(() => stillHovered && setIsPlayingNow(true), delay);
+      setTimeout(() => stillHovered && setIsPlayingNow(true), DELAY);
     }
     return(() => {stillHovered = false;});
   }, [isCardHovered]);
@@ -41,11 +41,11 @@ function FilmCard(props: FilmCardProps): JSX.Element {
       <div className="small-film-card__image">
         <Videoplayer
           film={props.film}
-          muted={previewMuted}
+          muted={PREVIEW_MUTED}
           isPlaying={isPlayingNow}
-          width={previewWidth}
-          height={previewHeight}
-          needToLoop={needToLoop}
+          width={PREVIEW_WIDTH}
+          height={PREVIEW_HEIGHT}
+          needToLoop={NEED_TO_LOOP}
         />
       </div>
       <h3 className="small-film-card__title">

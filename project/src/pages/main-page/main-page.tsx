@@ -1,16 +1,30 @@
-import {Fragment} from 'react';
+import {Fragment, useState} from 'react';
 import {FimlType} from '../../types/FilmType';
 import Logo from '../../components/logo/logo';
-import GenresCatalog from '../../components/genres-catalog/genres-catalog';
+import GenresCatalog, {
+  GetAllExistingGenres,
+  GetFilmsCurrentGenre,
+} from '../../components/genres-catalog/genres-catalog';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
+import {TypedUseSelectorHook, useSelector} from 'react-redux';
+import {store} from '../../store';
+import ShowMore from '../../components/show-more-button/show-more-button';
+
+const LIST_STEP_COUNT = 8;
 
 type MainPageProps = {
   selectedFilm: FimlType,
-  films: FimlType[]
 }
 
 function MainPage(props: MainPageProps): JSX.Element {
+  const useMySelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector,
+    [filmListCount, addFilmListCount] = useState(LIST_STEP_COUNT),
+    showMoreClickHandler = () => {
+      addFilmListCount(filmListCount + LIST_STEP_COUNT);
+    },
+    {films, genre} = useMySelector((selector) => selector),
+    filmsCurrentGenre = GetFilmsCurrentGenre(films, genre);
   return (
     <Fragment>
       <div className="visually-hidden">
@@ -131,15 +145,11 @@ function MainPage(props: MainPageProps): JSX.Element {
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
 
-          <GenresCatalog />
+          <GenresCatalog genres={GetAllExistingGenres(films)} selectedGenre={genre}/>
 
-          <div className="catalog__films-list">
-            <FilmList filmList={props.films} />
-          </div>
+          <FilmList filmList={filmsCurrentGenre.slice(0, filmListCount)} />
 
-          <div className="catalog__more">
-            <button className="catalog__button" type="button">Show more</button>
-          </div>
+          {filmsCurrentGenre.length > filmListCount && <ShowMore onClick={showMoreClickHandler}/>}
         </section>
 
         <Footer/>
