@@ -14,7 +14,7 @@ function FilmList(props: FilmListProps) {
   };
   for (const film of props.filmList) {
     list.push(
-      <FilmCard
+      <FilmCard key={`film-card-${film.id}`}
         film={film}
         onHover={setActive}
       />

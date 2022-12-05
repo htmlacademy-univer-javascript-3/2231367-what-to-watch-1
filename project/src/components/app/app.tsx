@@ -30,7 +30,7 @@ function App(props: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.Film}
-          element={<FilmPage/>}
+          element={<FilmPage films={props.films}/>}
         />
         <Route
           path={AppRoute.Player}
