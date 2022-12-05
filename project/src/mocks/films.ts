@@ -1,6 +1,10 @@
 import {FimlType} from '../types/FilmType';
 import {RatingDescription} from '../types/RatingDescription';
 
+export function getFilmById(filmId: number): FimlType | undefined {
+  return mockFilms.find<FimlType>((film): film is FimlType => film.id === filmId);
+}
+
 export const mockSelectedFilm: FimlType = {
   id: 1,
   title: 'The Grand Budapest Hotel',
