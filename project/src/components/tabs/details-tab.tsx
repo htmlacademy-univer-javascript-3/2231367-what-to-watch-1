@@ -15,14 +15,14 @@ function DetailsTab(props: DetailsTabProps): JSX.Element {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {props.film.actors.map((actor) => <>{actor}<br /></>)}
+            {props.film.starring.map((actor) => <>{actor}<br /></>)}
           </span>
         </p>
       </div>
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{props.film.duration}</span>
+          <span className="film-card__details-value">{props.film.runTime}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
@@ -30,7 +30,7 @@ function DetailsTab(props: DetailsTabProps): JSX.Element {
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Released</strong>
-          <span className="film-card__details-value">{props.film.year}</span>
+          <span className="film-card__details-value">{props.film.released}</span>
         </p>
       </div>
     </div>

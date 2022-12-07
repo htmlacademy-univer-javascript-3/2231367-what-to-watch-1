@@ -1,19 +1,19 @@
-import {RatingDescription} from '../types/RatingDescription';
-
 export type FimlType = {
   id: number;
-  title: string;
-  img: string;
-  backgroundImg: string;
-  posterImg: string;
+  name: string;
+  backgroundImage: string;
+  posterImage: string;
+  previewImage: string;
+  backgroundColor: string;
   genre: string;
-  year: number;
+  released: number;
   description: string;
   rating: number;
-  ratingDescription: RatingDescription;
-  votesCount: number;
+  scoresCount: number;
   director: string;
-  actors: string[];
-  duration: number;
-  link: string;
+  starring: string[];
+  runTime: number;
+  videoLink: string;
+  isFavorite: boolean;
+  previewVideoLink: string;
 }

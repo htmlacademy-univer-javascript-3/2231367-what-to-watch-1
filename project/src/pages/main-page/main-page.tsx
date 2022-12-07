@@ -10,6 +10,7 @@ import Footer from '../../components/footer/footer';
 import {TypedUseSelectorHook, useSelector} from 'react-redux';
 import {store} from '../../store';
 import ShowMore from '../../components/show-more-button/show-more-button';
+import Spinner from '../../components/spinner/spinner';
 
 const LIST_STEP_COUNT = 8;
 
@@ -23,8 +24,12 @@ function MainPage(props: MainPageProps): JSX.Element {
     showMoreClickHandler = () => {
       addFilmListCount(filmListCount + LIST_STEP_COUNT);
     },
-    {films, genre} = useMySelector((selector) => selector),
+    {films, genre, isLoading} = useMySelector((selector) => selector),
     filmsCurrentGenre = GetFilmsCurrentGenre(films, genre);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
   return (
     <Fragment>
       <div className="visually-hidden">
@@ -85,7 +90,7 @@ function MainPage(props: MainPageProps): JSX.Element {
 
       <section className="film-card">
         <div className="film-card__bg">
-          <img src={props.selectedFilm.backgroundImg} alt={props.selectedFilm.title}/>
+          <img src={props.selectedFilm.backgroundImage} alt={props.selectedFilm.name}/>
         </div>
 
         <h1 className="visually-hidden">WTW</h1>
@@ -109,16 +114,16 @@ function MainPage(props: MainPageProps): JSX.Element {
           <div className="film-card__info">
             <div className="film-card__poster">
               <img
-                src={props.selectedFilm.posterImg} alt={`${props.selectedFilm.title } poster`} width="218"
+                src={props.selectedFilm.posterImage} alt={`${props.selectedFilm.name } poster`} width="218"
                 height="327"
               />
             </div>
 
             <div className="film-card__desc">
-              <h2 className="film-card__title">{props.selectedFilm.title}</h2>
+              <h2 className="film-card__title">{props.selectedFilm.name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{props.selectedFilm.genre}</span>
-                <span className="film-card__year">{props.selectedFilm.year}</span>
+                <span className="film-card__year">{props.selectedFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">

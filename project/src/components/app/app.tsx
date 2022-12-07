@@ -10,13 +10,17 @@ import MyListPage from '../../pages/my-list-page/my-list-page';
 import AddReviewPage from '../../pages/add-review-page/add-review-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
 import {FimlType} from '../../types/FilmType';
+import {TypedUseSelectorHook, useSelector} from 'react-redux';
+import {store} from '../../store';
 
 type AppProps = {
   selectedFilm: FimlType;
-  films: FimlType[]
 }
 
+const useAppSelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;
+
 function App(props: AppProps): JSX.Element {
+  const { films } = useAppSelector((state) => state);
   return (
     <BrowserRouter>
       <Routes>
@@ -30,7 +34,7 @@ function App(props: AppProps): JSX.Element {
         />
         <Route
           path={AppRoute.Film}
-          element={<FilmPage films={props.films}/>}
+          element={<FilmPage films={films}/>}
         />
         <Route
           path={AppRoute.Player}
@@ -44,7 +48,7 @@ function App(props: AppProps): JSX.Element {
           path={AppRoute.MyList}
           element={
             <PrivateRoute authorizationStatus={AuthorizationStatus.Authorized}>
-              <MyListPage films={props.films}/>
+              <MyListPage films={films}/>
             </PrivateRoute>
           }
         />

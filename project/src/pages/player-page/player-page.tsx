@@ -62,7 +62,7 @@ function PlayerPage(props: PlayerPageProps): JSX.Element {
       </div>
 
       <div className="player">
-        <video src={props.film.link} className="player__video" poster="img/player-poster.jpg"></video>
+        <video src={props.film.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
 
         <button type="button" className="player__exit">Exit</button>
 
