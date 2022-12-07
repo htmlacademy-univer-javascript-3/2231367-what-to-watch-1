@@ -23,7 +23,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
       <section className="film-card film-card--full">
         <div className="film-card__hero">
           <div className="film-card__bg">
-            <img src={currentFilm.backgroundImg} alt={currentFilm.title}/>
+            <img src={currentFilm.backgroundImage} alt={currentFilm.name}/>
           </div>
 
           <h1 className="visually-hidden">WTW</h1>
@@ -45,10 +45,10 @@ function FilmPage(props: FilmPageProps): JSX.Element {
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
-              <h2 className="film-card__title">{currentFilm.title}</h2>
+              <h2 className="film-card__title">{currentFilm.name}</h2>
               <p className="film-card__meta">
                 <span className="film-card__genre">{currentFilm.genre}</span>
-                <span className="film-card__year">{currentFilm.year}</span>
+                <span className="film-card__year">{currentFilm.released}</span>
               </p>
 
               <div className="film-card__buttons">
@@ -74,7 +74,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={currentFilm.posterImg} alt={currentFilm.title} width="218" height="327"/>
+              <img src={currentFilm.posterImage} alt={currentFilm.name} width="218" height="327"/>
             </div>
 
             <div className="film-card__desc">
