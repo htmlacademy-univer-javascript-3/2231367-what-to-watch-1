@@ -4,25 +4,10 @@ import App from './components/app/app';
 import {mockSelectedFilm} from './mocks/films';
 import {Provider} from 'react-redux';
 import {store} from './store';
-import {createAsyncThunk} from '@reduxjs/toolkit';
-import {AxiosInstance} from 'axios';
-import {getFilms, setLoading} from './store/action';
-import {FimlType} from './types/FilmType';
+import {checkAuthAction, fetchFilmsAction} from './store/api-actions';
 
-type AppDispatch = typeof store.dispatch;
-store.dispatch( createAsyncThunk<void, undefined, {
-  dispatch: AppDispatch,
-  state: ReturnType<typeof store.getState>,
-  extra: AxiosInstance
-}>(
-  'fetchFilms',
-  async (_arg, {dispatch, extra: api}) => {
-    const {data} = await api.get<FimlType[]>('/films');
-    dispatch(setLoading(true));
-    dispatch(getFilms(data));
-    dispatch(setLoading(false));
-  },
-)() );
+store.dispatch(fetchFilmsAction());
+store.dispatch(checkAuthAction());
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement,

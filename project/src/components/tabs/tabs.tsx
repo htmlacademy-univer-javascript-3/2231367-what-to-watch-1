@@ -53,7 +53,7 @@ function Tabs(props: TabsProps): JSX.Element {
       </nav>
       {currentTab === Tab.OVERVIEW && <OverviewTab film={props.film} />}
       {currentTab === Tab.DETAILS && <DetailsTab film={props.film} />}
-      {currentTab === Tab.REVIEWS && <ReviewsTab /*film={props.film}*/ reviews={mockReviews}/>}
+      {currentTab === Tab.REVIEWS && <ReviewsTab reviews={mockReviews}/>}
     </div>
   );
 }

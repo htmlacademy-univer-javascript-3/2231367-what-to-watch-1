@@ -1,8 +1,6 @@
-// import {FimlType} from '../../types/FilmType';
 import {Review} from '../../types/ReviewType';
 
 type ReviewsTabProps = {
-  // film: FimlType;
   reviews: Review[];
 }
 
