@@ -1,12 +1,21 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {setGenre, getFilms, setLoading } from './action';
+import {setAuthorizationStatus, getFilms, setGenre, setLoading, setUserInfo} from './action';
 import {FimlType} from '../types/FilmType';
+import {AuthorizationStatus} from '../types/AuthorizationStatus';
+import {UserType} from '../types/UserType';
 
-const f : FimlType[] = [];
-const initialState = {
-  films: f,
+const initialState: {
+  films: FimlType[];
+  genre: string;
+  isLoading: boolean;
+  authorizationStatus: AuthorizationStatus;
+  user: UserType | null;
+} = {
   genre: 'All genres',
+  films: [],
   isLoading: false,
+  authorizationStatus: AuthorizationStatus.Unknown,
+  user: null
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -21,5 +30,11 @@ export const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setLoading, (state, action) => {
       state.isLoading = action.payload;
+    })
+    .addCase(setAuthorizationStatus, (state, action) => {
+      state.authorizationStatus = action.payload;
+    })
+    .addCase(setUserInfo, (state, action) => {
+      state.user = action.payload;
     });
 });
