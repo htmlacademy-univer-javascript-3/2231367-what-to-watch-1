@@ -1,7 +1,7 @@
 export type Review = {
   id: number;
   rating: number;
-  author: {
+  user: {
     id: number;
     name: string;
   };

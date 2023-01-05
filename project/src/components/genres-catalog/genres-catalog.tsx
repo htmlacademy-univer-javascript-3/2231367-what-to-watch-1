@@ -1,16 +1,21 @@
-import React from 'react';
+import React, {Dispatch, SetStateAction} from 'react';
 import Genre from '../genre/genre';
 import {FimlType} from '../../types/FilmType';
 
 type GenresCatalogProps = {
   genres: string[],
   selectedGenre: string,
+  setFilmListCount: Dispatch<SetStateAction<number>>;
 };
 
 function GenresCatalog(props: GenresCatalogProps): JSX.Element {
   return (
     <ul className='catalog__genres-list'>
-      {props.genres.map((genre) => <Genre key={genre} genre={genre} isCurrent={props.selectedGenre === genre}/>)}
+      {props.genres.map((genre) => (
+        <Genre key={genre} genre={genre} isCurrent={props.selectedGenre === genre}
+          setFilmListCount={props.setFilmListCount}
+        />
+      ))}
     </ul>
   );
 }

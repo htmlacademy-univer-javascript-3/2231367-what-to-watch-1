@@ -1,13 +1,13 @@
 import {FimlType} from '../../types/FilmType';
 
 type PlayerPageProps = {
-  film: FimlType
+  film?: FimlType
 }
 
 function PlayerPage(props: PlayerPageProps): JSX.Element {
   return (
     <div className="player">
-      <video src={props.film.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
+      <video src={props.film?.videoLink} className="player__video" poster="img/player-poster.jpg"></video>
       <button type="button" className="player__exit">Exit</button>
       <div className="player__controls">
         <div className="player__controls-row">

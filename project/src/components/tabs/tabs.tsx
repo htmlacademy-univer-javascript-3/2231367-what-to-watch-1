@@ -4,7 +4,6 @@ import {Tab} from '../../types/Tabs';
 import OverviewTab from './overview-tab';
 import DetailsTab from './details-tab';
 import ReviewsTab from './reviews-tab';
-import { mockReviews } from '../../mocks/reviews';
 
 type TabsProps = {
   film: FimlType,
@@ -53,7 +52,7 @@ function Tabs(props: TabsProps): JSX.Element {
       </nav>
       {currentTab === Tab.OVERVIEW && <OverviewTab film={props.film} />}
       {currentTab === Tab.DETAILS && <DetailsTab film={props.film} />}
-      {currentTab === Tab.REVIEWS && <ReviewsTab reviews={mockReviews}/>}
+      {currentTab === Tab.REVIEWS && <ReviewsTab />}
     </div>
   );
 }
