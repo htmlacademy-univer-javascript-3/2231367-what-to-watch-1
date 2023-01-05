@@ -1,14 +1,18 @@
 import {Review} from '../../types/ReviewType';
+import {useEffect, useState} from 'react';
+import {useParams} from 'react-router-dom';
+import {getFilmReviews} from '../../store/api-actions';
 
-type ReviewsTabProps = {
-  reviews: Review[];
-}
-
-function ReviewsTab(props: ReviewsTabProps): JSX.Element {
+function ReviewsTab(): JSX.Element {
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const filmId = Number(useParams().id);
+  useEffect(() => {
+    getFilmReviews(filmId).then(({data}) => setReviews(data));
+  }, []);
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
-        {props.reviews.map((review) => (
+        {reviews.map((review) => (
           <div className="review" key={`review-${review.id}`}>
             <blockquote className="review__quote">
               <p className="review__text">
@@ -16,7 +20,7 @@ function ReviewsTab(props: ReviewsTabProps): JSX.Element {
               </p>
               <footer className="review__details">
                 <cite className="review__author">
-                  {review.author.name}
+                  {review.user.name}
                 </cite>
                 <time className="review__date" dateTime={review.date}>
                   {review.date}

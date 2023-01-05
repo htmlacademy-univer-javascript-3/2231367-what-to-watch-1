@@ -1,21 +1,33 @@
-import {Fragment} from 'react';
+import {Fragment, useEffect, useState} from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import FilmList from '../../components/film-list/film-list';
 import {FimlType} from '../../types/FilmType';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import NotFoundPage from '../not-found-page/not-found-page';
-import {getFilmById} from '../../mocks/films';
 import Tabs from '../../components/tabs/tabs';
 import UserBlock from '../../components/user-block/user-block';
+import {useAppSelector} from '../../hooks';
+import {AuthorizationStatus} from '../../types/AuthorizationStatus';
+import {AppRoute} from '../../types/AppRoute';
+import {getFilm, getSimilarFilms} from '../../store/api-actions';
 
-type FilmPageProps = {
-  films: FimlType[];
-};
-
-function FilmPage(props: FilmPageProps): JSX.Element {
-  const currentFilmId = useParams().id;
-  const currentFilm = getFilmById(Number(currentFilmId));
+function FilmPage(): JSX.Element {
+  const currentFilmId = Number(useParams().id);
+  const [currentFilm, setCurrentFilm] = useState<FimlType>();
+  const [similarFilms, setSimilarFilms] = useState<FimlType[]>([]);
+  const navigate = useNavigate();
+  const { authorizationStatus } = useAppSelector((state) => state);
+  useEffect(() => {
+    getFilm(currentFilmId).then(({ data }) => {
+      if (data) {
+        setCurrentFilm(data);
+      } else {
+        navigate(AppRoute.NotFound);
+      }
+    });
+    getSimilarFilms(currentFilmId).then(({ data }) => setSimilarFilms(data));
+  }, [currentFilmId]);
   if (!currentFilm) {
     return <NotFoundPage/>;
   }
@@ -45,14 +57,18 @@ function FilmPage(props: FilmPageProps): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <Link to={'/mylist'} type='button' className='btn btn--list film-card__button'>
+                <Link to={AppRoute.MyList} type='button' className='btn btn--list film-card__button'>
                   <svg viewBox="0 0 19 20" width="19" height="20">
                     <use xlinkHref="#add"></use>
                   </svg>
                   <span>My list</span>
                   <span className="film-card__count">9</span>
                 </Link>
-                <Link to={`/films/${currentFilm.id}/review`} type='button' className="btn film-card__button">Add review</Link>
+                {
+                  authorizationStatus === AuthorizationStatus.Authorized
+                    ? <Link to={`/films/${currentFilm.id}/review`} type='button' className="btn film-card__button">Add review</Link>
+                    : null
+                }
               </div>
             </div>
           </div>
@@ -71,9 +87,7 @@ function FilmPage(props: FilmPageProps): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList
-            filmList={props.films.filter((film) => film !== currentFilm && film.genre === currentFilm.genre).slice(0, 4)}
-          />
+          <FilmList filmList={similarFilms} currentFilm={currentFilm}/>
         </section>
         <Footer/>
       </div>

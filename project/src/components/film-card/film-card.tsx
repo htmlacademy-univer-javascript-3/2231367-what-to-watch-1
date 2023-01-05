@@ -1,6 +1,6 @@
 import {FimlType} from '../../types/FilmType';
 import {Link} from 'react-router-dom';
-import {useEffect, useState} from 'react';
+import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import Videoplayer from '../videoplayer/videoplayer';
 
 const DELAY = 1000;
@@ -11,7 +11,7 @@ const NEED_TO_LOOP = true;
 
 type FilmCardProps = {
   film: FimlType;
-  onHover: (id: number) => void;
+  onHover?: Dispatch<SetStateAction<number | null>>;
 }
 
 function FilmCard(props: FilmCardProps): JSX.Element {
@@ -30,12 +30,12 @@ function FilmCard(props: FilmCardProps): JSX.Element {
     <article className="small-film-card catalog__films-card"
       onMouseEnter={() => {
         setIsCardHovered(true);
-        props.onHover(props.film.id);
+        props.onHover?.(props.film.id);
       }}
       onMouseLeave={() => {
         setIsCardHovered(false);
         setIsPlayingNow(false);
-        props.onHover(-1);
+        props.onHover?.(-1);
       }}
     >
       <div className="small-film-card__image">

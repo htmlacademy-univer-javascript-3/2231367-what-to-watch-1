@@ -1,5 +1,5 @@
 import {Fragment, SyntheticEvent} from 'react';
-import {Link, useNavigate} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import {AppRoute} from '../../types/AppRoute';
 import {AuthorizationStatus} from '../../types/AuthorizationStatus';
 import {useAppDispatch, useAppSelector} from '../../hooks';
@@ -8,11 +8,9 @@ import {logoutAction} from '../../store/api-actions';
 function UserBlock(): JSX.Element {
   const { authorizationStatus, user } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   const handleSignOut = (event: SyntheticEvent) => {
     event.preventDefault();
     dispatch(logoutAction());
-    navigate(AppRoute.Main);
   };
 
   return (
