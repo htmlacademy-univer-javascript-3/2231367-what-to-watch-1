@@ -7,5 +7,4 @@ export const reducer = combineReducers({
   filmReducer: filmReducer.reducer,
   mainReducer: mainReducer.reducer,
   userReducer: userReducer.reducer
-})
-
+});

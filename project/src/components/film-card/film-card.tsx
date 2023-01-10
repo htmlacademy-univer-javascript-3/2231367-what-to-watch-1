@@ -2,12 +2,13 @@ import {FimlType} from '../../types/FilmType';
 import {Link} from 'react-router-dom';
 import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import Videoplayer from '../videoplayer/videoplayer';
-
-const DELAY = 1000;
-const PREVIEW_WIDTH = 280;
-const PREVIEW_HEIGHT = 175;
-const PREVIEW_MUTED = true;
-const NEED_TO_LOOP = true;
+import {
+  DELAY_ON_HOVER_FILM_CARD,
+  NEED_TO_LOOP_ON_HOVER_FILM_CARD,
+  PREVIEW_HEIGHT_ON_HOVER_FILM_CARD,
+  PREVIEW_MUTED_ON_HOVER_FILM_CARD,
+  PREVIEW_WIDTH_ON_HOVER_FILM_CARD
+} from '../../consts';
 
 type FilmCardProps = {
   film: FimlType;
@@ -21,7 +22,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   useEffect(() => {
     let stillHovered = true;
     if (isCardHovered) {
-      setTimeout(() => stillHovered && setIsPlayingNow(true), DELAY);
+      setTimeout(() => stillHovered && setIsPlayingNow(true), DELAY_ON_HOVER_FILM_CARD);
     }
     return(() => {stillHovered = false;});
   }, [isCardHovered]);
@@ -41,11 +42,11 @@ function FilmCard(props: FilmCardProps): JSX.Element {
       <div className="small-film-card__image">
         <Videoplayer
           film={props.film}
-          muted={PREVIEW_MUTED}
+          muted={PREVIEW_MUTED_ON_HOVER_FILM_CARD}
           isPlaying={isPlayingNow}
-          width={PREVIEW_WIDTH}
-          height={PREVIEW_HEIGHT}
-          needToLoop={NEED_TO_LOOP}
+          width={PREVIEW_WIDTH_ON_HOVER_FILM_CARD}
+          height={PREVIEW_HEIGHT_ON_HOVER_FILM_CARD}
+          needToLoop={NEED_TO_LOOP_ON_HOVER_FILM_CARD}
         />
       </div>
       <h3 className="small-film-card__title">

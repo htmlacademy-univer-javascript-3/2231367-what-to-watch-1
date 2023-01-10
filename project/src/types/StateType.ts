@@ -1,7 +1,7 @@
 import {store} from '../store';
-import {FimlType} from "./FilmType";
-import {AuthorizationStatus} from "../consts";
-import {Review} from "./ReviewType";
+import {FimlType} from './FilmType';
+import {AuthorizationStatus} from '../consts';
+import {Review} from './ReviewType';
 
 export type StateType = ReturnType<typeof store.getState>;
 

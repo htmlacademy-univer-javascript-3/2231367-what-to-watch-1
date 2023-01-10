@@ -1,6 +1,6 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
 import {AppDispatch, StateType} from '../types/StateType';
-import {APIRoute} from "../consts";
+import {APIRoute} from '../consts';
 import {AuthorizationData} from '../types/AuthorizationData';
 import {UserType} from '../types/UserType';
 import {FimlType} from '../types/FilmType';
@@ -17,7 +17,6 @@ export const fetchFilmsAction = createAsyncThunk<FimlType[], undefined, {
     return data;
   },
 );
-
 
 export const checkAuthAction = createAsyncThunk<UserType, undefined, {
   dispatch: AppDispatch;
@@ -58,21 +57,21 @@ export const getPromoFilm = createAsyncThunk<
     state: StateType;
   }
   >('fetchPromoFilm', async (_arg) => {
-  const { data } = await api.get<FimlType>(APIRoute.PROMO);
-  return data;
-});
+    const { data } = await api.get<FimlType>(APIRoute.PROMO);
+    return data;
+  });
 
 
-export const getFilm  = createAsyncThunk<
+export const getFilm = createAsyncThunk<
   FimlType,
   string,
   {
     state: StateType;
   }
   >('fetchFilmById', async (filmId: string) => {
-  const { data } = await api.get<FimlType>(`${APIRoute.FILMS}/${filmId}`);
-  return data;
-});
+    const { data } = await api.get<FimlType>(`${APIRoute.FILMS}/${filmId}`);
+    return data;
+  });
 
 export const getSimilarFilms = createAsyncThunk<
   FimlType[],
@@ -81,24 +80,24 @@ export const getSimilarFilms = createAsyncThunk<
     state: StateType;
   }
   >('fetchSimilarById', async (filmId: string) => {
-  const { data } = await api.get<FimlType[]>(
-    `${APIRoute.FILMS}/${filmId}${APIRoute.SIMILAR}`
-  );
-  return data;
-});
+    const { data } = await api.get<FimlType[]>(
+      `${APIRoute.FILMS}/${filmId}${APIRoute.SIMILAR}`
+    );
+    return data;
+  });
 
-export const getFilmReviews  = createAsyncThunk<
+export const getFilmReviews = createAsyncThunk<
   Review[],
   string,
   {
     state: StateType;
   }
   >('fetchCommentsById', async (filmId: string) => {
-  const { data } = await api.get<Review[]>(
-    `${APIRoute.COMMENTS}/${filmId}`
-  );
-  return data;
-});
+    const { data } = await api.get<Review[]>(
+      `${APIRoute.COMMENTS}/${filmId}`
+    );
+    return data;
+  });
 
 export const postFilmReview =
   async (id: number, review: { comment: string, rating: number }) => {

@@ -1,6 +1,6 @@
 import {FimlType} from '../../types/FilmType';
 import {useState} from 'react';
-import {Tab} from "../../consts";
+import {Tab} from '../../consts';
 import OverviewTab from './overview-tab';
 import DetailsTab from './details-tab';
 import ReviewsTab from './reviews-tab';

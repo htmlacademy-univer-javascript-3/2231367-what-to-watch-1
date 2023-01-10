@@ -1,26 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
-// import { TIMEOUT_SHOW_ERROR } from '../const';
-// import getFilmsByGenre from '../helpers/get-films-by-genre';
-// import { AppState } from '../types/app-state.type';
-// import AuthStatus from '../types/auth-status.enum';
 import {
   setGenre
-  // clearError,
-  // resetShownFilms,
-  // setError,
-  // showMoreFilms,
 } from './action';
-import {AppState} from "../types/StateType";
-import {GetFilmsCurrentGenre} from "../components/genres-catalog/genres-catalog";
-import {fetchFilmsAction, getPromoFilm} from "./api-actions";
+import {AppState} from '../types/StateType';
+import {GetFilmsCurrentGenre} from '../components/genres-catalog/genres-catalog';
+import {fetchFilmsAction, getPromoFilm} from './api-actions';
+import {ALL_GENRES} from '../consts';
 
 const initialState: AppState = {
   films: [],
   filteredFilms: [],
-  currentGenre: 'All genres',
+  currentGenre: ALL_GENRES,
   shownCount: 0,
   dataIsLoading: false,
-  // error: null,
   promo: null,
 };
 
@@ -34,19 +26,6 @@ export const mainReducer = createSlice({
         state.currentGenre = action.payload.genre;
         state.filteredFilms = GetFilmsCurrentGenre(state.films, state.currentGenre);
       })
-      // .addCase(showMoreFilms, (state) => {
-      //   state.shownCount =
-      //     state.shownCount + 8 < state.filteredFilms.length
-      //       ? state.shownCount + 8
-      //       : state.filteredFilms.length;
-      // })
-      // .addCase(resetShownFilms, (state) => {
-      //   state.shownCount =
-      //     state.filteredFilms.length > 8 ? 8 : state.filteredFilms.length;
-      // })
-      // .addCase(setError, (state, action) => {
-      //   state.error = action.payload;
-      // })
       .addCase(fetchFilmsAction.pending, (state) => {
         state.dataIsLoading = true;
       })

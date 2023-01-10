@@ -1,13 +1,13 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { dropToken, saveToken } from "../services/token";
-import {UserState} from "../types/StateType";
-import {AuthorizationStatus} from "../consts";
-import {checkAuthAction, loginAction, logoutAction} from "./api-actions";
+import { createSlice } from '@reduxjs/toolkit';
+import { dropToken, saveToken } from '../services/token';
+import {UserState} from '../types/StateType';
+import {AuthorizationStatus} from '../consts';
+import {checkAuthAction, loginAction, logoutAction} from './api-actions';
 
 const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.NonAuthorized,
   avatar: null,
-}
+};
 
 export const userReducer = createSlice({
   name: 'userReducer',
@@ -31,6 +31,6 @@ export const userReducer = createSlice({
       })
       .addCase(checkAuthAction.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NonAuthorized;
-      })
+      });
   },
 });

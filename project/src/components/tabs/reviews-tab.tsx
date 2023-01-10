@@ -1,5 +1,5 @@
-import {useAppSelector} from "../../hooks";
-import {ReducerType} from "../../consts";
+import {useAppSelector} from '../../hooks';
+import {ReducerType} from '../../consts';
 
 function ReviewsTab(): JSX.Element {
   const reviews = useAppSelector((state) => state[ReducerType.Film].comments);

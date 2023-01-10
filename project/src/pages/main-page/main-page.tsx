@@ -24,7 +24,7 @@ function MainPage(): JSX.Element {
     genre = useAppSelector((state) => state[ReducerType.Main].currentGenre),
     isLoading = useAppSelector((state) => state[ReducerType.Main].dataIsLoading),
     filmsCurrentGenre = GetFilmsCurrentGenre(films, genre);
-  const promoFilm = useAppSelector(state => state[ReducerType.Main].promo);
+  const promoFilm = useAppSelector((state) => state[ReducerType.Main].promo);
   if (isLoading || !promoFilm) {
     return <Spinner />;
   }

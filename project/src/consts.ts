@@ -42,3 +42,10 @@ export enum ReducerType {
   Main = 'mainReducer',
   Film = 'filmReducer'
 }
+
+export const ALL_GENRES = 'All genres';
+export const DELAY_ON_HOVER_FILM_CARD = 1000;
+export const PREVIEW_WIDTH_ON_HOVER_FILM_CARD = 280;
+export const PREVIEW_HEIGHT_ON_HOVER_FILM_CARD = 175;
+export const PREVIEW_MUTED_ON_HOVER_FILM_CARD = true;
+export const NEED_TO_LOOP_ON_HOVER_FILM_CARD = true;

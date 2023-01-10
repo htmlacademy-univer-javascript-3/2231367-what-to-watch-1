@@ -7,7 +7,7 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import Tabs from '../../components/tabs/tabs';
 import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {AppRoute, AuthorizationStatus, ReducerType} from "../../consts";
+import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
 import {getFilm, getFilmReviews, getSimilarFilms} from '../../store/api-actions';
 
 function FilmPage(): JSX.Element {
@@ -60,7 +60,7 @@ function FilmPage(): JSX.Element {
                 {
                   authorizationStatus === AuthorizationStatus.Authorized
                     ? <Link to={`/films/${currentFilm.id}/review`} type='button' className="btn film-card__button">Add review</Link>
-                    : null
+                    : <Link to={AppRoute.SignIn} type='button' className="btn film-card__button">Add review</Link>
                 }
               </div>
             </div>

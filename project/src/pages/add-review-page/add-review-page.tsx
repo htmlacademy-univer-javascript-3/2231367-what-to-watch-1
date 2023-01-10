@@ -2,10 +2,10 @@ import Logo from '../../components/logo/logo';
 import AddReviewForm from '../../components/add-review-form/add-review-form';
 import UserBlock from '../../components/user-block/user-block';
 import {Link, Navigate, useParams} from 'react-router-dom';
-import {useEffect, useState} from 'react';
-import {AuthorizationStatus, ReducerType} from "../../consts";
+import {useEffect} from 'react';
+import {AuthorizationStatus, ReducerType} from '../../consts';
 import {getFilm} from '../../store/api-actions';
-import {useAppDispatch, useAppSelector} from "../../hooks";
+import {useAppDispatch, useAppSelector} from '../../hooks';
 
 function AddReviewPage(): JSX.Element {
   const id = Number(useParams().id);
