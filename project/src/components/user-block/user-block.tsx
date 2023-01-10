@@ -1,18 +1,19 @@
 import {Fragment, SyntheticEvent} from 'react';
-import {Link} from 'react-router-dom';
-import {AppRoute} from '../../types/AppRoute';
-import {AuthorizationStatus} from '../../types/AuthorizationStatus';
+import {Link, useNavigate} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logoutAction} from '../../store/api-actions';
 
 function UserBlock(): JSX.Element {
-  const { authorizationStatus, user } = useAppSelector((state) => state);
+  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
+  const avatar = useAppSelector((state) => state[ReducerType.User].avatar);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleSignOut = (event: SyntheticEvent) => {
     event.preventDefault();
     dispatch(logoutAction());
+    navigate(AppRoute.Main);
   };
-
   return (
     <ul className="user-block">
       {
@@ -22,7 +23,7 @@ function UserBlock(): JSX.Element {
             <Fragment>
               <li className="user-block__item">
                 <div className="user-block__avatar">
-                  <img src={user?.avatarUrl} alt="User avatar" width="63" height="63"/>
+                  <img src={avatar ?? ''} alt="User avatar" width="63" height="63" onClick={() => navigate(AppRoute.MyList)}/>
                 </div>
               </li>
               <li className="user-block__item">

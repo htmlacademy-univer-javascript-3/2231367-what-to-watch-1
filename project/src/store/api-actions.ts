@@ -1,58 +1,42 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {saveToken, dropToken} from '../services/token';
 import {AppDispatch, StateType} from '../types/StateType';
-import {getFilms, setAuthorizationStatus, setLoading, setUserInfo} from './action';
-import {AuthorizationStatus} from '../types/AuthorizationStatus';
+import {APIRoute} from '../consts';
 import {AuthorizationData} from '../types/AuthorizationData';
 import {UserType} from '../types/UserType';
 import {FimlType} from '../types/FilmType';
-import {AppRoute} from '../types/AppRoute';
-import {useNavigate} from 'react-router-dom';
 import {api} from './index';
 import {Review} from '../types/ReviewType';
-import {APIRoute} from '../types/ApiRoute';
 
-export const fetchFilmsAction = createAsyncThunk<void, undefined, {
+export const fetchFilmsAction = createAsyncThunk<FimlType[], undefined, {
   dispatch: AppDispatch,
   state: StateType,
 }>(
   'fetchFilms',
   async (_arg, {dispatch}) => {
     const {data} = await api.get<FimlType[]>('/films');
-    dispatch(setLoading(true));
-    dispatch(getFilms(data));
-    dispatch(setLoading(false));
+    return data;
   },
 );
 
-
-export const checkAuthAction = createAsyncThunk<void, undefined, {
+export const checkAuthAction = createAsyncThunk<UserType, undefined, {
   dispatch: AppDispatch;
   state: StateType;
 }>(
   'checkAuth',
   async (_arg, {dispatch}) => {
-    try {
-      await api.get(APIRoute.LOGIN);
-      dispatch(setAuthorizationStatus(AuthorizationStatus.Authorized));
-    } catch {
-      dispatch(setAuthorizationStatus(AuthorizationStatus.NonAuthorized));
-    }
+    const {data} = await api.get(APIRoute.LOGIN);
+    return data;
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthorizationData, {
+export const loginAction = createAsyncThunk<UserType, AuthorizationData, {
   dispatch: AppDispatch,
   state: StateType,
 }>(
   'login',
   async ({email, password}, {dispatch}) => {
-    const { data: user } = await api.post<UserType>(APIRoute.LOGIN, {email, password});
-    saveToken(user.token);
-    dispatch(setAuthorizationStatus(AuthorizationStatus.Authorized));
-    dispatch(setUserInfo(user));
-    const navigate = useNavigate();
-    navigate(AppRoute.Main);
+    const { data} = await api.post<UserType>(APIRoute.LOGIN, {email, password});
+    return data;
   },
 );
 
@@ -63,21 +47,57 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   'logout',
   async (_arg, {dispatch}) => {
     await api.delete(APIRoute.LOGOUT);
-    dropToken();
-    dispatch(setAuthorizationStatus(AuthorizationStatus.NonAuthorized));
-    dispatch(setUserInfo(null));
-    const navigate = useNavigate();
-    navigate(AppRoute.Main);
   },
 );
 
-export const getPromoFilm = async () => await api.get<FimlType>(APIRoute.PROMO);
+export const getPromoFilm = createAsyncThunk<
+  FimlType,
+  undefined,
+  {
+    state: StateType;
+  }
+  >('fetchPromoFilm', async (_arg) => {
+    const { data } = await api.get<FimlType>(APIRoute.PROMO);
+    return data;
+  });
 
-export const getFilm = async (filmId: number) => await api.get<FimlType>(`${APIRoute.FILMS}/${filmId}`);
 
-export const getSimilarFilms = async (id: number) => await api.get<FimlType[]>(`${APIRoute.FILMS}/${id}${APIRoute.SIMILAR}`);
+export const getFilm = createAsyncThunk<
+  FimlType,
+  string,
+  {
+    state: StateType;
+  }
+  >('fetchFilmById', async (filmId: string) => {
+    const { data } = await api.get<FimlType>(`${APIRoute.FILMS}/${filmId}`);
+    return data;
+  });
 
-export const getFilmReviews = async (id: number) => await api.get<Review[]>(`${APIRoute.COMMENTS}/${id}`);
+export const getSimilarFilms = createAsyncThunk<
+  FimlType[],
+  string,
+  {
+    state: StateType;
+  }
+  >('fetchSimilarById', async (filmId: string) => {
+    const { data } = await api.get<FimlType[]>(
+      `${APIRoute.FILMS}/${filmId}${APIRoute.SIMILAR}`
+    );
+    return data;
+  });
+
+export const getFilmReviews = createAsyncThunk<
+  Review[],
+  string,
+  {
+    state: StateType;
+  }
+  >('fetchCommentsById', async (filmId: string) => {
+    const { data } = await api.get<Review[]>(
+      `${APIRoute.COMMENTS}/${filmId}`
+    );
+    return data;
+  });
 
 export const postFilmReview =
   async (id: number, review: { comment: string, rating: number }) => {
