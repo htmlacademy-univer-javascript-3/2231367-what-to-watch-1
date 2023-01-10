@@ -1,33 +1,26 @@
-import {Fragment, useEffect, useState} from 'react';
+import {Fragment, useEffect} from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import FilmList from '../../components/film-list/film-list';
-import {FimlType} from '../../types/FilmType';
-import {Link, useNavigate, useParams} from 'react-router-dom';
+import {Link, useParams} from 'react-router-dom';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Tabs from '../../components/tabs/tabs';
 import UserBlock from '../../components/user-block/user-block';
-import {useAppSelector} from '../../hooks';
-import {AuthorizationStatus} from '../../types/AuthorizationStatus';
-import {AppRoute} from '../../types/AppRoute';
-import {getFilm, getSimilarFilms} from '../../store/api-actions';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {AppRoute, AuthorizationStatus, ReducerType} from "../../consts";
+import {getFilm, getFilmReviews, getSimilarFilms} from '../../store/api-actions';
 
 function FilmPage(): JSX.Element {
   const currentFilmId = Number(useParams().id);
-  const [currentFilm, setCurrentFilm] = useState<FimlType>();
-  const [similarFilms, setSimilarFilms] = useState<FimlType[]>([]);
-  const navigate = useNavigate();
-  const { authorizationStatus } = useAppSelector((state) => state);
+  const currentFilm = useAppSelector((state) => state[ReducerType.Film].film);
+  const similarFilms = useAppSelector((state) => state[ReducerType.Film].similar);
+  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    getFilm(currentFilmId).then(({ data }) => {
-      if (data) {
-        setCurrentFilm(data);
-      } else {
-        navigate(AppRoute.NotFound);
-      }
-    });
-    getSimilarFilms(currentFilmId).then(({ data }) => setSimilarFilms(data));
-  }, [currentFilmId]);
+    dispatch(getFilm(currentFilmId.toString()));
+    dispatch(getSimilarFilms(currentFilmId.toString()));
+    dispatch(getFilmReviews(currentFilmId.toString()));
+  }, [currentFilmId, dispatch]);
   if (!currentFilm) {
     return <NotFoundPage/>;
   }

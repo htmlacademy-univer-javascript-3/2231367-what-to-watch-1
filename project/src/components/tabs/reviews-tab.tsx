@@ -1,14 +1,8 @@
-import {Review} from '../../types/ReviewType';
-import {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {getFilmReviews} from '../../store/api-actions';
+import {useAppSelector} from "../../hooks";
+import {ReducerType} from "../../consts";
 
 function ReviewsTab(): JSX.Element {
-  const [reviews, setReviews] = useState<Review[]>([]);
-  const filmId = Number(useParams().id);
-  useEffect(() => {
-    getFilmReviews(filmId).then(({data}) => setReviews(data));
-  }, []);
+  const reviews = useAppSelector((state) => state[ReducerType.Film].comments);
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">

@@ -1,4 +1,4 @@
-import {Fragment, useEffect, useState} from 'react';
+import {Fragment, useState} from 'react';
 import Logo from '../../components/logo/logo';
 import GenresCatalog, {
   GetAllExistingGenres,
@@ -11,9 +11,7 @@ import Spinner from '../../components/spinner/spinner';
 import UserBlock from '../../components/user-block/user-block';
 import {useAppSelector} from '../../hooks';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../types/AppRoute';
-import {FimlType} from '../../types/FilmType';
-import {getPromoFilm} from '../../store/api-actions';
+import {AppRoute, ReducerType} from '../../consts';
 
 const LIST_STEP_COUNT = 8;
 
@@ -22,12 +20,11 @@ function MainPage(): JSX.Element {
     showMoreClickHandler = () => {
       addFilmListCount(filmListCount + LIST_STEP_COUNT);
     },
-    {films, genre, isLoading} = useAppSelector((selector) => selector),
+    films = useAppSelector((state) => state[ReducerType.Main].films),
+    genre = useAppSelector((state) => state[ReducerType.Main].currentGenre),
+    isLoading = useAppSelector((state) => state[ReducerType.Main].dataIsLoading),
     filmsCurrentGenre = GetFilmsCurrentGenre(films, genre);
-  const [promoFilm, setPromoFilm] = useState<FimlType>();
-  useEffect(() => {
-    getPromoFilm().then(({ data }) => setPromoFilm(data));
-  }, []);
+  const promoFilm = useAppSelector(state => state[ReducerType.Main].promo);
   if (isLoading || !promoFilm) {
     return <Spinner />;
   }

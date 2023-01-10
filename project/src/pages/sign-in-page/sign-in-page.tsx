@@ -1,11 +1,11 @@
 import {ChangeEvent, FormEvent, useState} from 'react';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
-import {useNavigate} from 'react-router-dom';
-import {AppRoute} from '../../types/AppRoute';
+import {useNavigate, Navigate} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus, ReducerType} from "../../consts";
 import {AuthorizationData} from '../../types/AuthorizationData';
 import {loginAction} from '../../store/api-actions';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 
 function SignInPage(): JSX.Element {
   const [email, setEmail] = useState<string>('');
@@ -16,9 +16,11 @@ function SignInPage(): JSX.Element {
     dispatch(loginAction(authData));
     navigate(AppRoute.Main);
   };
+  const checkPassword = (password: string): boolean => (/(?=.*[0-9])(?=.*[a-zA-Z])[0-9a-zA-Z]{2,}/.test(password));
+  const checkEmail = (email: string): boolean => (/\S+@\S+\.\S+/.test(email));
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (email !== '' && password !== '') {
+    if (email !== '' && password !== '' && checkPassword(password) && checkEmail(email)) {
       onSubmit({ email, password });
     }
   };
@@ -28,7 +30,10 @@ function SignInPage(): JSX.Element {
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
-
+  const authorizationStatus = useAppSelector(state => state[ReducerType.User].authorizationStatus);
+  if (authorizationStatus === AuthorizationStatus.Authorized) {
+    return <Navigate to={'/'} />;
+  }
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
