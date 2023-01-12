@@ -14,6 +14,8 @@ export type AppState = {
   promo: FimlType | null,
   currentGenre: string,
   filteredFilms: FimlType[],
+  favoriteFilms: FimlType[],
+  favoriteFilmsLength: number,
   shownCount: number,
 }
 

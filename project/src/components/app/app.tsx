@@ -3,15 +3,13 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import SignInPage from '../../pages/sign-in-page/sign-in-page';
 import FilmPage from '../../pages/film-page/film-page';
 import PlayerPage from '../../pages/player-page/player-page';
-import {AppRoute, ReducerType} from '../../consts';
+import {AppRoute} from '../../consts';
 import PrivateRoute from '../private-route/private-route';
 import MyListPage from '../../pages/my-list-page/my-list-page';
 import AddReviewPage from '../../pages/add-review-page/add-review-page';
 import NotFoundPage from '../../pages/not-found-page/not-found-page';
-import {useAppSelector} from '../../hooks';
 
 function App(): JSX.Element {
-  const films = useAppSelector((state) => state[ReducerType.Main].films);
   return (
     <BrowserRouter>
       <Routes>
@@ -46,7 +44,7 @@ function App(): JSX.Element {
             path={AppRoute.MyList}
             element={
               <PrivateRoute>
-                <MyListPage films={films}/>
+                <MyListPage/>
               </PrivateRoute>
             }
           />

@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { dropToken, saveToken } from '../services/token';
 import {UserState} from '../types/StateType';
-import {AuthorizationStatus} from '../consts';
+import {AuthorizationStatus, ReducerType} from '../consts';
 import {checkAuthAction, loginAction, logoutAction} from './api-actions';
 
 const initialState: UserState = {
@@ -10,7 +10,7 @@ const initialState: UserState = {
 };
 
 export const userReducer = createSlice({
-  name: 'userReducer',
+  name: ReducerType.User,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
