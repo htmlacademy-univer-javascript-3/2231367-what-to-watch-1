@@ -12,8 +12,8 @@ import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Link} from 'react-router-dom';
 import {AppRoute, ReducerType} from '../../consts';
-import {changePromoFavoriteStatus, fetchFavoriteFilms} from "../../store/api-actions";
-import {setFavoriteFilmsLength} from "../../store/action";
+import {changePromoFavoriteStatus, fetchFavoriteFilms} from '../../store/api-actions';
+import {setFavoriteFilmsLength} from '../../store/action';
 import {AuthorizationStatus} from '../../consts';
 
 const LIST_STEP_COUNT = 8;

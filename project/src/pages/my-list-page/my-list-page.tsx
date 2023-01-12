@@ -2,10 +2,10 @@ import Logo from '../../components/logo/logo';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import UserBlock from '../../components/user-block/user-block';
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {AuthorizationStatus, ReducerType} from "../../consts";
-import {useEffect} from "react";
-import {fetchFavoriteFilms} from "../../store/api-actions";
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {AuthorizationStatus, ReducerType} from '../../consts';
+import {useEffect} from 'react';
+import {fetchFavoriteFilms} from '../../store/api-actions';
 
 function MyListPage(): JSX.Element {
   const films = useAppSelector((state) => state[ReducerType.Main].favoriteFilms);

@@ -90,8 +90,7 @@ function FilmPage(): JSX.Element {
                   </Link> :
                   <Link to={AppRoute.SignIn} type='button' className="btn film-card__button">
                     Add review
-                  </Link>
-                }
+                  </Link>}
               </div>
             </div>
           </div>

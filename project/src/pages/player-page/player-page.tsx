@@ -1,7 +1,7 @@
-import {Link, useParams} from "react-router-dom";
-import {useAppDispatch, useAppSelector} from "../../hooks";
-import {Fragment, useEffect, useRef, useState} from "react";
-import {getFilm} from "../../store/api-actions";
+import {Link, useParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {Fragment, useEffect, useRef, useState} from 'react';
+import {getFilm} from '../../store/api-actions';
 
 function PlayerPage(): JSX.Element {
   const id = Number(useParams().id);
@@ -20,7 +20,7 @@ function PlayerPage(): JSX.Element {
     } else {
       playerElement?.requestFullscreen();
     }
-  }
+  };
   useEffect(() => {
     if (isPlaying) {
       setTimeout(() => {
@@ -55,7 +55,8 @@ function PlayerPage(): JSX.Element {
   return (
     <div className="player">
       <video src={film?.videoLink} className="player__video" poster={film?.posterImage} ref={playerRef}></video>
-      <Link to={`/films/${film?.id}`} type="button" className="player__exit">Exit</Link>      <div className="player__controls">
+      <Link to={`/films/${film?.id}`} type="button" className="player__exit">Exit</Link>
+      <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
             <progress className="player__progress" value="0" max="100"></progress>
