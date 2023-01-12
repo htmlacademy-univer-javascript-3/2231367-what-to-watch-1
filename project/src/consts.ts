@@ -5,6 +5,7 @@ export enum APIRoute {
   PROMO = '/promo',
   COMMENTS = '/comments',
   SIMILAR = '/similar',
+  FAVORITE = '/favorite',
 }
 
 export enum AppRoute {

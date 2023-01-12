@@ -1,14 +1,22 @@
 import Logo from '../../components/logo/logo';
-import {FimlType} from '../../types/FilmType';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import UserBlock from '../../components/user-block/user-block';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {AuthorizationStatus, ReducerType} from '../../consts';
+import {useEffect} from 'react';
+import {fetchFavoriteFilms} from '../../store/api-actions';
 
-type MyListPageProps = {
-  films: FimlType[];
-}
+function MyListPage(): JSX.Element {
+  const films = useAppSelector((state) => state[ReducerType.Main].favoriteFilms);
+  const authorizationStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (authorizationStatus === AuthorizationStatus.Authorized) {
+      dispatch(fetchFavoriteFilms());
+    }
+  }, [authorizationStatus, dispatch]);
 
-function MyListPage(props: MyListPageProps): JSX.Element {
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -19,7 +27,7 @@ function MyListPage(props: MyListPageProps): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <div className="catalog__films-list">
-          <FilmList filmList={props.films} />
+          <FilmList filmList={films} />
         </div>
       </section>
       <Footer />

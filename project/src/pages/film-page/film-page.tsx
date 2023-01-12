@@ -8,19 +8,38 @@ import Tabs from '../../components/tabs/tabs';
 import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
-import {getFilm, getFilmReviews, getSimilarFilms} from '../../store/api-actions';
+import {changeFilmFavoriteStatus, fetchFavoriteFilms, getFilm, getFilmReviews, getSimilarFilms} from '../../store/api-actions';
+import {setFavoriteFilmsLength} from '../../store/action';
 
 function FilmPage(): JSX.Element {
   const currentFilmId = Number(useParams().id);
   const currentFilm = useAppSelector((state) => state[ReducerType.Film].film);
   const similarFilms = useAppSelector((state) => state[ReducerType.Film].similar);
   const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
+  const favoriteFilmsLength = useAppSelector((state) => state.mainReducer.favoriteFilmsLength);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getFilm(currentFilmId.toString()));
     dispatch(getSimilarFilms(currentFilmId.toString()));
     dispatch(getFilmReviews(currentFilmId.toString()));
-  }, [currentFilmId, dispatch]);
+    if (authorizationStatus === AuthorizationStatus.Authorized) {
+      dispatch(fetchFavoriteFilms());
+    }
+  }, [currentFilmId, dispatch, authorizationStatus]);
+
+  const favoriteAddHandler = () => {
+    dispatch(
+      changeFilmFavoriteStatus({
+        filmId: currentFilm?.id || NaN,
+        status: currentFilm?.isFavorite ? 0 : 1,
+      })
+    );
+    if (currentFilm?.isFavorite) {
+      dispatch(setFavoriteFilmsLength(favoriteFilmsLength - 1));
+    } else {
+      dispatch(setFavoriteFilmsLength(favoriteFilmsLength + 1));
+    }
+  };
   if (!currentFilm) {
     return <NotFoundPage/>;
   }
@@ -50,18 +69,28 @@ function FilmPage(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <Link to={AppRoute.MyList} type='button' className='btn btn--list film-card__button'>
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </Link>
-                {
-                  authorizationStatus === AuthorizationStatus.Authorized
-                    ? <Link to={`/films/${currentFilm.id}/review`} type='button' className="btn film-card__button">Add review</Link>
-                    : <Link to={AppRoute.SignIn} type='button' className="btn film-card__button">Add review</Link>
-                }
+                {authorizationStatus === AuthorizationStatus.Authorized && (
+                  <Link to={AppRoute.MyList} type='button' className='btn btn--list film-card__button' onClick={favoriteAddHandler}>
+                    {currentFilm?.isFavorite ? (
+                      <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#in-list"></use>
+                      </svg>
+                    ) : (
+                      <svg viewBox="0 0 19 20" width="19" height="20">
+                        <use xlinkHref="#add"></use>
+                      </svg>
+                    )}
+                    <span>My list</span>
+                    <span className="film-card__count">{favoriteFilmsLength}</span>
+                  </Link>
+                )}
+                {authorizationStatus === AuthorizationStatus.Authorized ?
+                  <Link to={`/films/${currentFilm.id}/review`} type='button' className="btn film-card__button">
+                    Add review
+                  </Link> :
+                  <Link to={AppRoute.SignIn} type='button' className="btn film-card__button">
+                    Add review
+                  </Link>}
               </div>
             </div>
           </div>
