@@ -1,5 +1,5 @@
 import MainPage from '../../pages/main-page/main-page';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router-dom';
 import SignInPage from '../../pages/sign-in-page/sign-in-page';
 import FilmPage from '../../pages/film-page/film-page';
 import PlayerPage from '../../pages/player-page/player-page';
@@ -11,50 +11,44 @@ import NotFoundPage from '../../pages/not-found-page/not-found-page';
 
 function App(): JSX.Element {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path={AppRoute.Main}
-        >
-          <Route
-            index
-            element={<MainPage />}
-          />
-          <Route
-            path={AppRoute.Film}
-          >
-            <Route
-              index
-              element={<FilmPage />}
-            />
-            <Route
-              path={AppRoute.AddReview}
-              element={<AddReviewPage/>}
-            />
-          </Route>
-          <Route
-            path={AppRoute.Player}
-            element={<PlayerPage/>}
-          />
-          <Route
-            path={AppRoute.SignIn}
-            element={<SignInPage/>}
-          />
-          <Route
-            path={AppRoute.MyList}
-            element={
-              <PrivateRoute>
-                <MyListPage/>
-              </PrivateRoute>
-            }
-          />
-          <Route
-            path={AppRoute.NotFound}
-            element={<NotFoundPage/>}
-          />
-        </Route>
-      </Routes>
-    </BrowserRouter>
+    <Routes>
+      <Route
+        path={AppRoute.Main}
+        element={<MainPage />}
+      />
+      <Route
+        path={AppRoute.Film}
+        element={<FilmPage />}
+      />
+      <Route
+        path={AppRoute.AddReview}
+        element={<AddReviewPage/>}
+      />
+      <Route
+        path={AppRoute.Player}
+        element={<PlayerPage/>}
+      />
+      <Route
+        path={AppRoute.SignIn}
+        element={<SignInPage/>}
+      />
+      <Route
+        path={AppRoute.MyList}
+        element={
+          <PrivateRoute>
+            <MyListPage/>
+          </PrivateRoute>
+        }
+      />
+      <Route
+        path={AppRoute.NotFound}
+        element={<NotFoundPage/>}
+      />
+      <Route
+        path='*'
+        element={<NotFoundPage/>}
+      />
+    </Routes>
   );
 }
 

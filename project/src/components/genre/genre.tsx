@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction} from 'react';
-import {store} from '../../store';
+import {useAppDispatch} from "../../hooks";
 import {setGenre} from '../../store/action';
 
 type GenreProps = {
@@ -9,8 +9,9 @@ type GenreProps = {
 };
 
 function Genre(props: GenreProps): JSX.Element {
+  const dispatch = useAppDispatch();
   const clickHandler = () => {
-    store.dispatch(setGenre({genre: props.genre}));
+    dispatch(setGenre({genre: props.genre}));
     props.setFilmListCount(8);
   };
 

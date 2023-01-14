@@ -16,8 +16,8 @@ function ReviewsTab(): JSX.Element {
                 <cite className="review__author">
                   {review.user.name}
                 </cite>
-                <time className="review__date" dateTime={review.date}>
-                  {review.date}
+                <time className="review__date" dateTime={shortDate(review.date)}>
+                  {longDate(review.date)}
                 </time>
               </footer>
             </blockquote>
@@ -29,3 +29,12 @@ function ReviewsTab(): JSX.Element {
 }
 
 export default ReviewsTab;
+
+function shortDate(reviewDate: string): string {
+  const date = new Date(reviewDate);
+  return (`${date.getFullYear()}-${date.getMonth().toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`);
+}
+function longDate(reviewDate: string): string {
+  const date = new Date(reviewDate);
+  return (`${date.toLocaleString('eng', {month: 'long'})} ${date.getDate()}, ${date.getFullYear()}`);
+}
