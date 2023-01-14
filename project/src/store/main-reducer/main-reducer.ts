@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {setFavoriteFilmsLength, setGenre} from './action';
-import {AppState} from '../types/StateType';
-import {GetFilmsCurrentGenre} from '../components/genres-catalog/genres-catalog';
-import {changePromoFavoriteStatus, fetchFavoriteFilms, fetchFilmsAction,
-  getPromoFilm} from './api-actions';
-import {ALL_GENRES, ReducerType} from '../consts';
+import {setFavoriteFilmsLength, setGenre} from '../action';
+import {AppState} from '../../types/StateType';
+import {GetFilmsCurrentGenre} from '../../components/genres-catalog/genres-catalog';
+import {changePromoFavoriteStatus, fetchFavoriteFilms, fetchFilmsAction, getPromoFilm} from '../api-actions';
+import {ALL_GENRES, ReducerType} from '../../consts';
 
 const initialState: AppState = {
   films: [],

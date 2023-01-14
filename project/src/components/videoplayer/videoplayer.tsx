@@ -17,6 +17,7 @@ function Videoplayer(props: VideoplayerProps): JSX.Element {
     if (videoplayerRef.current !== null) {
       if (props.isPlaying) {
         videoplayerRef.current.play();
+        //TODO: videoplayerRef.current не определяется вначале при запуске походу
       }
       else {
         videoplayerRef.current.load();

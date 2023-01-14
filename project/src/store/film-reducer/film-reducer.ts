@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {changeFilmFavoriteStatus, getFilm, getFilmReviews, getSimilarFilms} from './api-actions';
-import {FilmState} from '../types/StateType';
-import {ReducerType} from '../consts';
+import {changeFilmFavoriteStatus, getFilm, getFilmReviews, getSimilarFilms} from '../api-actions';
+import {FilmState} from '../../types/StateType';
+import {ReducerType} from '../../consts';
 
 const initialState: FilmState = {
   film: null,

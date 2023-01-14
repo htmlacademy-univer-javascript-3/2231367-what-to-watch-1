@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { dropToken, saveToken } from '../services/token';
-import {UserState} from '../types/StateType';
-import {AuthorizationStatus, ReducerType} from '../consts';
-import {checkAuthAction, loginAction, logoutAction} from './api-actions';
+import { dropToken, saveToken } from '../../services/token';
+import {UserState} from '../../types/StateType';
+import {AuthorizationStatus, ReducerType} from '../../consts';
+import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
 
 const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.NonAuthorized,
