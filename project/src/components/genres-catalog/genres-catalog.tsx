@@ -10,7 +10,7 @@ type GenresCatalogProps = {
 
 function GenresCatalog(props: GenresCatalogProps): JSX.Element {
   return (
-    <ul className='catalog__genres-list'>
+    <ul className='catalog__genres-list' data-testid={'genres-catalog'}>
       {props.genres.map((genre) => (
         <Genre key={genre} genre={genre} isCurrent={props.selectedGenre === genre}
           setFilmListCount={props.setFilmListCount}

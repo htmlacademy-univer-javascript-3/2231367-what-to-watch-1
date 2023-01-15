@@ -18,16 +18,16 @@ function UserBlock(): JSX.Element {
     <ul className="user-block">
       {
         authorizationStatus !== AuthorizationStatus.Authorized
-          ? <Link to={AppRoute.SignIn} className="user-block__link">Sign in</Link>
+          ? <Link to={AppRoute.SignIn} className="user-block__link" data-testid='login-link'>Sign in</Link>
           : (
             <Fragment>
               <li className="user-block__item">
                 <div className="user-block__avatar">
-                  <img src={avatar ?? ''} alt="User avatar" width="63" height="63" onClick={() => navigate(AppRoute.MyList)}/>
+                  <img src={avatar ?? ''} alt="User avatar" width="63" height="63" onClick={() => navigate(AppRoute.MyList)} data-testid='avatar'/>
                 </div>
               </li>
               <li className="user-block__item">
-                <a href='/' className="user-block__link" onClick={handleSignOut}>Sign out</a>
+                <Link to='/' className="user-block__link" onClick={handleSignOut}>Sign out</Link>
               </li>
             </Fragment>
           )

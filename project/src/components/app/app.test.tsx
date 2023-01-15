@@ -1,49 +1,49 @@
 import App from './app';
 import thunk from 'redux-thunk';
-import { Provider } from 'react-redux';
-import { createAPI } from '../../services/api';
-import { MemoryRouter } from 'react-router-dom';
-import { render, screen } from '@testing-library/react';
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import {films} from "../../mocks/films";
-import {ALL_GENRES, AppRoute, AuthorizationStatus} from "../../consts";
+import {Provider} from 'react-redux';
+import {createAPI} from '../../services/api';
+import {MemoryRouter} from 'react-router-dom';
+import {render, screen} from '@testing-library/react';
+import {configureMockStore} from '@jedmao/redux-mock-store';
+import {films} from '../../mocks/films';
+import {ALL_GENRES, AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
 
 const middlewares = [thunk.withExtraArgument(createAPI())];
 const mockStore = configureMockStore(middlewares);
-const testFilm = films[0];
-const testFilms = films;
-const testStore = mockStore({
-  userReducer: {
+const mockFilm = films[0];
+const mockFilms = films;
+const store = mockStore({
+  [ReducerType.User]: {
     authorizationStatus: AuthorizationStatus.Authorized,
     avatar: null,
   },
-  filmReducer: {
-    film: testFilm,
+  [ReducerType.Film]: {
+    film: mockFilm,
     reviews: [],
-    similar: [testFilms[2], testFilms[3]],
+    similar: [mockFilms[2], mockFilms[3]],
   },
-  mainReducer: {
-    films: testFilms,
-    filteredFilms: [testFilms[4], testFilms[5]],
-    favoriteFilms: [testFilms[6], testFilms[7]],
+  [ReducerType.Main]: {
+    films: mockFilms,
+    filteredFilms: [mockFilms[4], mockFilms[5]],
+    favoriteFilms: [mockFilms[6], mockFilms[7]],
     favoriteFilmsLength: 0,
     currentGenre: ALL_GENRES,
     shownCount: 0,
     dataIsLoading: false,
-    promo: testFilm,
+    promo: mockFilm,
   },
 });
 const routes : (AppRoute | string)[] = [AppRoute.Main];
 const fakeApp = (
-  <Provider store={testStore}>
+  <Provider store={store}>
     <MemoryRouter initialEntries={routes}>
       <App />
     </MemoryRouter>
   </Provider>
 );
 
-describe('Application Routing', () => {
-  it('should render Main page if navigate to "/"', () => {
+describe('Component: App', () => {
+  it('should render "Main page" if navigate to "/"', () => {
     render(fakeApp);
     expect(screen.getByText(/Play/i)).toBeInTheDocument();
     expect(screen.getByText(/All genres/i)).toBeInTheDocument();

@@ -28,7 +28,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
   }, [isCardHovered]);
 
   return (
-    <article className="small-film-card catalog__films-card"
+    <article className="small-film-card catalog__films-card" data-testid='film-card'
       onMouseEnter={() => {
         setIsCardHovered(true);
         props.onHover?.(props.film.id);
@@ -50,7 +50,7 @@ function FilmCard(props: FilmCardProps): JSX.Element {
         />
       </div>
       <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${props.film.id}`}>{props.film.name}</Link>
+        <Link className="small-film-card__link" to={`/films/${props.film.id}`} data-testid='film-link'>{props.film.name}</Link>
       </h3>
     </article>
   );

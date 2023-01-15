@@ -1,19 +1,19 @@
 import MockAdapter from 'axios-mock-adapter';
-import thunk, { ThunkDispatch } from 'redux-thunk';
-import { configureMockStore } from '@jedmao/redux-mock-store';
-import { films } from '../mocks/films';
+import thunk, {ThunkDispatch} from 'redux-thunk';
+import {configureMockStore} from '@jedmao/redux-mock-store';
+import {films} from '../mocks/films';
 import reviews from '../mocks/reviews';
-import { Action } from '@reduxjs/toolkit';
-import {StateType} from "../types/StateType";
+import {Action} from '@reduxjs/toolkit';
+import {StateType} from '../types/StateType';
 import {
   changeFilmFavoriteStatus,
   checkAuthAction,
   fetchFavoriteFilms, fetchFilmsAction, getFilm,
   getFilmReviews, getPromoFilm,
   getSimilarFilms, loginAction, logoutAction, postFilmReview,
-} from "./api-actions";
-import {AuthorizationData} from "../types/AuthorizationData";
-import {createAPI} from "../services/api";
+} from './api-actions';
+import {AuthorizationData} from '../types/AuthorizationData';
+import {createAPI} from '../services/api';
 
 describe('async actions', () => {
   const api = createAPI();
@@ -22,10 +22,9 @@ describe('async actions', () => {
   const mockFilm = films[0];
   const mockFilms = films;
   const mockReviews = reviews;
-
   const mockStore = configureMockStore<StateType, Action, ThunkDispatch<StateType, typeof api, Action>>(middlewares);
 
-  it('authorization status is Auth when server returned 200', async () => {
+  it('authorization status is Authorized when server returned 200', async () => {
     const store = mockStore();
     mockAPI
       .onGet('/login')

@@ -16,7 +16,7 @@ function Tabs(props: TabsProps): JSX.Element {
       <nav className="film-nav film-card__nav">
         <ul className="film-nav__list">
           <li className={`film-nav__item ${currentTab === Tab.OVERVIEW && 'film-nav__item--active'}`}>
-            <a href="#overviews" className="film-nav__link" onClick={
+            <a href="#overviews" className="film-nav__link" data-testid='overview-tab' onClick={
               (evt) => {
                 evt.preventDefault();
                 setCurrentTab(Tab.OVERVIEW);
@@ -27,7 +27,7 @@ function Tabs(props: TabsProps): JSX.Element {
             </a>
           </li>
           <li className={`film-nav__item ${currentTab === Tab.DETAILS && 'film-nav__item--active'}`}>
-            <a href="#details" className="film-nav__link" onClick={
+            <a href="#details" className="film-nav__link" data-testid='details-tab' onClick={
               (evt) => {
                 evt.preventDefault();
                 setCurrentTab(Tab.DETAILS);
@@ -38,7 +38,7 @@ function Tabs(props: TabsProps): JSX.Element {
             </a>
           </li>
           <li className={`film-nav__item ${currentTab === Tab.REVIEWS && 'film-nav__item--active'}`}>
-            <a href="#reviews" className="film-nav__link" onClick={
+            <a href="#reviews" className="film-nav__link" data-testid='reviews-tab' onClick={
               (evt) => {
                 evt.preventDefault();
                 setCurrentTab(Tab.REVIEWS);

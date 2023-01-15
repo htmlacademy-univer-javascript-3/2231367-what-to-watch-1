@@ -65,7 +65,7 @@ function PlayerPage(): JSX.Element {
           <div className="player__time-value">{getTimeLeft()}</div>
         </div>
         <div className="player__controls-row">
-          <button type="button" className="player__play" onClick={clickPlayButtonHandler}>
+          <button type="button" className="player__play" onClick={clickPlayButtonHandler} data-testid='player-play'>
             {isPlaying ? (
               <Fragment>
                 <svg viewBox="0 0 14 21" width="14" height="21">

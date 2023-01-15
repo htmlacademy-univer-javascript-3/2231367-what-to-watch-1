@@ -18,11 +18,12 @@ function FilmList(props: FilmListProps) {
       <FilmCard key={`film-card-${film.id}`}
         film={film}
         onHover={setActive}
+        data-testid='film-card'
       />
     );
   }
   return (
-    <div className="catalog__films-list">
+    <div className="catalog__films-list" data-testid='film-list'>
       {list}
     </div>
   );

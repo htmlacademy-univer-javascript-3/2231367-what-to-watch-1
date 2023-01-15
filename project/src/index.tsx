@@ -4,7 +4,7 @@ import App from './components/app/app';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {checkAuthAction, fetchFilmsAction, getPromoFilm} from './store/api-actions';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter} from 'react-router-dom';
 
 store.dispatch(fetchFilmsAction());
 store.dispatch(getPromoFilm());
