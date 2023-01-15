@@ -1,4 +1,5 @@
 import {FimlType} from '../../types/FilmType';
+import {Fragment} from 'react';
 
 type DetailsTabProps = {
   film: FimlType;
@@ -15,7 +16,7 @@ function DetailsTab(props: DetailsTabProps): JSX.Element {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {props.film.starring.map((actor) => <>{actor}<br /></>)}
+            {props.film.starring.map((actor) => <Fragment key={actor}>{actor}<br /></Fragment>)}
           </span>
         </p>
       </div>

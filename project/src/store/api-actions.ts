@@ -4,7 +4,7 @@ import {APIRoute} from '../consts';
 import {AuthorizationData} from '../types/AuthorizationData';
 import {UserType} from '../types/UserType';
 import {FimlType} from '../types/FilmType';
-import {AxiosInstance} from "axios";
+import {AxiosInstance} from 'axios';
 import {Review} from '../types/ReviewType';
 
 export const fetchFilmsAction = createAsyncThunk<FimlType[], undefined, {
@@ -92,10 +92,10 @@ export const postFilmReview = createAsyncThunk<void, {
   extra: AxiosInstance;
 }
 >(
-'data/postCommentById',
-async ({ id, comment, rating }, { extra: api }) => {
-  await api.post<Review[]>(`${APIRoute.COMMENTS}/${id}`, {comment, rating});
-});
+  'data/postCommentById',
+  async ({ id, comment, rating }, { extra: api }) => {
+    await api.post<Review[]>(`${APIRoute.COMMENTS}/${id}`, {comment, rating});
+  });
 
 export const fetchFavoriteFilms = createAsyncThunk<FimlType[], undefined, {
   state: StateType;

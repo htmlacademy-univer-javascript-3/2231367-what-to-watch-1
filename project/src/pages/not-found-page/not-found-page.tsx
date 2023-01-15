@@ -5,7 +5,7 @@ function NotFoundPage(): JSX.Element {
   return (
     <Fragment>
       <h1>404 Not Found</h1>
-      <Link to='/'>На главную страницу</Link>
+      <Link to='/' data-testid='link to main page'>На главную страницу</Link>
     </Fragment>
   );
 }

@@ -1,7 +1,7 @@
 import {useNavigate, useParams} from 'react-router-dom';
 import {ChangeEvent, FormEvent, useState} from 'react';
 import {postFilmReview} from '../../store/api-actions';
-import {useAppDispatch} from "../../hooks";
+import {useAppDispatch} from '../../hooks';
 
 function AddReviewForm() {
   const id = Number(useParams().id).toString();
@@ -106,7 +106,7 @@ function AddReviewForm() {
           }}
         />
         <div className="add-review__submit">
-          <button className="add-review__btn" type="submit" disabled={postDisabledByContent || postDisabledByStar}>Post</button>
+          <button className="add-review__btn" type="submit" data-testid='submit-button' disabled={postDisabledByContent || postDisabledByStar}>Post</button>
         </div>
       </div>
     </form>

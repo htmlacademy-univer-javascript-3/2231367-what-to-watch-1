@@ -1,5 +1,5 @@
 import React, {Dispatch, SetStateAction} from 'react';
-import {useAppDispatch} from "../../hooks";
+import {useAppDispatch} from '../../hooks';
 import {setGenre} from '../../store/action';
 
 type GenreProps = {
@@ -16,7 +16,9 @@ function Genre(props: GenreProps): JSX.Element {
   };
 
   return (
-    <li className={`catalog__genres-item ${props.isCurrent ? 'catalog__genres-item--active' : ''}`}>
+    <li className={`catalog__genres-item ${props.isCurrent ? 'catalog__genres-item--active' : ''}`}
+      data-testid={`${props.isCurrent ? 'genre active' : 'genre inactive'}`}
+    >
       <a href='#' className='catalog__genres-link' onClick={clickHandler}>{props.genre}</a>
     </li>
   );

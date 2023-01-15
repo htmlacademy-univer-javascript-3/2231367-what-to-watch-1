@@ -1,15 +1,15 @@
-import { films } from "../../mocks/films";
-import { mainReducer } from "./main-reducer";
-import {AppState} from "../../types/StateType";
-import {fetchFavoriteFilms, fetchFilmsAction, getPromoFilm} from "../api-actions";
-import {ALL_GENRES} from "../../consts";
-import {setGenre} from "../action";
+import {films} from '../../mocks/films';
+import {mainReducer} from './main-reducer';
+import {AppState} from '../../types/StateType';
+import {fetchFavoriteFilms, fetchFilmsAction, getPromoFilm} from '../api-actions';
+import {ALL_GENRES} from '../../consts';
+import {setGenre} from '../action';
 
 const testFilm = films[0];
 const testFilms = films;
 let state: AppState;
 
-describe('main-reducer', () => {
+describe('Main reducer', () => {
   beforeEach(() => {
     state = {
       films: [],
@@ -24,8 +24,7 @@ describe('main-reducer', () => {
   });
 
   it('without additional parameters should return initial state', () => {
-    expect(mainReducer.reducer(void 0, { type: 'UNKNOWN_ACTION' }))
-      .toEqual(state);
+    expect(mainReducer.reducer(void 0, { type: 'UNKNOWN_ACTION' })).toEqual(state);
   });
 
   describe('changeGenre test', () => {
@@ -34,31 +33,27 @@ describe('main-reducer', () => {
         .reducer(state, { type: setGenre.type, payload: testFilm.genre })
         .filteredFilms
         .map((film) => film.genre)
-        ) {
-        expect(genre)
-          .toEqual(testFilm.genre);
+      ) {
+        expect(genre).toEqual(testFilm.genre);
       }
     });
   });
 
   describe('fetchFilmsAction test', () => {
     it('load all films', () => {
-      expect(mainReducer.reducer(state, { type: fetchFilmsAction.fulfilled.type, payload: testFilms }).films)
-        .toEqual(testFilms);
+      expect(mainReducer.reducer(state, { type: fetchFilmsAction.fulfilled.type, payload: testFilms }).films).toEqual(testFilms);
     });
   });
 
   describe('getPromoFilm test', () => {
     it('load promo film', () => {
-      expect(mainReducer.reducer(state, { type: getPromoFilm.fulfilled.type, payload: testFilm }).promo)
-        .toEqual(testFilm);
+      expect(mainReducer.reducer(state, { type: getPromoFilm.fulfilled.type, payload: testFilm }).promo).toEqual(testFilm);
     });
   });
 
   describe('fetchFavoriteFilms test', () => {
     it('load promo film', () => {
-      expect(mainReducer.reducer(state, { type: fetchFavoriteFilms.fulfilled.type, payload: testFilms }).favoriteFilms)
-        .toEqual(testFilms);
+      expect(mainReducer.reducer(state, { type: fetchFavoriteFilms.fulfilled.type, payload: testFilms }).favoriteFilms).toEqual(testFilms);
     });
   });
 });

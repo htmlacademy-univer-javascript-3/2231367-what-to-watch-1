@@ -1,7 +1,7 @@
-import { checkAuthAction, loginAction, logoutAction } from '../api-actions';
-import { userReducer } from './auth-reducer';
-import {AuthorizationStatus} from "../../consts";
-import {UserState} from "../../types/StateType";
+import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
+import {userReducer} from './auth-reducer';
+import {AuthorizationStatus} from '../../consts';
+import {UserState} from '../../types/StateType';
 
 const testUser = {
   avatarUrl: 'test/ava',
@@ -17,8 +17,7 @@ describe('Auth-reducer', () => {
   });
 
   it('without additional parameters should return initial state', () => {
-    expect(userReducer.reducer(undefined, {type: 'UNKNOWN_ACTION'}))
-      .toEqual(state);
+    expect(userReducer.reducer(undefined, {type: 'UNKNOWN_ACTION'})).toEqual(state);
   });
   describe('checkAuth test', () => {
     it('should update authorizationStatus to Authorized if checkAuthAction fulfilled', () => {
