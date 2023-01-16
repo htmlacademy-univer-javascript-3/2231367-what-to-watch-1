@@ -14,7 +14,7 @@ function PlayerPage(): JSX.Element {
   const clickPlayButtonHandler = () => {
     setIsPlaying(!isPlaying);
   };
-  const fullscreenHandler = () => {
+  const handleFullScreen = () => {
     if (document.fullscreenElement) {
       document.exitFullscreen();
     } else {
@@ -83,7 +83,7 @@ function PlayerPage(): JSX.Element {
             )}
           </button>
           <div className="player__name">Transpotting</div>
-          <button type="button" className="player__full-screen" onClick={fullscreenHandler}>
+          <button type="button" className="player__full-screen" onClick={handleFullScreen}>
             <svg viewBox="0 0 27 27" width="27" height="27">
               <use xlinkHref="#full-screen"></use>
             </svg>

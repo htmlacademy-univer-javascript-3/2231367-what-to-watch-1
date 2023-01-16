@@ -4,7 +4,7 @@ import {configureMockStore} from '@jedmao/redux-mock-store';
 import {films} from '../mocks/films';
 import reviews from '../mocks/reviews';
 import {Action} from '@reduxjs/toolkit';
-import {StateType} from '../types/StateType';
+import {State} from '../types/state';
 import {
   changeFilmFavoriteStatus,
   checkAuthAction,
@@ -12,7 +12,7 @@ import {
   getFilmReviews, getPromoFilm,
   getSimilarFilms, loginAction, logoutAction, postFilmReview,
 } from './api-actions';
-import {AuthorizationData} from '../types/AuthorizationData';
+import {AuthorizationData} from '../types/authorization-data';
 import {createAPI} from '../services/api';
 
 describe('async actions', () => {
@@ -22,7 +22,7 @@ describe('async actions', () => {
   const mockFilm = films[0];
   const mockFilms = films;
   const mockReviews = reviews;
-  const mockStore = configureMockStore<StateType, Action, ThunkDispatch<StateType, typeof api, Action>>(middlewares);
+  const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
 
   it('authorization status is Authorized when server returned 200', async () => {
     const store = mockStore();

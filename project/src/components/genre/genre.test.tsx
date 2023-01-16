@@ -7,14 +7,14 @@ import {AuthorizationStatus, ReducerType} from '../../consts';
 import {createAPI} from '../../services/api';
 import thunk from 'redux-thunk';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {StateType} from '../../types/StateType';
+import {State} from '../../types/state';
 import {Action, ThunkDispatch} from '@reduxjs/toolkit';
 import reviews from '../../mocks/reviews';
 
 const mockSetFilmListCount = jest.fn();
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore<StateType, Action, ThunkDispatch<StateType, typeof api, Action>>(middlewares);
+const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
 const mockFilms = films;
 const mockFilm = films[0];
 const mockGenres = ['genre1', 'genre2'];
@@ -23,16 +23,16 @@ const mockReviews = reviews;
 describe('Component: Genre', () => {
   it('should render correctly not current genre', () => {
     const store = mockStore({
-      [ReducerType.User]: {
+      [ReducerType.USER]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
         avatar: null,
       },
-      [ReducerType.Film]: {
+      [ReducerType.FILM]: {
         film: mockFilm,
         comments: mockReviews,
         similar: mockFilms,
       },
-      [ReducerType.Main]: {
+      [ReducerType.MAIN]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,
@@ -52,16 +52,16 @@ describe('Component: Genre', () => {
 
   it('should render correctly current genre', () => {
     const store = mockStore({
-      [ReducerType.User]: {
+      [ReducerType.USER]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
         avatar: null,
       },
-      [ReducerType.Film]: {
+      [ReducerType.FILM]: {
         film: mockFilm,
         comments: mockReviews,
         similar: mockFilms,
       },
-      [ReducerType.Main]: {
+      [ReducerType.MAIN]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,

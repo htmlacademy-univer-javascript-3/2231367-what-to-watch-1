@@ -6,25 +6,25 @@ import {MemoryRouter} from 'react-router-dom';
 import thunk from 'redux-thunk';
 import {films} from '../../mocks/films';
 import {createAPI} from '../../services/api';
-import {StateType} from '../../types/StateType';
+import {State} from '../../types/state';
 import {AuthorizationStatus, ReducerType} from '../../consts';
 import PlayerPage from './player-page';
 
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore<StateType, Action, ThunkDispatch<StateType, typeof api, Action>>(middlewares);
+const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
 const mockFilms = films;
 const mockFilm = films[0];
 
 const store = mockStore({
-  [ReducerType.User]: {
+  [ReducerType.USER]: {
     authorizationStatus: AuthorizationStatus.NonAuthorized,
     avatar: null,
   },
-  [ReducerType.Main]: {
+  [ReducerType.MAIN]: {
     favoriteFilms: mockFilms,
   },
-  [ReducerType.Film]: {
+  [ReducerType.FILM]: {
     film: mockFilm,
   }
 });

@@ -1,7 +1,7 @@
 import {filmId1, films} from '../../mocks/films';
 import {filmReducer} from './film-reducer';
 import reviews from '../../mocks/reviews';
-import {FilmState} from '../../types/StateType';
+import {FilmState} from '../../types/state';
 import {changeFilmFavoriteStatus, getFilm, getFilmReviews, getSimilarFilms} from '../api-actions';
 
 const testFilm = films[0];

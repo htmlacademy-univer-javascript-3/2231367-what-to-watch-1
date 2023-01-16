@@ -1,8 +1,8 @@
 import {Fragment} from 'react';
-import {FimlType} from '../../types/FilmType';
+import {Film} from '../../types/film';
 
 type OverviewTabProps = {
-  film: FimlType;
+  film: Film;
 }
 
 function OverviewTab(props: OverviewTabProps): JSX.Element {

@@ -7,13 +7,13 @@ import thunk from 'redux-thunk';
 import {films} from '../../mocks/films';
 import reviews from '../../mocks/reviews';
 import {createAPI} from '../../services/api';
-import {StateType} from '../../types/StateType';
+import {State} from '../../types/state';
 import {AuthorizationStatus, ReducerType} from '../../consts';
 import FilmPage from './film-page';
 
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore<StateType, Action, ThunkDispatch<StateType, typeof api, Action>>(middlewares);
+const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
 const mockFilms = films;
 const mockFilm = films[0];
 const mockReviews = reviews;
@@ -21,16 +21,16 @@ const mockReviews = reviews;
 describe('Film page', () => {
   it('should render correctly if not authorized', () => {
     const store = mockStore({
-      [ReducerType.User]: {
+      [ReducerType.USER]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
         avatar: null,
       },
-      [ReducerType.Film]: {
+      [ReducerType.FILM]: {
         film: mockFilm,
         comments: mockReviews,
         similar: mockFilms,
       },
-      [ReducerType.Main]: {
+      [ReducerType.MAIN]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,
@@ -53,16 +53,16 @@ describe('Film page', () => {
 
   it('should render correctly if authorized', () => {
     const store = mockStore({
-      [ReducerType.User]: {
+      [ReducerType.USER]: {
         authorizationStatus: AuthorizationStatus.Authorized,
         avatar: null,
       },
-      [ReducerType.Film]: {
+      [ReducerType.FILM]: {
         film: mockFilm,
         comments: mockReviews,
         similar: mockFilms,
       },
-      [ReducerType.Main]: {
+      [ReducerType.MAIN]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,

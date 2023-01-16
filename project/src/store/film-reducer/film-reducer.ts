@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {changeFilmFavoriteStatus, getFilm, getFilmReviews, getSimilarFilms} from '../api-actions';
-import {FilmState} from '../../types/StateType';
+import {FilmState} from '../../types/state';
 import {ReducerType} from '../../consts';
 
 const initialState: FilmState = {
@@ -10,7 +10,7 @@ const initialState: FilmState = {
 };
 
 export const filmReducer = createSlice({
-  name: ReducerType.Film,
+  name: ReducerType.FILM,
   initialState,
   reducers: {},
   extraReducers: (builder) => {

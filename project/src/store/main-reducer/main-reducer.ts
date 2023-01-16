@@ -1,9 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import {setFavoriteFilmsLength, setGenre} from '../action';
-import {AppState} from '../../types/StateType';
-import {GetFilmsCurrentGenre} from '../../components/genres-catalog/genres-catalog';
+import {AppState} from '../../types/state';
+import {getFilmsCurrentGenre} from '../../components/genres-catalog/genres-catalog';
 import {changePromoFavoriteStatus, fetchFavoriteFilms, fetchFilmsAction, getPromoFilm} from '../api-actions';
-import {ALL_GENRES, ReducerType} from '../../consts';
+import {ALL_GENRES, LIST_STEP_COUNT, ReducerType} from '../../consts';
 
 const initialState: AppState = {
   films: [],
@@ -17,21 +17,21 @@ const initialState: AppState = {
 };
 
 export const mainReducer = createSlice({
-  name: ReducerType.Main,
+  name: ReducerType.MAIN,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(setGenre, (state, action) => {
         state.currentGenre = action.payload.genre;
-        state.filteredFilms = GetFilmsCurrentGenre(state.films, state.currentGenre);
+        state.filteredFilms = getFilmsCurrentGenre(state.films, state.currentGenre);
       })
       .addCase(fetchFilmsAction.pending, (state) => {
         state.dataIsLoading = true;
       })
       .addCase(fetchFilmsAction.fulfilled, (state, action) => {
         state.films = action.payload;
-        state.shownCount = state.films.length > 8 ? 8 : state.films.length;
+        state.shownCount = state.films.length > LIST_STEP_COUNT ? LIST_STEP_COUNT : state.films.length;
         state.filteredFilms = state.films;
         state.dataIsLoading = false;
       })

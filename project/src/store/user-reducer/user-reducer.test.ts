@@ -1,7 +1,7 @@
 import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
-import {userReducer} from './auth-reducer';
+import {userReducer} from './user-reducer';
 import {AuthorizationStatus} from '../../consts';
-import {UserState} from '../../types/StateType';
+import {UserState} from '../../types/state';
 
 const testUser = {
   avatarUrl: 'test/ava',

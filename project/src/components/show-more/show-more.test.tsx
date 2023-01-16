@@ -1,7 +1,7 @@
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {render, screen} from '@testing-library/react';
 import {Provider} from 'react-redux';
-import ShowMoreButton from './show-more-button';
+import ShowMoreButton from './show-more';
 
 const mockOnClick = jest.fn();
 const mockStore = configureMockStore();

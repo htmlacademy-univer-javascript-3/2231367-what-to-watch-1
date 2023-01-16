@@ -1,20 +1,20 @@
 import {store} from '../store';
-import {FimlType} from './FilmType';
+import {Film} from './film';
 import {AuthorizationStatus} from '../consts';
-import {Review} from './ReviewType';
+import {Review} from './review';
 
-export type StateType = ReturnType<typeof store.getState>;
+export type State = ReturnType<typeof store.getState>;
 
 export type AppDispatch = typeof store.dispatch;
 
 export type AppState = {
-  films: FimlType[],
+  films: Film[],
   dataIsLoading: boolean,
   // error: string | null,
-  promo: FimlType | null,
+  promo: Film | null,
   currentGenre: string,
-  filteredFilms: FimlType[],
-  favoriteFilms: FimlType[],
+  filteredFilms: Film[],
+  favoriteFilms: Film[],
   favoriteFilmsLength: number,
   shownCount: number,
 }
@@ -25,7 +25,7 @@ export type UserState = {
 }
 
 export type FilmState = {
-  film: FimlType | null,
+  film: Film | null,
   comments: Review[],
-  similar: FimlType[],
+  similar: Film[],
 }

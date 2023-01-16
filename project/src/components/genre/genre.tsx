@@ -19,7 +19,7 @@ function Genre(props: GenreProps): JSX.Element {
     <li className={`catalog__genres-item ${props.isCurrent ? 'catalog__genres-item--active' : ''}`}
       data-testid={`${props.isCurrent ? 'genre active' : 'genre inactive'}`}
     >
-      <a href='#' className='catalog__genres-link' onClick={clickHandler}>{props.genre}</a>
+      <a href='/' className='catalog__genres-link' onClick={clickHandler}>{props.genre}</a>
     </li>
   );
 }

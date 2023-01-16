@@ -1,32 +1,30 @@
 import {Fragment, useEffect, useState} from 'react';
 import Logo from '../../components/logo/logo';
 import GenresCatalog, {
-  GetAllExistingGenres,
-  GetFilmsCurrentGenre,
+  getAllExistingGenres,
+  getFilmsCurrentGenre,
 } from '../../components/genres-catalog/genres-catalog';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
-import ShowMore from '../../components/show-more-button/show-more-button';
+import ShowMore from '../../components/show-more/show-more';
 import Spinner from '../../components/spinner/spinner';
 import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Link} from 'react-router-dom';
-import {AppRoute, ReducerType} from '../../consts';
+import {AppRoute, LIST_STEP_COUNT, ReducerType} from '../../consts';
 import {changePromoFavoriteStatus, fetchFavoriteFilms} from '../../store/api-actions';
 import {setFavoriteFilmsLength} from '../../store/action';
 import {AuthorizationStatus} from '../../consts';
 
-const LIST_STEP_COUNT = 8;
-
 function MainPage(): JSX.Element {
-  const promoFilm = useAppSelector((state) => state[ReducerType.Main].promo);
-  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
-  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.Main].favoriteFilmsLength);
-  const genre = useAppSelector((state) => state[ReducerType.Main].currentGenre);
-  const films = useAppSelector((state) => state[ReducerType.Main].films);
-  const isLoading = useAppSelector((state) => state[ReducerType.Main].dataIsLoading);
+  const promoFilm = useAppSelector((state) => state[ReducerType.MAIN].promo);
+  const authorizationStatus = useAppSelector((state) => state[ReducerType.USER].authorizationStatus);
+  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.MAIN].favoriteFilmsLength);
+  const genre = useAppSelector((state) => state[ReducerType.MAIN].currentGenre);
+  const films = useAppSelector((state) => state[ReducerType.MAIN].films);
+  const isLoading = useAppSelector((state) => state[ReducerType.MAIN].dataIsLoading);
   const dispatch = useAppDispatch();
-  const favoriteAddHandler = () => {
+  const handleAddFavorite = () => {
     dispatch(changePromoFavoriteStatus({
       filmId: promoFilm?.id || NaN,
       status: promoFilm?.isFavorite ? 0 : 1
@@ -42,7 +40,7 @@ function MainPage(): JSX.Element {
       dispatch(fetchFavoriteFilms());
     }
   }, [dispatch, authorizationStatus]);
-  const filmsCurrentGenre = GetFilmsCurrentGenre(films, genre);
+  const filmsCurrentGenre = getFilmsCurrentGenre(films, genre);
   const [filmListCount, addFilmListCount] = useState(LIST_STEP_COUNT),
     showMoreClickHandler = () => {
       addFilmListCount(filmListCount + LIST_STEP_COUNT);
@@ -79,21 +77,21 @@ function MainPage(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </Link>
-                {authorizationStatus === AuthorizationStatus.Authorized && (
-                  <Link to={AppRoute.MyList} className="btn btn--list film-card__button" onClick={favoriteAddHandler}>
-                    {promoFilm?.isFavorite ? (
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#in-list"></use>
-                      </svg>
-                    ) : (
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"></use>
-                      </svg>
-                    )}
-                    <span>My list</span>
-                    <span className="film-card__count">{favoriteFilmsLength}</span>
-                  </Link>
-                )}
+                <Link to={authorizationStatus === AuthorizationStatus.Authorized ? AppRoute.MyList : AppRoute.SignIn}
+                  type='button' className='btn btn--list film-card__button' onClick={handleAddFavorite}
+                >
+                  {promoFilm?.isFavorite || (authorizationStatus === AuthorizationStatus.NonAuthorized) ? (
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#in-list"></use>
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                  )}
+                  <span>My list</span>
+                  <span className="film-card__count">{authorizationStatus === AuthorizationStatus.Authorized ? favoriteFilmsLength : 0}</span>
+                </Link>
               </div>
             </div>
           </div>
@@ -102,7 +100,7 @@ function MainPage(): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresCatalog genres={GetAllExistingGenres(films)} selectedGenre={genre} setFilmListCount={addFilmListCount}/>
+          <GenresCatalog genres={getAllExistingGenres(films)} selectedGenre={genre} setFilmListCount={addFilmListCount}/>
           <FilmList filmList={filmsCurrentGenre.slice(0, filmListCount)} />
           {filmsCurrentGenre.length > filmListCount && <ShowMore onClick={showMoreClickHandler}/>}
         </section>

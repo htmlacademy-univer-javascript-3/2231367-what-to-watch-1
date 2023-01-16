@@ -1,6 +1,6 @@
-import {FimlType} from '../types/FilmType';
+import {Film} from '../types/film';
 
-export const films: FimlType[] = [
+export const films: Film[] = [
   {
     name: 'Moonrise Kingdom',
     posterImage:
@@ -246,7 +246,7 @@ export const films: FimlType[] = [
   },
 ];
 
-export const filmId1: FimlType = {
+export const filmId1: Film = {
   name: 'Moonrise Kingdom',
   posterImage:
     'https://10.react.pages.academy/static/film/poster/Moonrise_Kingdom.jpg',

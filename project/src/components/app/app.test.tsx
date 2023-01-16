@@ -13,16 +13,16 @@ const mockStore = configureMockStore(middlewares);
 const mockFilm = films[0];
 const mockFilms = films;
 const store = mockStore({
-  [ReducerType.User]: {
+  [ReducerType.USER]: {
     authorizationStatus: AuthorizationStatus.Authorized,
     avatar: null,
   },
-  [ReducerType.Film]: {
+  [ReducerType.FILM]: {
     film: mockFilm,
     reviews: [],
     similar: [mockFilms[2], mockFilms[3]],
   },
-  [ReducerType.Main]: {
+  [ReducerType.MAIN]: {
     films: mockFilms,
     filteredFilms: [mockFilms[4], mockFilms[5]],
     favoriteFilms: [mockFilms[6], mockFilms[7]],

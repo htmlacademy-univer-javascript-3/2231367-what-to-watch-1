@@ -1,12 +1,12 @@
 import {films} from '../../mocks/films';
 import {render, screen} from '@testing-library/react';
 import {MemoryRouter} from 'react-router-dom';
-import GenresCatalog, {GetAllExistingGenres} from './genres-catalog';
+import GenresCatalog, {getAllExistingGenres} from './genres-catalog';
 import {ALL_GENRES} from '../../consts';
 import {Provider} from 'react-redux';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 
-const mockGenres = GetAllExistingGenres(films);
+const mockGenres = getAllExistingGenres(films);
 const mockSetFilmListCount = jest.fn();
 const mockStore = configureMockStore();
 

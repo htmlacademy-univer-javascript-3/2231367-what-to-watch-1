@@ -1,6 +1,6 @@
 import {films} from '../../mocks/films';
 import {mainReducer} from './main-reducer';
-import {AppState} from '../../types/StateType';
+import {AppState} from '../../types/state';
 import {fetchFavoriteFilms, fetchFilmsAction, getPromoFilm} from '../api-actions';
 import {ALL_GENRES} from '../../consts';
 import {setGenre} from '../action';

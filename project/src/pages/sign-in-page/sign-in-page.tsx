@@ -3,7 +3,7 @@ import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
-import {AuthorizationData} from '../../types/AuthorizationData';
+import {AuthorizationData} from '../../types/authorization-data';
 import {loginAction} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 
@@ -30,7 +30,7 @@ function SignInPage(): JSX.Element {
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
-  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
+  const authorizationStatus = useAppSelector((state) => state[ReducerType.USER].authorizationStatus);
   if (authorizationStatus === AuthorizationStatus.Authorized) {
     return <Navigate to={'/'} />;
   }

@@ -8,16 +8,15 @@ import {fetchFavoriteFilms} from '../../store/api-actions';
 import FilmCard from '../../components/film-card/film-card';
 
 function MyListPage(): JSX.Element {
-  const films = useAppSelector((state) => state[ReducerType.Main].favoriteFilms);
+  const films = useAppSelector((state) => state[ReducerType.MAIN].favoriteFilms);
   const authorizationStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
-  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.Main].favoriteFilmsLength);
+  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.MAIN].favoriteFilmsLength);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Authorized) {
       dispatch(fetchFavoriteFilms());
     }
   }, [authorizationStatus, dispatch]);
-
   return (
     <div className="user-page">
       <header className="page-header user-page__head">
@@ -28,7 +27,7 @@ function MyListPage(): JSX.Element {
       <section className="catalog">
         <h2 className="catalog__title visually-hidden">Catalog</h2>
         <div className="catalog__films-list">
-          {films.map((film) => <FilmCard key={film.id} film={film}/>)}
+          {films.map((film) => <FilmCard key={`film-card-${film.id}`} film={film}/>)}
         </div>
       </section>
       <Footer />

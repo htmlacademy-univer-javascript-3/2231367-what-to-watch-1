@@ -8,15 +8,21 @@ import Tabs from '../../components/tabs/tabs';
 import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
-import {changeFilmFavoriteStatus, fetchFavoriteFilms, getFilm, getFilmReviews, getSimilarFilms} from '../../store/api-actions';
+import {
+  changeFilmFavoriteStatus,
+  fetchFavoriteFilms,
+  getFilm,
+  getFilmReviews,
+  getSimilarFilms
+} from '../../store/api-actions';
 import {setFavoriteFilmsLength} from '../../store/action';
 
 function FilmPage(): JSX.Element {
   const currentFilmId = Number(useParams().id);
-  const currentFilm = useAppSelector((state) => state[ReducerType.Film].film);
-  const similarFilms = useAppSelector((state) => state[ReducerType.Film].similar);
-  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
-  const favoriteFilmsLength = useAppSelector((state) => state.mainReducer.favoriteFilmsLength);
+  const currentFilm = useAppSelector((state) => state[ReducerType.FILM].film);
+  const similarFilms = useAppSelector((state) => state[ReducerType.FILM].similar);
+  const authorizationStatus = useAppSelector((state) => state[ReducerType.USER].authorizationStatus);
+  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.MAIN].favoriteFilmsLength);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getFilm(currentFilmId.toString()));
@@ -26,8 +32,7 @@ function FilmPage(): JSX.Element {
       dispatch(fetchFavoriteFilms());
     }
   }, [currentFilmId, dispatch, authorizationStatus]);
-
-  const favoriteAddHandler = () => {
+  const handleAddFavorite = () => {
     dispatch(
       changeFilmFavoriteStatus({
         filmId: currentFilm?.id || NaN,
@@ -69,26 +74,25 @@ function FilmPage(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </Link>
-                {authorizationStatus === AuthorizationStatus.Authorized && (
-                  <Link to={AppRoute.MyList} type='button' className='btn btn--list film-card__button' onClick={favoriteAddHandler}>
-                    {currentFilm?.isFavorite ? (
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#in-list"></use>
-                      </svg>
-                    ) : (
-                      <svg viewBox="0 0 19 20" width="19" height="20">
-                        <use xlinkHref="#add"></use>
-                      </svg>
-                    )}
-                    <span>My list</span>
-                    <span className="film-card__count">{favoriteFilmsLength}</span>
-                  </Link>
-                )}
-                {authorizationStatus === AuthorizationStatus.Authorized ?
-                  <Link to={`/films/${currentFilm.id}/review`} type='button' className="btn film-card__button">
-                    Add review
-                  </Link> :
-                  <Link to={AppRoute.SignIn} type='button' className="btn film-card__button">
+                <Link to={authorizationStatus === AuthorizationStatus.Authorized ? AppRoute.MyList : AppRoute.SignIn}
+                  type='button' className='btn btn--list film-card__button' onClick={handleAddFavorite}
+                >
+                  {currentFilm?.isFavorite && (authorizationStatus === AuthorizationStatus.Authorized) ? (
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#in-list"></use>
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 19 20" width="19" height="20">
+                      <use xlinkHref="#add"></use>
+                    </svg>
+                  )}
+                  <span>My list</span>
+                  <span className="film-card__count">{authorizationStatus === AuthorizationStatus.Authorized ? favoriteFilmsLength : 0}</span>
+                </Link>
+                {authorizationStatus === AuthorizationStatus.Authorized &&
+                  <Link to={`/films/${currentFilm.id}/review`}
+                    type='button' className="btn film-card__button"
+                  >
                     Add review
                   </Link>}
               </div>

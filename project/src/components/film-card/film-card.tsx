@@ -1,17 +1,16 @@
-import {FimlType} from '../../types/FilmType';
+import {Film} from '../../types/film';
 import {Link} from 'react-router-dom';
 import {Dispatch, SetStateAction, useEffect, useState} from 'react';
 import Videoplayer from '../videoplayer/videoplayer';
 import {
   DELAY_ON_HOVER_FILM_CARD,
   NEED_TO_LOOP_ON_HOVER_FILM_CARD,
-  PREVIEW_HEIGHT_ON_HOVER_FILM_CARD,
   PREVIEW_MUTED_ON_HOVER_FILM_CARD,
-  PREVIEW_WIDTH_ON_HOVER_FILM_CARD
+  PreviewSizeOnHoverFilmCard,
 } from '../../consts';
 
 type FilmCardProps = {
-  film: FimlType;
+  film: Film;
   onHover?: Dispatch<SetStateAction<number | null>>;
 }
 
@@ -39,19 +38,21 @@ function FilmCard(props: FilmCardProps): JSX.Element {
         props.onHover?.(-1);
       }}
     >
-      <div className="small-film-card__image">
-        <Videoplayer
-          film={props.film}
-          muted={PREVIEW_MUTED_ON_HOVER_FILM_CARD}
-          isPlaying={isPlayingNow}
-          width={PREVIEW_WIDTH_ON_HOVER_FILM_CARD}
-          height={PREVIEW_HEIGHT_ON_HOVER_FILM_CARD}
-          needToLoop={NEED_TO_LOOP_ON_HOVER_FILM_CARD}
-        />
-      </div>
-      <h3 className="small-film-card__title">
-        <Link className="small-film-card__link" to={`/films/${props.film.id}`} data-testid='film-link'>{props.film.name}</Link>
-      </h3>
+      <Link className="small-film-card__link" to={`/films/${props.film.id}`} data-testid='film-link'>
+        <div className="small-film-card__image">
+          <Videoplayer
+            film={props.film}
+            muted={PREVIEW_MUTED_ON_HOVER_FILM_CARD}
+            isPlaying={isPlayingNow}
+            width={PreviewSizeOnHoverFilmCard.PREVIEW_WIDTH_ON_HOVER_FILM_CARD}
+            height={PreviewSizeOnHoverFilmCard.PREVIEW_HEIGHT_ON_HOVER_FILM_CARD}
+            needToLoop={NEED_TO_LOOP_ON_HOVER_FILM_CARD}
+          />
+        </div>
+        <h3 className="small-film-card__title">
+          {props.film.name}
+        </h3>
+      </Link>
     </article>
   );
 }

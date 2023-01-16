@@ -2,7 +2,7 @@ import {useAppSelector} from '../../hooks';
 import {ReducerType} from '../../consts';
 
 function ReviewsTab(): JSX.Element {
-  const reviews = useAppSelector((state) => state[ReducerType.Film].comments);
+  const reviews = useAppSelector((state) => state[ReducerType.FILM].comments);
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
@@ -16,8 +16,8 @@ function ReviewsTab(): JSX.Element {
                 <cite className="review__author">
                   {review.user.name}
                 </cite>
-                <time className="review__date" dateTime={shortDate(review.date)}>
-                  {longDate(review.date)}
+                <time className="review__date" dateTime={getShortDate(review.date)}>
+                  {getLongDate(review.date)}
                 </time>
               </footer>
             </blockquote>
@@ -30,11 +30,11 @@ function ReviewsTab(): JSX.Element {
 
 export default ReviewsTab;
 
-function shortDate(reviewDate: string): string {
+function getShortDate(reviewDate: string): string {
   const date = new Date(reviewDate);
   return (`${date.getFullYear()}-${date.getMonth().toString().padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`);
 }
-function longDate(reviewDate: string): string {
+function getLongDate(reviewDate: string): string {
   const date = new Date(reviewDate);
   return (`${date.toLocaleString('eng', {month: 'long'})} ${date.getDate()}, ${date.getFullYear()}`);
 }

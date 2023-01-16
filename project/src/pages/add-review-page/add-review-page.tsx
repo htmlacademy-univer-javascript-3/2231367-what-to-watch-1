@@ -3,22 +3,22 @@ import AddReviewForm from '../../components/add-review-form/add-review-form';
 import UserBlock from '../../components/user-block/user-block';
 import {Link, Navigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
-import {AuthorizationStatus, ReducerType} from '../../consts';
+import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
 import {getFilm} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 
 function AddReviewPage(): JSX.Element {
   const id = Number(useParams().id);
-  const film = useAppSelector((state) => state[ReducerType.Film].film);
+  const film = useAppSelector((state) => state[ReducerType.FILM].film);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getFilm(id.toString()));
   }, [id, dispatch]);
-  const authStatus = useAppSelector(
+  const authorizationStatus = useAppSelector(
     (state) => state.userReducer.authorizationStatus
   );
-  if (authStatus === AuthorizationStatus.NonAuthorized) {
-    return <Navigate to={'/'} />;
+  if (authorizationStatus === AuthorizationStatus.NonAuthorized) {
+    return <Navigate to={AppRoute.SignIn} />;
   }
   return (
     <section className="film-card film-card--full">

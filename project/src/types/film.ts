@@ -1,4 +1,4 @@
-export type FimlType = {
+export type Film = {
   id: number;
   name: string;
   backgroundImage: string;

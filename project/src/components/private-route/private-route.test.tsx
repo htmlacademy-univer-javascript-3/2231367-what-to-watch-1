@@ -15,7 +15,7 @@ describe('Component: PrivateRoute', () => {
 
   it('should render login if user not authorized', () => {
     const store = mockStore({
-      [ReducerType.User]: {
+      [ReducerType.USER]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
         avatar: null
       },
@@ -24,7 +24,7 @@ describe('Component: PrivateRoute', () => {
       <Provider store={store}>
         <MemoryRouter initialEntries={initialEntries}>
           <Routes>
-            <Route path={APIRoute.LOGIN} element={<h1>Login</h1>}/>
+            <Route path={APIRoute.Login} element={<h1>Login</h1>}/>
             <Route path='/private' element={
               <PrivateRoute >
                 <h1>Private Route</h1>
@@ -41,7 +41,7 @@ describe('Component: PrivateRoute', () => {
 
   it('should render component for private route if authorized', () => {
     const store = mockStore({
-      [ReducerType.User]: {
+      [ReducerType.USER]: {
         authorizationStatus: AuthorizationStatus.Authorized,
         avatar: null,
       },
@@ -50,7 +50,7 @@ describe('Component: PrivateRoute', () => {
       <Provider store={store}>
         <MemoryRouter initialEntries={initialEntries}>
           <Routes>
-            <Route path={APIRoute.LOGIN} element={<h1>Login</h1>}/>
+            <Route path={APIRoute.Login} element={<h1>Login</h1>}/>
             <Route path='/private' element={
               <PrivateRoute >
                 <h1>Private Route</h1>
