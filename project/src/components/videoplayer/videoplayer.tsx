@@ -1,9 +1,9 @@
 import { useRef } from 'react';
 import { useEffect } from 'react';
-import { FimlType } from '../../types/FilmType';
+import { Film } from '../../types/film';
 
 type VideoplayerProps = {
-  film: FimlType;
+  film: Film;
   muted: boolean;
   isPlaying: boolean;
   width: number;
@@ -14,13 +14,12 @@ type VideoplayerProps = {
 function Videoplayer(props: VideoplayerProps): JSX.Element {
   const videoplayerRef = useRef<HTMLVideoElement | null>(null);
   useEffect(() => {
-    if (videoplayerRef.current !== null) {
+    if (videoplayerRef !== null) {
       if (props.isPlaying) {
-        videoplayerRef.current.play();
-        //TODO: videoplayerRef.current не определяется вначале при запуске походу
+        videoplayerRef.current?.play();
       }
       else {
-        videoplayerRef.current.load();
+        videoplayerRef.current?.load();
       }
     }
   }, [props.isPlaying]);
@@ -29,7 +28,7 @@ function Videoplayer(props: VideoplayerProps): JSX.Element {
     <video
       ref={videoplayerRef}
       src={props.film.videoLink}
-      poster={props.film.posterImage}
+      poster={props.film.previewImage}
       muted={props.muted}
       width={props.width}
       height={props.height}

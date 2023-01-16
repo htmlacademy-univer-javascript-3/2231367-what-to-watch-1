@@ -1,25 +1,32 @@
 import {useNavigate, useParams} from 'react-router-dom';
 import {ChangeEvent, FormEvent, useState} from 'react';
 import {postFilmReview} from '../../store/api-actions';
-import {useAppDispatch} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {ReducerType} from '../../consts';
+import {setError} from '../../store/action';
 
 function AddReviewForm() {
   const id = Number(useParams().id).toString();
+  const error = useAppSelector((state) => state[ReducerType.Main].error);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [starRating, setStarRating] = useState('-1');
   const [reviewContent, setReviewContent] = useState('');
-  const reviewSubmitHandler = (evt: FormEvent<HTMLFormElement>) => {
+  const handleReviewSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(postFilmReview({id: Number(id), comment: reviewContent, rating: Number(starRating)}));
-    navigate(`/films/${id}`);
+    dispatch(postFilmReview({id: Number(id), comment: reviewContent, rating: Number(starRating)}))
+      .then(() => {
+        navigate(`/films/${id}`);
+      })
+      .catch((err) => {
+        dispatch(setError(`Can't post a form: ${err.message}`));
+      });
   };
-
   const [postDisabledByContent, setPostDisabledByContent] = useState(true);
   const [postDisabledByStar, setPostDisabledByStar] = useState(true);
 
   return (
-    <form action="#" className="add-review__form" onSubmit={reviewSubmitHandler}>
+    <form action="#" className="add-review__form" onSubmit={handleReviewSubmit}>
       <div className="rating">
         <div className="rating__stars">
           <input className="rating__input" id="star-10" type="radio" name="rating" value="10"
@@ -108,6 +115,10 @@ function AddReviewForm() {
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit" data-testid='submit-button' disabled={postDisabledByContent || postDisabledByStar}>Post</button>
         </div>
+        { error ?
+          <p>{error}</p>
+          :
+          null}
       </div>
     </form>
   );

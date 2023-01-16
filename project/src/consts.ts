@@ -1,11 +1,11 @@
 export enum APIRoute {
-  FILMS = '/films',
-  LOGIN = '/login',
-  LOGOUT = '/logout',
-  PROMO = '/promo',
-  COMMENTS = '/comments',
-  SIMILAR = '/similar',
-  FAVORITE = '/favorite',
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
+  Promo = '/promo',
+  Comments = '/comments',
+  Similar = '/similar',
+  Favorite = '/favorite',
 }
 
 export enum AppRoute {
@@ -21,21 +21,20 @@ export enum AppRoute {
 export enum AuthorizationStatus {
   NonAuthorized,
   Authorized,
-  Unknown
 }
 
 export enum RatingDescription {
-  BAD = 'Bad',
-  NORMAL = 'Normal',
-  GOOD = 'Good',
-  VERY_GOOD = 'Very good',
-  AWESOME = 'Awesome'
+  Bad = 'Bad',
+  Normal = 'Normal',
+  Good = 'Good',
+  VeryGood = 'Very good',
+  Awesome = 'Awesome'
 }
 
 export enum Tab {
-  OVERVIEW = 'Overview',
-  DETAILS = 'Details',
-  REVIEWS = 'Reviews'
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews'
 }
 
 export enum ReducerType {
@@ -44,9 +43,24 @@ export enum ReducerType {
   Film = 'filmReducer'
 }
 
+export enum AuthorizationError {
+  InvalidEmailAndPassword = 'Please, enter correct email and password',
+  InvalidEmail = 'Please, enter correct email',
+  InvalidPassword = 'Please, enter correct password',
+  NoError = ''
+}
+
+export const TIMEOUT_SHOW_ERROR = 2000;
+
 export const ALL_GENRES = 'All genres';
+
+export const LIST_STEP_COUNT = 8;
+
+export enum PreviewSizeOnHoverFilmCard {
+  PREVIEW_WIDTH_ON_HOVER_FILM_CARD = 280,
+  PREVIEW_HEIGHT_ON_HOVER_FILM_CARD = 175,
+}
+
 export const DELAY_ON_HOVER_FILM_CARD = 1000;
-export const PREVIEW_WIDTH_ON_HOVER_FILM_CARD = 280;
-export const PREVIEW_HEIGHT_ON_HOVER_FILM_CARD = 175;
 export const PREVIEW_MUTED_ON_HOVER_FILM_CARD = true;
 export const NEED_TO_LOOP_ON_HOVER_FILM_CARD = true;

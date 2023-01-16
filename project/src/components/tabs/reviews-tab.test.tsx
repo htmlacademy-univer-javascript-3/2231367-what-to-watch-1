@@ -4,14 +4,14 @@ import ReviewsTab from './reviews-tab';
 import {createAPI} from '../../services/api';
 import thunk, {ThunkDispatch} from 'redux-thunk';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {StateType} from '../../types/StateType';
+import {State} from '../../types/state';
 import {Action} from '@reduxjs/toolkit';
 import {ReducerType} from '../../consts';
 import {Provider} from 'react-redux';
 
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore<StateType, Action, ThunkDispatch<StateType, typeof api, Action>>(middlewares);
+const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
 const mockReviews = reviews;
 
 describe('Component: ReviewsTab', () => {

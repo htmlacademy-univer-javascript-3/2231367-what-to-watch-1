@@ -7,19 +7,20 @@ import thunk from 'redux-thunk';
 import {films} from '../../mocks/films';
 import reviews from '../../mocks/reviews';
 import {createAPI} from '../../services/api';
-import {StateType} from '../../types/StateType';
+import {State} from '../../types/state';
 import {AuthorizationStatus, ReducerType} from '../../consts';
 import AddReviewPage from './add-review-page';
 
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore<StateType, Action, ThunkDispatch<StateType, typeof api, Action>>(middlewares);
+const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
 const mockFilms = films;
 const mockFilm = films[0];
 const mockReviews = reviews;
 
-describe('Add review page', () => {
+describe('Page: Add review page', () => {
   it('should render correctly if not authorized', () => {
+    jest.mock('../../services/error-message-handle.ts');
     const store = mockStore({
       [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
@@ -52,6 +53,7 @@ describe('Add review page', () => {
   });
 
   it('should render correctly if authorized', () => {
+    jest.mock('../../services/error-message-handle.ts');
     const store = mockStore({
       [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.Authorized,

@@ -8,6 +8,7 @@ const mockFilm = films[0];
 
 describe('Component: FilmList', () => {
   it('should render correctly without set current film', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     render(
       <MemoryRouter>
         <FilmList filmList={mockFilms} />
@@ -17,6 +18,7 @@ describe('Component: FilmList', () => {
     expect(screen.getAllByTestId('film-card').length).toBe(mockFilms.length);
   });
   it('should render correctly with set current film', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     render(
       <MemoryRouter>
         <FilmList filmList={mockFilms} currentFilm={mockFilm}/>

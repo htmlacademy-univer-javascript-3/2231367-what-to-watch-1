@@ -7,6 +7,7 @@ const mockFilm = films[0];
 
 describe('Component: FilmCard', () => {
   it('should render correctly', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     render(
       <MemoryRouter>
         <FilmCard film={mockFilm} />
@@ -17,6 +18,7 @@ describe('Component: FilmCard', () => {
   });
 
   it('should redirect correctly', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     render(
       <MemoryRouter>
         <Routes>

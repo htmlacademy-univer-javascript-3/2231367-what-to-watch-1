@@ -1,33 +1,35 @@
 import {Link, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {Fragment, useEffect, useRef, useState} from 'react';
-import {getFilm} from '../../store/api-actions';
+import {Fragment, useCallback, useEffect, useRef, useState} from 'react';
+import {fetchFilm} from '../../store/api-actions';
 
 function PlayerPage(): JSX.Element {
   const id = Number(useParams().id);
-  const film = useAppSelector((state) => state.filmReducer.film);
+  const currentFilm = useAppSelector((state) => state.filmReducer.film);
   const playerRef = useRef<HTMLVideoElement | null>(null);
   const playerElement = document.querySelector('.player');
   const dispatch = useAppDispatch();
   const [isPlaying, setIsPlaying] = useState(false);
   const [timeLeft, setTimeLeft] = useState( 0);
-  const clickPlayButtonHandler = () => {
+  const [progress, setProgress] = useState(0);
+  const handleClickPlayButton = () => {
     setIsPlaying(!isPlaying);
   };
-  const fullscreenHandler = () => {
+  const handleFullScreen = () => {
     if (document.fullscreenElement) {
       document.exitFullscreen();
     } else {
       playerElement?.requestFullscreen();
     }
   };
-  useEffect(() => {
-    if (isPlaying) {
-      setTimeout(() => {
-        setTimeLeft(timeLeft - 1);
-      }, 1000);
+  const handleProgressBar = useCallback(() => {
+    const durationTime = playerRef?.current?.duration;
+    const currentTime = playerRef?.current?.currentTime;
+    if (durationTime && currentTime) {
+      setProgress((currentTime / durationTime) * 100);
+      setTimeLeft(durationTime - currentTime);
     }
-  });
+  }, []);
   useEffect(() => {
     if (playerRef.current !== null) {
       if (isPlaying) {
@@ -38,12 +40,8 @@ function PlayerPage(): JSX.Element {
     }
   }, [isPlaying]);
   useEffect(() => {
-    dispatch(getFilm(id.toString()));
+    dispatch(fetchFilm(id.toString()));
   }, [id, dispatch]);
-  useEffect(() => {
-    if (film)
-    {setTimeLeft(film?.runTime * 60);}
-  }, [film]);
   const getTimeLeft = () => {
     const bringTimeToFormat = (time: number) => time > 9 ? time : `0${time}`;
     const hours = bringTimeToFormat(Math.floor(timeLeft / 60 / 60));
@@ -54,38 +52,38 @@ function PlayerPage(): JSX.Element {
   };
   return (
     <div className="player">
-      <video src={film?.videoLink} className="player__video" poster={film?.posterImage} ref={playerRef}></video>
-      <Link to={`/films/${film?.id}`} type="button" className="player__exit">Exit</Link>
+      <video src={currentFilm?.videoLink} className="player__video" poster={currentFilm?.backgroundImage} ref={playerRef} onTimeUpdate={() => handleProgressBar()}/>
+      <Link to={`/films/${currentFilm?.id}`} type="button" className="player__exit">Exit</Link>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value="0" max="100"></progress>
-            <div className="player__toggler" style={{left: `${film ? (film?.runTime * 60 - timeLeft) / (film?.runTime * 60) * 100 : 0}%`}}>Toggler</div>
+            <progress className="player__progress" value={progress} max="100"/>
+            <div className="player__toggler" style={{left: `${progress}%`}}>Toggler</div>
           </div>
           <div className="player__time-value">{getTimeLeft()}</div>
         </div>
         <div className="player__controls-row">
-          <button type="button" className="player__play" onClick={clickPlayButtonHandler} data-testid='player-play'>
+          <button type="button" className="player__play" onClick={handleClickPlayButton} data-testid='player-play'>
             {isPlaying ? (
               <Fragment>
                 <svg viewBox="0 0 14 21" width="14" height="21">
-                  <use xlinkHref="#pause"></use>
+                  <use xlinkHref="#pause"/>
                 </svg>
                 <span>Pause</span>
               </Fragment>
             ) : (
               <Fragment>
                 <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"></use>
+                  <use xlinkHref="#play-s"/>
                 </svg>
                 <span>Play</span>
               </Fragment>
             )}
           </button>
           <div className="player__name">Transpotting</div>
-          <button type="button" className="player__full-screen" onClick={fullscreenHandler}>
+          <button type="button" className="player__full-screen" onClick={handleFullScreen}>
             <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen"></use>
+              <use xlinkHref="#full-screen"/>
             </svg>
             <span>Full screen</span>
           </button>

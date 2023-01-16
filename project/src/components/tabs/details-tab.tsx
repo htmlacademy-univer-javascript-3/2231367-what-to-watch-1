@@ -1,8 +1,8 @@
-import {FimlType} from '../../types/FilmType';
+import {Film} from '../../types/film';
 import {Fragment} from 'react';
 
 type DetailsTabProps = {
-  film: FimlType;
+  film: Film;
 }
 
 function DetailsTab(props: DetailsTabProps): JSX.Element {
@@ -16,14 +16,14 @@ function DetailsTab(props: DetailsTabProps): JSX.Element {
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Starring</strong>
           <span className="film-card__details-value">
-            {props.film.starring.map((actor) => <Fragment key={actor}>{actor}<br /></Fragment>)}
+            {props.film.starring.map((actor) => <Fragment key={`actor-${actor}`}>{actor}<br /></Fragment>)}
           </span>
         </p>
       </div>
       <div className="film-card__text-col">
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Run Time</strong>
-          <span className="film-card__details-value">{props.film.runTime}</span>
+          <span className="film-card__details-value">{getRunTimeInFormat(props.film.runTime)}</span>
         </p>
         <p className="film-card__details-item">
           <strong className="film-card__details-name">Genre</strong>
@@ -36,6 +36,12 @@ function DetailsTab(props: DetailsTabProps): JSX.Element {
       </div>
     </div>
   );
+}
+
+export function getRunTimeInFormat(runTime: number): string {
+  const hours = Math.floor(runTime / 60);
+  const minutes = runTime - hours * 60;
+  return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;
 }
 
 export default DetailsTab;

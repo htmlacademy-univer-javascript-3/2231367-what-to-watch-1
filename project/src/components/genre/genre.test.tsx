@@ -7,14 +7,14 @@ import {AuthorizationStatus, ReducerType} from '../../consts';
 import {createAPI} from '../../services/api';
 import thunk from 'redux-thunk';
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {StateType} from '../../types/StateType';
+import {State} from '../../types/state';
 import {Action, ThunkDispatch} from '@reduxjs/toolkit';
 import reviews from '../../mocks/reviews';
 
 const mockSetFilmListCount = jest.fn();
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore<StateType, Action, ThunkDispatch<StateType, typeof api, Action>>(middlewares);
+const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
 const mockFilms = films;
 const mockFilm = films[0];
 const mockGenres = ['genre1', 'genre2'];

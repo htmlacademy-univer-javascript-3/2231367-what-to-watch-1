@@ -1,0 +1,10 @@
+.error-message {
+  color: #eee5b5;
+  background-color: #d06744;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  border-radius: 10px;
+  padding: 10px;
+  z-index: 40;
+}

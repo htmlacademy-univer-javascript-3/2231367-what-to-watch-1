@@ -1,6 +1,6 @@
 import {render, screen} from '@testing-library/react';
 import {films} from '../../mocks/films';
-import DetailsTab from './details-tab';
+import DetailsTab, {getRunTimeInFormat} from './details-tab';
 
 const mockFilm = films[0];
 
@@ -13,6 +13,6 @@ describe('Component: DetailsTab', () => {
     expect(screen.getByText(mockFilm.director)).toBeInTheDocument();
     expect(screen.getByText('Starring')).toBeInTheDocument();
     expect(screen.getByText(mockFilm.released)).toBeInTheDocument();
-    expect(screen.getByText(mockFilm.runTime)).toBeInTheDocument();
+    expect(screen.getByText(getRunTimeInFormat(mockFilm.runTime))).toBeInTheDocument();
   });
 });

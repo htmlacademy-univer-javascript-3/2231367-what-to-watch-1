@@ -1,20 +1,20 @@
-import {FimlType} from '../../types/FilmType';
+import {Film} from '../../types/film';
 import FilmCard from '../film-card/film-card';
 import {useState} from 'react';
 
 type FilmListProps = {
-  filmList: FimlType[];
-  currentFilm?: FimlType;
+  filmList: Film[];
+  currentFilm?: Film;
 }
 
 function FilmList(props: FilmListProps) {
-  const list = [];
+  const filmCards = [];
   const [, setActive] = useState<number | null>(null);
   for (const film of props.filmList) {
     if (film.id === props.currentFilm?.id) {
       continue;
     }
-    list.push(
+    filmCards.push(
       <FilmCard key={`film-card-${film.id}`}
         film={film}
         onHover={setActive}
@@ -24,7 +24,7 @@ function FilmList(props: FilmListProps) {
   }
   return (
     <div className="catalog__films-list" data-testid='film-list'>
-      {list}
+      {filmCards}
     </div>
   );
 }

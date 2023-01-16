@@ -6,18 +6,20 @@ import {MemoryRouter} from 'react-router-dom';
 import thunk from 'redux-thunk';
 import {films} from '../../mocks/films';
 import {createAPI} from '../../services/api';
-import {StateType} from '../../types/StateType';
+import {State} from '../../types/state';
 import {AuthorizationStatus, ReducerType} from '../../consts';
 import MainPage from './main-page';
 
+jest.mock('../../services/error-message-handle.ts');
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
-const mockStore = configureMockStore<StateType, Action, ThunkDispatch<StateType, typeof api, Action>>(middlewares);
+const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
 const mockFilms = films;
 const mockFilm = films[0];
 
-describe('Main page', () => {
+describe('Page: Main page', () => {
   it('should render correctly if not authorized', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
       [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
@@ -38,10 +40,13 @@ describe('Main page', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(screen.queryByText(/My List/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/Play/i)).toBeInTheDocument();
+    expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
+    expect(screen.getByText(/My List/i)).toBeInTheDocument();
   });
 
   it('should render correctly if authorized', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
       [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.Authorized,
@@ -62,6 +67,8 @@ describe('Main page', () => {
         </MemoryRouter>
       </Provider>
     );
+    expect(screen.getByText(/Play/i)).toBeInTheDocument();
+    expect(screen.getByText(/Sign out/i)).toBeInTheDocument();
     expect(screen.getByText(/My List/i)).toBeInTheDocument();
   });
 });

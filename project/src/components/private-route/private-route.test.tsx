@@ -3,7 +3,7 @@ import PrivateRoute from './private-route';
 import {render, screen} from '@testing-library/react';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {MemoryRouter, Route, Routes} from 'react-router-dom';
-import {APIRoute, AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
+import {APIRoute, AppRoute, AuthorizationError, AuthorizationStatus, ReducerType} from '../../consts';
 
 const mockStore = configureMockStore();
 const initialEntries : (AppRoute | string)[] = [AppRoute.Main];
@@ -17,14 +17,15 @@ describe('Component: PrivateRoute', () => {
     const store = mockStore({
       [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
-        avatar: null
+        avatar: null,
+        authorizationError: AuthorizationError.NoError,
       },
     });
     render(
       <Provider store={store}>
         <MemoryRouter initialEntries={initialEntries}>
           <Routes>
-            <Route path={APIRoute.LOGIN} element={<h1>Login</h1>}/>
+            <Route path={APIRoute.Login} element={<h1>Login</h1>}/>
             <Route path='/private' element={
               <PrivateRoute >
                 <h1>Private Route</h1>
@@ -50,7 +51,7 @@ describe('Component: PrivateRoute', () => {
       <Provider store={store}>
         <MemoryRouter initialEntries={initialEntries}>
           <Routes>
-            <Route path={APIRoute.LOGIN} element={<h1>Login</h1>}/>
+            <Route path={APIRoute.Login} element={<h1>Login</h1>}/>
             <Route path='/private' element={
               <PrivateRoute >
                 <h1>Private Route</h1>
