@@ -20,6 +20,7 @@ const mockReviews = reviews;
 
 describe('Film page', () => {
   it('should render correctly if not authorized', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
       [ReducerType.USER]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
@@ -48,10 +49,12 @@ describe('Film page', () => {
     expect(screen.getByText(/Overview/i)).toBeInTheDocument();
     expect(screen.getByText(/Details/i)).toBeInTheDocument();
     expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
-    expect(screen.queryByText(/My List/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/My List/i)).toBeInTheDocument();
+    expect(screen.queryByText(/Add Review/i)).not.toBeInTheDocument();
   });
 
   it('should render correctly if authorized', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
       [ReducerType.USER]: {
         authorizationStatus: AuthorizationStatus.Authorized,

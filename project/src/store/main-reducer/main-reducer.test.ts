@@ -15,7 +15,6 @@ describe('Main reducer', () => {
       films: [],
       filteredFilms: [],
       currentGenre: ALL_GENRES,
-      shownCount: 0,
       dataIsLoading: false,
       promo: null,
       favoriteFilms: [],
@@ -42,6 +41,15 @@ describe('Main reducer', () => {
   describe('fetchFilmsAction test', () => {
     it('load all films', () => {
       expect(mainReducer.reducer(state, { type: fetchFilmsAction.fulfilled.type, payload: testFilms }).films).toEqual(testFilms);
+    });
+    it('should update dataIsLoading to true if fetchFilms pending', () => {
+      expect(mainReducer.reducer(state, {type: fetchFilmsAction.pending.type}).dataIsLoading)
+        .toEqual(true);
+    });
+    it('should update dataIsLoading to false if fetchFilms rejected', () => {
+      state.dataIsLoading = true;
+      expect(mainReducer.reducer(state, {type: fetchFilmsAction.rejected.type}).dataIsLoading)
+        .toEqual(false);
     });
   });
 

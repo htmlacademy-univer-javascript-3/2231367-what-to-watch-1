@@ -14,13 +14,12 @@ type VideoplayerProps = {
 function Videoplayer(props: VideoplayerProps): JSX.Element {
   const videoplayerRef = useRef<HTMLVideoElement | null>(null);
   useEffect(() => {
-    if (videoplayerRef.current !== null) {
+    if (videoplayerRef !== null) {
       if (props.isPlaying) {
-        videoplayerRef.current.play();
-        //TODO: videoplayerRef.current не определяется вначале при запуске походу
+        videoplayerRef.current?.play();
       }
       else {
-        videoplayerRef.current.load();
+        videoplayerRef.current?.load();
       }
     }
   }, [props.isPlaying]);

@@ -16,7 +16,6 @@ export type AppState = {
   filteredFilms: Film[],
   favoriteFilms: Film[],
   favoriteFilmsLength: number,
-  shownCount: number,
 }
 
 export type UserState = {

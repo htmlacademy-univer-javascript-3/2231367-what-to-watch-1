@@ -6,7 +6,7 @@ import {logoutAction} from '../../store/api-actions';
 
 function UserBlock(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state[ReducerType.USER].authorizationStatus);
-  const avatar = useAppSelector((state) => state[ReducerType.USER].avatar);
+  const userAvatar = useAppSelector((state) => state[ReducerType.USER].avatar);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleSignOut = (event: SyntheticEvent) => {
@@ -21,7 +21,7 @@ function UserBlock(): JSX.Element {
           <Fragment>
             <li className="user-block__item">
               <div className="user-block__avatar">
-                <img src={avatar ?? ''} alt="User avatar" width="63" height="63" onClick={() => navigate(AppRoute.MyList)} data-testid='avatar'/>
+                <img src={userAvatar ?? ''} alt="User avatar" width="63" height="63" onClick={() => navigate(AppRoute.MyList)} data-testid='avatar'/>
               </div>
             </li>
             <li className="user-block__item">

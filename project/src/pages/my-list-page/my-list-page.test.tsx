@@ -55,6 +55,7 @@ describe('My list page', () => {
   });
 
   it('should render correctly if authorized', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
       [ReducerType.USER]: {
         authorizationStatus: AuthorizationStatus.Authorized,

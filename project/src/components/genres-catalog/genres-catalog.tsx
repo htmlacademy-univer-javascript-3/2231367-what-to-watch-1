@@ -25,8 +25,6 @@ export function getAllExistingGenres(films: Film[]): string[] {
   for (const film of films) {
     genres.add(film.genre);
   }
-  // films.map((film) => {
-  // });
   return [...genres];
 }
 

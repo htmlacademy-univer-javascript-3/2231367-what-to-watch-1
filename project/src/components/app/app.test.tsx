@@ -44,12 +44,14 @@ const fakeApp = (
 
 describe('Component: App', () => {
   it('should render "Main page" if navigate to "/"', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     render(fakeApp);
     expect(screen.getByText(/Play/i)).toBeInTheDocument();
     expect(screen.getByText(/All genres/i)).toBeInTheDocument();
   });
 
   it('should render Main page if navigate to "/login" when authorized', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     routes.push(AppRoute.SignIn);
     render(fakeApp);
     expect(screen.getByText(/Play/i)).toBeInTheDocument();
@@ -57,6 +59,7 @@ describe('Component: App', () => {
   });
 
   it('should render Film page if navigate to "/films/{id}"', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     routes.push('/films/1');
     render(fakeApp);
     expect(screen.getByText(/Play/i)).toBeInTheDocument();
@@ -69,6 +72,8 @@ describe('Component: App', () => {
   });
 
   it('should render Player page if navigate to "/player/{id}"', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
+    window.HTMLVideoElement.prototype.pause = jest.fn();
     routes.push('/player/1');
     render(fakeApp);
     expect(screen.getByText(/Exit/i)).toBeInTheDocument();
@@ -76,18 +81,21 @@ describe('Component: App', () => {
   });
 
   it('should render Add review page if navigate to "/films/{id}/review"', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     routes.push('/films/1/review');
     render(fakeApp);
     expect(screen.getByText(/Add review/i)).toBeInTheDocument();
   });
 
   it('should render My list page if navigate to "/mylist"', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     routes.push(AppRoute.MyList);
     render(fakeApp);
     expect(screen.getByText(/My list/i)).toBeInTheDocument();
   });
 
   it('should render 404 not found page if navigate to not found route', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     routes.push('/itsnotfoundroute');
     render(fakeApp);
     expect(screen.getByText('404 Not Found')).toBeInTheDocument();

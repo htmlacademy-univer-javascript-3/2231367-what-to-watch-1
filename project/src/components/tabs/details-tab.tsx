@@ -38,7 +38,7 @@ function DetailsTab(props: DetailsTabProps): JSX.Element {
   );
 }
 
-function getRunTimeInFormat(runTime: number): string {
+export function getRunTimeInFormat(runTime: number): string {
   const hours = Math.floor(runTime / 60);
   const minutes = runTime - hours * 60;
   return hours > 0 ? `${hours}h ${minutes}m` : `${minutes}m`;

@@ -2,12 +2,10 @@ import {Fragment, useEffect, useState} from 'react';
 import Logo from '../../components/logo/logo';
 import GenresCatalog, {
   getAllExistingGenres,
-  getFilmsCurrentGenre,
 } from '../../components/genres-catalog/genres-catalog';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import ShowMore from '../../components/show-more/show-more';
-import Spinner from '../../components/spinner/spinner';
 import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Link} from 'react-router-dom';
@@ -20,9 +18,8 @@ function MainPage(): JSX.Element {
   const promoFilm = useAppSelector((state) => state[ReducerType.MAIN].promo);
   const authorizationStatus = useAppSelector((state) => state[ReducerType.USER].authorizationStatus);
   const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.MAIN].favoriteFilmsLength);
-  const genre = useAppSelector((state) => state[ReducerType.MAIN].currentGenre);
+  const currentGenre = useAppSelector((state) => state[ReducerType.MAIN].currentGenre);
   const films = useAppSelector((state) => state[ReducerType.MAIN].films);
-  const isLoading = useAppSelector((state) => state[ReducerType.MAIN].dataIsLoading);
   const dispatch = useAppDispatch();
   const handleAddFavorite = () => {
     dispatch(changePromoFavoriteStatus({
@@ -40,14 +37,11 @@ function MainPage(): JSX.Element {
       dispatch(fetchFavoriteFilms());
     }
   }, [dispatch, authorizationStatus]);
-  const filmsCurrentGenre = getFilmsCurrentGenre(films, genre);
+  const filmsCurrentGenre = useAppSelector((state) => state[ReducerType.MAIN].filteredFilms);
   const [filmListCount, addFilmListCount] = useState(LIST_STEP_COUNT),
     showMoreClickHandler = () => {
       addFilmListCount(filmListCount + LIST_STEP_COUNT);
     };
-  if (isLoading || !promoFilm) {
-    return <Spinner />;
-  }
   return (
     <Fragment>
       <section className="film-card">
@@ -100,7 +94,7 @@ function MainPage(): JSX.Element {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenresCatalog genres={getAllExistingGenres(films)} selectedGenre={genre} setFilmListCount={addFilmListCount}/>
+          <GenresCatalog genres={getAllExistingGenres(films)} selectedGenre={currentGenre} setFilmListCount={addFilmListCount}/>
           <FilmList filmList={filmsCurrentGenre.slice(0, filmListCount)} />
           {filmsCurrentGenre.length > filmListCount && <ShowMore onClick={showMoreClickHandler}/>}
         </section>

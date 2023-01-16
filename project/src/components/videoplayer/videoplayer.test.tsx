@@ -11,13 +11,8 @@ import {
 const mockFilm = films[0];
 
 describe('Component: Videoplayer', () => {
-  beforeAll(() => {
-    window.HTMLVideoElement.prototype.play = jest.fn();
-    window.HTMLVideoElement.prototype.load = jest.fn();
-    window.HTMLVideoElement.prototype.pause = jest.fn();
-  });
-
   it('should play after delay', async () => {
+    window.HTMLVideoElement.prototype.play = jest.fn();
     render(
       <Videoplayer
         film={mockFilm}

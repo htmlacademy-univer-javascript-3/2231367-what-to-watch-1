@@ -18,6 +18,7 @@ const mockFilm = films[0];
 
 describe('Main page', () => {
   it('should render correctly if not authorized', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
       [ReducerType.USER]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
@@ -38,10 +39,13 @@ describe('Main page', () => {
         </MemoryRouter>
       </Provider>
     );
-    expect(screen.queryByText(/My List/i)).not.toBeInTheDocument();
+    expect(screen.getByText(/Play/i)).toBeInTheDocument();
+    expect(screen.getByText(/Sign in/i)).toBeInTheDocument();
+    expect(screen.getByText(/My List/i)).toBeInTheDocument();
   });
 
   it('should render correctly if authorized', () => {
+    window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
       [ReducerType.USER]: {
         authorizationStatus: AuthorizationStatus.Authorized,
@@ -62,6 +66,8 @@ describe('Main page', () => {
         </MemoryRouter>
       </Provider>
     );
+    expect(screen.getByText(/Play/i)).toBeInTheDocument();
+    expect(screen.getByText(/Sign out/i)).toBeInTheDocument();
     expect(screen.getByText(/My List/i)).toBeInTheDocument();
   });
 });
