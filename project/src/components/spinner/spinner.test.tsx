@@ -2,7 +2,7 @@ import { MemoryRouter } from 'react-router-dom';
 import {render, screen} from '@testing-library/react';
 import Spinner from './spinner';
 
-describe('Component: Logo', () => {
+describe('Component: Spinner', () => {
   it('should render correctly', () => {
     render(
       <MemoryRouter>

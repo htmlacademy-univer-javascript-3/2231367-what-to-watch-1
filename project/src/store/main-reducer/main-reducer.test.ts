@@ -1,7 +1,7 @@
 import {films} from '../../mocks/films';
 import {mainReducer} from './main-reducer';
 import {AppState} from '../../types/state';
-import {fetchFavoriteFilms, fetchFilmsAction, getPromoFilm} from '../api-actions';
+import {fetchFavoriteFilms, fetchFilms, fetchPromoFilm} from '../api-actions';
 import {ALL_GENRES} from '../../consts';
 import {setGenre} from '../action';
 
@@ -14,6 +14,7 @@ describe('Main reducer', () => {
     state = {
       films: [],
       filteredFilms: [],
+      error: null,
       currentGenre: ALL_GENRES,
       dataIsLoading: false,
       promo: null,
@@ -38,24 +39,24 @@ describe('Main reducer', () => {
     });
   });
 
-  describe('fetchFilmsAction test', () => {
+  describe('fetchFilms test', () => {
     it('load all films', () => {
-      expect(mainReducer.reducer(state, { type: fetchFilmsAction.fulfilled.type, payload: testFilms }).films).toEqual(testFilms);
+      expect(mainReducer.reducer(state, { type: fetchFilms.fulfilled.type, payload: testFilms }).films).toEqual(testFilms);
     });
     it('should update dataIsLoading to true if fetchFilms pending', () => {
-      expect(mainReducer.reducer(state, {type: fetchFilmsAction.pending.type}).dataIsLoading)
+      expect(mainReducer.reducer(state, {type: fetchFilms.pending.type}).dataIsLoading)
         .toEqual(true);
     });
     it('should update dataIsLoading to false if fetchFilms rejected', () => {
       state.dataIsLoading = true;
-      expect(mainReducer.reducer(state, {type: fetchFilmsAction.rejected.type}).dataIsLoading)
+      expect(mainReducer.reducer(state, {type: fetchFilms.rejected.type}).dataIsLoading)
         .toEqual(false);
     });
   });
 
-  describe('getPromoFilm test', () => {
+  describe('fetchPromoFilm test', () => {
     it('load promo film', () => {
-      expect(mainReducer.reducer(state, { type: getPromoFilm.fulfilled.type, payload: testFilm }).promo).toEqual(testFilm);
+      expect(mainReducer.reducer(state, { type: fetchPromoFilm.fulfilled.type, payload: testFilm }).promo).toEqual(testFilm);
     });
   });
 

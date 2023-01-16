@@ -3,7 +3,7 @@ import PrivateRoute from './private-route';
 import {render, screen} from '@testing-library/react';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {MemoryRouter, Route, Routes} from 'react-router-dom';
-import {APIRoute, AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
+import {APIRoute, AppRoute, AuthorizationError, AuthorizationStatus, ReducerType} from '../../consts';
 
 const mockStore = configureMockStore();
 const initialEntries : (AppRoute | string)[] = [AppRoute.Main];
@@ -15,9 +15,10 @@ describe('Component: PrivateRoute', () => {
 
   it('should render login if user not authorized', () => {
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
-        avatar: null
+        avatar: null,
+        authorizationError: AuthorizationError.NoError,
       },
     });
     render(
@@ -41,7 +42,7 @@ describe('Component: PrivateRoute', () => {
 
   it('should render component for private route if authorized', () => {
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.Authorized,
         avatar: null,
       },

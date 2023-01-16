@@ -7,10 +7,10 @@ import {Action} from '@reduxjs/toolkit';
 import {State} from '../types/state';
 import {
   changeFilmFavoriteStatus,
-  checkAuthAction,
-  fetchFavoriteFilms, fetchFilmsAction, getFilm,
-  getFilmReviews, getPromoFilm,
-  getSimilarFilms, loginAction, logoutAction, postFilmReview,
+  checkAuthorization,
+  fetchFavoriteFilms, fetchFilms, fetchFilm,
+  fetchFilmReviews, fetchPromoFilm,
+  fetchSimilarFilms, login, logout, postFilmReview,
 } from './api-actions';
 import {AuthorizationData} from '../types/authorization-data';
 import {createAPI} from '../services/api';
@@ -25,112 +25,121 @@ describe('async actions', () => {
   const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
 
   it('authorization status is Authorized when server returned 200', async () => {
+    jest.mock('../services/error-message-handle.ts');
     const store = mockStore();
     mockAPI
       .onGet('/login')
       .reply(200, []);
     expect(store.getActions()).toEqual([]);
-    await store.dispatch(checkAuthAction());
+    await store.dispatch(checkAuthorization());
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-      checkAuthAction.pending.type,
-      checkAuthAction.fulfilled.type
+      checkAuthorization.pending.type,
+      checkAuthorization.fulfilled.type
     ]);
   });
 
   it('should dispatch login when POST /login', async () => {
+    jest.mock('../services/error-message-handle.ts');
     const fakeUser: AuthorizationData = { email: 'mail@mail.com', password: 'qwerty123' };
     mockAPI
       .onPost('/login')
       .reply(200, { token: 'secret' });
     const store = mockStore();
-    await store.dispatch(loginAction(fakeUser));
+    await store.dispatch(login(fakeUser));
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-      loginAction.pending.type,
-      loginAction.fulfilled.type
+      login.pending.type,
+      login.fulfilled.type
     ]);
   });
 
   it('should dispatch logout on DELETE /logout', async () => {
+    jest.mock('../services/error-message-handle.ts');
     mockAPI
       .onDelete('/logout')
       .reply(204);
     const store = mockStore();
-    await store.dispatch(logoutAction());
+    await store.dispatch(logout());
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-      logoutAction.pending.type,
-      logoutAction.fulfilled.type
+      logout.pending.type,
+      logout.fulfilled.type
     ]);
   });
 
   it('should dispatch films when GET /films', async () => {
+    jest.mock('../services/error-message-handle.ts');
     mockAPI
       .onGet('/films')
       .reply(200, mockFilms);
     const store = mockStore();
-    await store.dispatch(fetchFilmsAction());
+    await store.dispatch(fetchFilms());
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-      fetchFilmsAction.pending.type,
-      fetchFilmsAction.fulfilled.type
+      fetchFilms.pending.type,
+      fetchFilms.fulfilled.type
     ]);
   });
 
   it('should dispatch promo film when GET /promo', async () => {
+    jest.mock('../services/error-message-handle.ts');
     mockAPI
       .onGet('/promo')
       .reply(200, mockFilm);
     const store = mockStore();
-    await store.dispatch(getPromoFilm());
+    await store.dispatch(fetchPromoFilm());
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-      getPromoFilm.pending.type,
-      getPromoFilm.fulfilled.type
+      fetchPromoFilm.pending.type,
+      fetchPromoFilm.fulfilled.type
     ]);
   });
 
   it('should fetch film film when GET /films/{id}', async () => {
+    jest.mock('../services/error-message-handle.ts');
     mockAPI
       .onGet('/films/1')
       .reply(200, mockFilm);
     const store = mockStore();
-    await store.dispatch(getFilm('1'));
+    await store.dispatch(fetchFilm('1'));
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-      getFilm.pending.type,
-      getFilm.fulfilled.type
+      fetchFilm.pending.type,
+      fetchFilm.fulfilled.type
     ]);
   });
 
   it('should fetch similar films film when GET /films/{id}/similar', async () => {
+    jest.mock('../services/error-message-handle.ts');
     mockAPI
       .onGet('/films/1/similar')
       .reply(200, mockFilms);
     const store = mockStore();
-    await store.dispatch(getSimilarFilms('1'));
+    await store.dispatch(fetchSimilarFilms('1'));
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-      getSimilarFilms.pending.type,
-      getSimilarFilms.fulfilled.type
+      fetchSimilarFilms.pending.type,
+      fetchSimilarFilms.fulfilled.type
     ]);
   });
 
   it('should fetch similar films film when GET /comments/{id}', async () => {
+    jest.mock('../services/error-message-handle.ts');
     mockAPI
       .onGet('/comments/1')
       .reply(200, mockReviews);
     const store = mockStore();
-    await store.dispatch(getFilmReviews('1'));
+    await store.dispatch(fetchFilmReviews('1'));
     const actions = store.getActions().map(({ type }) => type);
     expect(actions).toEqual([
-      getFilmReviews.pending.type,
-      getFilmReviews.fulfilled.type
+      fetchFilmReviews.pending.type,
+      fetchFilmReviews.fulfilled.type
     ]);
   });
 
   it('POST /comments/{id}', async () => {
+    jest.mock('../services/error-message-handle.ts');
     const postData = {
       id: 1,
       comment: 'comment',
@@ -152,6 +161,7 @@ describe('async actions', () => {
   });
 
   it('should fetch favorite films film when GET /favorite', async () => {
+    jest.mock('../services/error-message-handle.ts');
     mockAPI
       .onGet('/favorite')
       .reply(200, mockFilms);
@@ -165,6 +175,7 @@ describe('async actions', () => {
   });
 
   it('POST /favorite/{filmId}/{status}', async () => {
+    jest.mock('../services/error-message-handle.ts');
     const postData = {
       filmId: 1,
       status: 1

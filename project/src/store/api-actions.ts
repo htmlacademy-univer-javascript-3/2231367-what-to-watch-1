@@ -1,13 +1,14 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {State} from '../types/state';
-import {APIRoute} from '../consts';
+import {AppDispatch, State} from '../types/state';
+import {APIRoute, TIMEOUT_SHOW_ERROR} from '../consts';
 import {AuthorizationData} from '../types/authorization-data';
 import {User} from '../types/user';
 import {Film} from '../types/film';
 import {AxiosInstance} from 'axios';
 import {Review} from '../types/review';
+import {setError} from './action';
 
-export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
+export const fetchFilms = createAsyncThunk<Film[], undefined, {
   state: State,
   extra: AxiosInstance;
 }>(
@@ -16,7 +17,7 @@ export const fetchFilmsAction = createAsyncThunk<Film[], undefined, {
     return data;
   });
 
-export const checkAuthAction = createAsyncThunk<User, undefined, {
+export const checkAuthorization = createAsyncThunk<User, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
@@ -25,7 +26,7 @@ export const checkAuthAction = createAsyncThunk<User, undefined, {
     return data;
   });
 
-export const loginAction = createAsyncThunk<User, AuthorizationData, {
+export const login = createAsyncThunk<User, AuthorizationData, {
   state: State,
   extra: AxiosInstance;
 }>(
@@ -34,7 +35,7 @@ export const loginAction = createAsyncThunk<User, AuthorizationData, {
     return data;
   });
 
-export const logoutAction = createAsyncThunk<void, undefined, {
+export const logout = createAsyncThunk<void, undefined, {
   state: State,
   extra: AxiosInstance;
 }>(
@@ -42,40 +43,40 @@ export const logoutAction = createAsyncThunk<void, undefined, {
     await api.delete(APIRoute.Logout);
   });
 
-export const getPromoFilm = createAsyncThunk<Film, undefined, {
+export const fetchPromoFilm = createAsyncThunk<Film, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/getPromoFilm', async (_arg, { extra: api }) => {
+  'data/fetchPromoFilm', async (_arg, { extra: api }) => {
     const { data } = await api.get<Film>(APIRoute.Promo);
     return data;
   });
 
-export const getFilm = createAsyncThunk<Film, string, {
+export const fetchFilm = createAsyncThunk<Film, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/getFilm', async (filmId: string, { extra: api }) => {
+  'data/fetchFilm', async (filmId: string, { extra: api }) => {
     const { data } = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
     return data;
   });
 
-export const getSimilarFilms = createAsyncThunk<Film[], string, {
+export const fetchSimilarFilms = createAsyncThunk<Film[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/getSimilarFilms', async (filmId: string, { extra: api }) => {
+  'data/fetchSimilarFilms', async (filmId: string, { extra: api }) => {
     const { data } = await api.get<Film[]>(
       `${APIRoute.Films}/${filmId}${APIRoute.Similar}`
     );
     return data;
   });
 
-export const getFilmReviews = createAsyncThunk<Review[], string, {
+export const fetchFilmReviews = createAsyncThunk<Review[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/getFilmReviews', async (filmId: string, { extra: api }) => {
+  'data/fetchFilmReviews', async (filmId: string, { extra: api }) => {
     const { data } = await api.get<Review[]>(
       `${APIRoute.Comments}/${filmId}`
     );
@@ -129,3 +130,16 @@ export const changePromoFavoriteStatus = createAsyncThunk<Film, {
     const { data } = await api.post<Film>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
     return data;
   });
+
+export const clearError = createAsyncThunk< void, undefined, {
+  state: State;
+  dipatch: AppDispatch;
+  extra: AxiosInstance
+}>(
+  'clearError',
+  async (_arg, {dispatch}) => {
+    setTimeout(() => {
+      dispatch(setError(null));
+    }, TIMEOUT_SHOW_ERROR);
+  }
+);

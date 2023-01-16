@@ -16,18 +16,19 @@ const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof 
 const mockFilms = films;
 const mockFilm = films[0];
 
-describe('My list page', () => {
+describe('Page: My list page', () => {
   it('should render correctly if not authorized', () => {
+    jest.mock('../../services/error-message-handle.ts');
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
         avatar: null,
       },
-      [ReducerType.FILM]: {
+      [ReducerType.Film]: {
         film: mockFilm,
         similar: mockFilms,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,
@@ -55,17 +56,18 @@ describe('My list page', () => {
   });
 
   it('should render correctly if authorized', () => {
+    jest.mock('../../services/error-message-handle.ts');
     window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.Authorized,
         avatar: null,
       },
-      [ReducerType.FILM]: {
+      [ReducerType.Film]: {
         film: mockFilm,
         similar: mockFilms,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,

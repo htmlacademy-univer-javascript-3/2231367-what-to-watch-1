@@ -28,7 +28,7 @@ function Videoplayer(props: VideoplayerProps): JSX.Element {
     <video
       ref={videoplayerRef}
       src={props.film.videoLink}
-      poster={props.film.posterImage}
+      poster={props.film.previewImage}
       muted={props.muted}
       width={props.width}
       height={props.height}

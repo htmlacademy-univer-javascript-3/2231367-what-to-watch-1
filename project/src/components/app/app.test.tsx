@@ -6,27 +6,29 @@ import {MemoryRouter} from 'react-router-dom';
 import {render, screen} from '@testing-library/react';
 import {configureMockStore} from '@jedmao/redux-mock-store';
 import {films} from '../../mocks/films';
-import {ALL_GENRES, AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
+import {ALL_GENRES, AppRoute, AuthorizationError, AuthorizationStatus, ReducerType} from '../../consts';
 
 const middlewares = [thunk.withExtraArgument(createAPI())];
 const mockStore = configureMockStore(middlewares);
 const mockFilm = films[0];
 const mockFilms = films;
 const store = mockStore({
-  [ReducerType.USER]: {
+  [ReducerType.User]: {
     authorizationStatus: AuthorizationStatus.Authorized,
     avatar: null,
+    authorizationError: AuthorizationError.NoError,
   },
-  [ReducerType.FILM]: {
+  [ReducerType.Film]: {
     film: mockFilm,
     reviews: [],
     similar: [mockFilms[2], mockFilms[3]],
   },
-  [ReducerType.MAIN]: {
+  [ReducerType.Main]: {
     films: mockFilms,
     filteredFilms: [mockFilms[4], mockFilms[5]],
     favoriteFilms: [mockFilms[6], mockFilms[7]],
     favoriteFilmsLength: 0,
+    error: null,
     currentGenre: ALL_GENRES,
     shownCount: 0,
     dataIsLoading: false,
@@ -44,6 +46,7 @@ const fakeApp = (
 
 describe('Component: App', () => {
   it('should render "Main page" if navigate to "/"', () => {
+    jest.mock('../../services/error-message-handle.ts');
     window.HTMLVideoElement.prototype.load = jest.fn();
     render(fakeApp);
     expect(screen.getByText(/Play/i)).toBeInTheDocument();
@@ -51,6 +54,7 @@ describe('Component: App', () => {
   });
 
   it('should render Main page if navigate to "/login" when authorized', () => {
+    jest.mock('../../services/error-message-handle.ts');
     window.HTMLVideoElement.prototype.load = jest.fn();
     routes.push(AppRoute.SignIn);
     render(fakeApp);
@@ -59,6 +63,7 @@ describe('Component: App', () => {
   });
 
   it('should render Film page if navigate to "/films/{id}"', () => {
+    jest.mock('../../services/error-message-handle.ts');
     window.HTMLVideoElement.prototype.load = jest.fn();
     routes.push('/films/1');
     render(fakeApp);
@@ -72,6 +77,7 @@ describe('Component: App', () => {
   });
 
   it('should render Player page if navigate to "/player/{id}"', () => {
+    jest.mock('../../services/error-message-handle.ts');
     window.HTMLVideoElement.prototype.load = jest.fn();
     window.HTMLVideoElement.prototype.pause = jest.fn();
     routes.push('/player/1');
@@ -81,6 +87,7 @@ describe('Component: App', () => {
   });
 
   it('should render Add review page if navigate to "/films/{id}/review"', () => {
+    jest.mock('../../services/error-message-handle.ts');
     window.HTMLVideoElement.prototype.load = jest.fn();
     routes.push('/films/1/review');
     render(fakeApp);
@@ -88,6 +95,7 @@ describe('Component: App', () => {
   });
 
   it('should render My list page if navigate to "/mylist"', () => {
+    jest.mock('../../services/error-message-handle.ts');
     window.HTMLVideoElement.prototype.load = jest.fn();
     routes.push(AppRoute.MyList);
     render(fakeApp);
@@ -95,6 +103,7 @@ describe('Component: App', () => {
   });
 
   it('should render 404 not found page if navigate to not found route', () => {
+    jest.mock('../../services/error-message-handle.ts');
     window.HTMLVideoElement.prototype.load = jest.fn();
     routes.push('/itsnotfoundroute');
     render(fakeApp);

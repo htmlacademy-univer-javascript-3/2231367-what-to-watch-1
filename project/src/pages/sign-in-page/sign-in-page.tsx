@@ -2,25 +2,34 @@ import {ChangeEvent, FormEvent, useState} from 'react';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import {Navigate, useNavigate} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
+import {AppRoute, AuthorizationError, AuthorizationStatus, ReducerType} from '../../consts';
 import {AuthorizationData} from '../../types/authorization-data';
-import {loginAction} from '../../store/api-actions';
+import {login} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
+import {setAuthorizationError} from '../../store/user-reducer/user-reducer';
+import {errorMessageHandle} from '../../services/error-message-handle';
 
 function SignInPage(): JSX.Element {
+  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
+  const authorizationError = useAppSelector((state) => state[ReducerType.User].authorizationError);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const onSubmit = (authData: AuthorizationData) => {
-    dispatch(loginAction(authData));
-    navigate(AppRoute.Main);
+    dispatch(login(authData))
+      .then(() => navigate(AppRoute.Main))
+      .catch((err) => errorMessageHandle(`Something went wrong. ${err.message}`));
   };
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (email !== '' && password !== '' &&
-      (/(?=.*[a-zA-Z])(?=.*[0-9])[0-9a-zA-Z]{2,}/.test(password)) &&
-      (/\S+@\S+\.\S+/.test(email))) {
+    if ((email === '' || !(/\S+@\S+\.\S+/.test(email))) && (password === '' || !(/(?=.*[a-zA-Z])(?=.*[0-9])[0-9a-zA-Z]{2,}/.test(password)))) {
+      dispatch(setAuthorizationError(AuthorizationError.InvalidEmailAndPassword));
+    } else if (email === '' || !(/\S+@\S+\.\S+/.test(email))) {
+      dispatch(setAuthorizationError(AuthorizationError.InvalidEmail));
+    } else if (password === '' || !(/(?=.*[a-zA-Z])(?=.*[0-9])[0-9a-zA-Z]{2,}/.test(password))) {
+      dispatch(setAuthorizationError(AuthorizationError.InvalidPassword));
+    } else {
       onSubmit({ email, password });
     }
   };
@@ -30,9 +39,8 @@ function SignInPage(): JSX.Element {
   const handlePasswordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setPassword(event.target.value);
   };
-  const authorizationStatus = useAppSelector((state) => state[ReducerType.USER].authorizationStatus);
   if (authorizationStatus === AuthorizationStatus.Authorized) {
-    return <Navigate to={'/'} />;
+    return <Navigate to={AppRoute.Main} />;
   }
   return (
     <div className="user-page">
@@ -43,6 +51,9 @@ function SignInPage(): JSX.Element {
       <div className="sign-in user-page__content">
         <form action="#" className="sign-in__form" onSubmit={handleSubmit}>
           <div className="sign-in__fields">
+            <div className="sign-in__message">
+              {authorizationError}
+            </div>
             <div className="sign-in__field">
               <input
                 className="sign-in__input" type="email" placeholder="Email address" name="user-email" id="user-email" value={email} onChange={handleEmailChange}

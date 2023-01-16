@@ -4,20 +4,20 @@ import UserBlock from '../../components/user-block/user-block';
 import {Link, Navigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
 import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
-import {getFilm} from '../../store/api-actions';
+import {fetchFilm} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {setDataIsLoading} from '../../store/action';
 
 function AddReviewPage(): JSX.Element {
   const id = Number(useParams().id);
-  const currentFilm = useAppSelector((state) => state[ReducerType.FILM].film);
+  const currentFilm = useAppSelector((state) => state[ReducerType.Film].film);
+  const authorizationStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(setDataIsLoading(true));
-    dispatch(getFilm(id.toString()));
+    dispatch(fetchFilm(id.toString()));
     dispatch(setDataIsLoading(true));
   }, [id, dispatch]);
-  const authorizationStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
   if (authorizationStatus === AuthorizationStatus.NonAuthorized) {
     return <Navigate to={AppRoute.SignIn} />;
   }

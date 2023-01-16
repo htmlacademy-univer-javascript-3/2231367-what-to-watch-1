@@ -12,6 +12,7 @@ const mockStore = configureMockStore();
 
 describe('Component: GenresCatalog', () => {
   it('should render correctly', () => {
+    jest.mock('../../services/error-message-handle.ts');
     const store = mockStore();
     render(
       <Provider store={store}>

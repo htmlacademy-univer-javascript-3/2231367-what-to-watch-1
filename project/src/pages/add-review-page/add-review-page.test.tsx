@@ -18,19 +18,20 @@ const mockFilms = films;
 const mockFilm = films[0];
 const mockReviews = reviews;
 
-describe('Add review page', () => {
+describe('Page: Add review page', () => {
   it('should render correctly if not authorized', () => {
+    jest.mock('../../services/error-message-handle.ts');
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
         avatar: null,
       },
-      [ReducerType.FILM]: {
+      [ReducerType.Film]: {
         film: mockFilm,
         comments: mockReviews,
         similar: mockFilms,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,
@@ -52,17 +53,18 @@ describe('Add review page', () => {
   });
 
   it('should render correctly if authorized', () => {
+    jest.mock('../../services/error-message-handle.ts');
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.Authorized,
         avatar: null,
       },
-      [ReducerType.FILM]: {
+      [ReducerType.Film]: {
         film: mockFilm,
         comments: mockReviews,
         similar: mockFilms,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,

@@ -9,17 +9,18 @@ import ShowMore from '../../components/show-more/show-more';
 import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Link} from 'react-router-dom';
-import {AppRoute, LIST_STEP_COUNT, ReducerType} from '../../consts';
+import {LIST_STEP_COUNT, ReducerType} from '../../consts';
 import {changePromoFavoriteStatus, fetchFavoriteFilms} from '../../store/api-actions';
 import {setFavoriteFilmsLength} from '../../store/action';
 import {AuthorizationStatus} from '../../consts';
 
 function MainPage(): JSX.Element {
-  const promoFilm = useAppSelector((state) => state[ReducerType.MAIN].promo);
-  const authorizationStatus = useAppSelector((state) => state[ReducerType.USER].authorizationStatus);
-  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.MAIN].favoriteFilmsLength);
-  const currentGenre = useAppSelector((state) => state[ReducerType.MAIN].currentGenre);
-  const films = useAppSelector((state) => state[ReducerType.MAIN].films);
+  const promoFilm = useAppSelector((state) => state[ReducerType.Main].promo);
+  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
+  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.Main].favoriteFilmsLength);
+  const currentGenre = useAppSelector((state) => state[ReducerType.Main].currentGenre);
+  const films = useAppSelector((state) => state[ReducerType.Main].films);
+  const filmsCurrentGenre = useAppSelector((state) => state[ReducerType.Main].filteredFilms);
   const dispatch = useAppDispatch();
   const handleAddFavorite = () => {
     dispatch(changePromoFavoriteStatus({
@@ -37,7 +38,6 @@ function MainPage(): JSX.Element {
       dispatch(fetchFavoriteFilms());
     }
   }, [dispatch, authorizationStatus]);
-  const filmsCurrentGenre = useAppSelector((state) => state[ReducerType.MAIN].filteredFilms);
   const [filmListCount, addFilmListCount] = useState(LIST_STEP_COUNT),
     showMoreClickHandler = () => {
       addFilmListCount(filmListCount + LIST_STEP_COUNT);
@@ -67,25 +67,23 @@ function MainPage(): JSX.Element {
               <div className="film-card__buttons">
                 <Link to={`player/${promoFilm?.id}`} className="btn btn--play film-card__button" type="button">
                   <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
+                    <use xlinkHref="#play-s"/>
                   </svg>
                   <span>Play</span>
                 </Link>
-                <Link to={authorizationStatus === AuthorizationStatus.Authorized ? AppRoute.MyList : AppRoute.SignIn}
-                  type='button' className='btn btn--list film-card__button' onClick={handleAddFavorite}
-                >
+                <button type='button' className='btn btn--list film-card__button' onClick={handleAddFavorite}>
                   {promoFilm?.isFavorite || (authorizationStatus === AuthorizationStatus.NonAuthorized) ? (
                     <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#in-list"></use>
+                      <use xlinkHref="#in-list"/>
                     </svg>
                   ) : (
                     <svg viewBox="0 0 19 20" width="19" height="20">
-                      <use xlinkHref="#add"></use>
+                      <use xlinkHref="#add"/>
                     </svg>
                   )}
                   <span>My list</span>
                   <span className="film-card__count">{authorizationStatus === AuthorizationStatus.Authorized ? favoriteFilmsLength : 0}</span>
-                </Link>
+                </button>
               </div>
             </div>
           </div>

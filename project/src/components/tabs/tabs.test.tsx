@@ -31,7 +31,7 @@ describe('Component: Tabs', () => {
 
   it('should render ReviewsTab correctly', () => {
     const store = mockStore({
-      [ReducerType.FILM]: {
+      [ReducerType.Film]: {
         comments: mockReviews,
       },
     });

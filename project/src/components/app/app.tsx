@@ -12,7 +12,7 @@ import {useAppSelector} from '../../hooks';
 import Spinner from '../spinner/spinner';
 
 function App(): JSX.Element {
-  const isLoading = useAppSelector((state) => state[ReducerType.MAIN].dataIsLoading);
+  const isLoading = useAppSelector((state) => state[ReducerType.Main].dataIsLoading);
   if (isLoading) {
     return <Spinner />;
   }

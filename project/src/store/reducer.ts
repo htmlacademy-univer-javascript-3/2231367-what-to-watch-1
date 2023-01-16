@@ -5,7 +5,7 @@ import { mainReducer } from './main-reducer/main-reducer';
 import {ReducerType} from '../consts';
 
 export const reducer = combineReducers({
-  [ReducerType.FILM]: filmReducer.reducer,
-  [ReducerType.MAIN]: mainReducer.reducer,
-  [ReducerType.USER]: userReducer.reducer
+  [ReducerType.Film]: filmReducer.reducer,
+  [ReducerType.Main]: mainReducer.reducer,
+  [ReducerType.User]: userReducer.reducer
 });

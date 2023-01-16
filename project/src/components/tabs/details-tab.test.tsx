@@ -3,6 +3,7 @@ import {films} from '../../mocks/films';
 import DetailsTab, {getRunTimeInFormat} from './details-tab';
 
 const mockFilm = films[0];
+
 describe('Component: DetailsTab', () => {
   it('should render correctly', () => {
     render(

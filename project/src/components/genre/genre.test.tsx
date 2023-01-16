@@ -23,16 +23,16 @@ const mockReviews = reviews;
 describe('Component: Genre', () => {
   it('should render correctly not current genre', () => {
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
         avatar: null,
       },
-      [ReducerType.FILM]: {
+      [ReducerType.Film]: {
         film: mockFilm,
         comments: mockReviews,
         similar: mockFilms,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,
@@ -52,16 +52,16 @@ describe('Component: Genre', () => {
 
   it('should render correctly current genre', () => {
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
         avatar: null,
       },
-      [ReducerType.FILM]: {
+      [ReducerType.Film]: {
         film: mockFilm,
         comments: mockReviews,
         similar: mockFilms,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,

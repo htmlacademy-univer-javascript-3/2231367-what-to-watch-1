@@ -1,36 +1,43 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { dropToken, saveToken } from '../../services/token';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {dropToken, saveToken} from '../../services/token';
 import {UserState} from '../../types/state';
-import {AuthorizationStatus, ReducerType} from '../../consts';
-import {checkAuthAction, loginAction, logoutAction} from '../api-actions';
+import {AuthorizationError, AuthorizationStatus, ReducerType} from '../../consts';
+import {checkAuthorization, login, logout} from '../api-actions';
 
 const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.NonAuthorized,
   avatar: null,
+  authorizationError: AuthorizationError.NoError,
 };
 
 export const userReducer = createSlice({
-  name: ReducerType.USER,
+  name: ReducerType.User,
   initialState,
-  reducers: {},
+  reducers: {
+    setAuthorizationError: (state, action: PayloadAction<AuthorizationError>) => {
+      state.authorizationError = action.payload;
+    }
+  },
   extraReducers: (builder) => {
     builder
-      .addCase(logoutAction.fulfilled, (state) => {
+      .addCase(logout.fulfilled, (state) => {
         dropToken();
         state.avatar = null;
         state.authorizationStatus = AuthorizationStatus.NonAuthorized;
       })
-      .addCase(loginAction.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state, action) => {
         saveToken(action.payload.token);
         state.avatar = action.payload.avatarUrl;
         state.authorizationStatus = AuthorizationStatus.Authorized;
       })
-      .addCase(checkAuthAction.fulfilled, (state, action) => {
+      .addCase(checkAuthorization.fulfilled, (state, action) => {
         state.avatar = action.payload.avatarUrl;
         state.authorizationStatus = AuthorizationStatus.Authorized;
       })
-      .addCase(checkAuthAction.rejected, (state) => {
+      .addCase(checkAuthorization.rejected, (state) => {
         state.authorizationStatus = AuthorizationStatus.NonAuthorized;
       });
   },
 });
+
+export const {setAuthorizationError} = userReducer.actions;

@@ -10,21 +10,22 @@ import {State} from '../../types/state';
 import {AuthorizationStatus, ReducerType} from '../../consts';
 import MainPage from './main-page';
 
+jest.mock('../../services/error-message-handle.ts');
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
 const mockFilms = films;
 const mockFilm = films[0];
 
-describe('Main page', () => {
+describe('Page: Main page', () => {
   it('should render correctly if not authorized', () => {
     window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
         avatar: null,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,
@@ -47,11 +48,11 @@ describe('Main page', () => {
   it('should render correctly if authorized', () => {
     window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.Authorized,
         avatar: null,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,

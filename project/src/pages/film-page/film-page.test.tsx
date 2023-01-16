@@ -18,20 +18,21 @@ const mockFilms = films;
 const mockFilm = films[0];
 const mockReviews = reviews;
 
-describe('Film page', () => {
+describe('Page: Film page', () => {
   it('should render correctly if not authorized', () => {
+    jest.mock('../../services/error-message-handle.ts');
     window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
         avatar: null,
       },
-      [ReducerType.FILM]: {
+      [ReducerType.Film]: {
         film: mockFilm,
         comments: mockReviews,
         similar: mockFilms,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,
@@ -54,18 +55,19 @@ describe('Film page', () => {
   });
 
   it('should render correctly if authorized', () => {
+    jest.mock('../../services/error-message-handle.ts');
     window.HTMLVideoElement.prototype.load = jest.fn();
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.Authorized,
         avatar: null,
       },
-      [ReducerType.FILM]: {
+      [ReducerType.Film]: {
         film: mockFilm,
         comments: mockReviews,
         similar: mockFilms,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,

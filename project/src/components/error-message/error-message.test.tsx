@@ -1,32 +1,30 @@
 import {configureMockStore} from '@jedmao/redux-mock-store';
-import {render, screen} from '@testing-library/react';
+import {Action, ThunkDispatch} from '@reduxjs/toolkit';
+import {render, screen } from '@testing-library/react';
 import {Provider} from 'react-redux';
-import {MemoryRouter} from 'react-router-dom';
-import AddReviewForm from './add-review-form';
+import thunk from 'redux-thunk';
 import {createAPI} from '../../services/api';
-import thunk, {ThunkDispatch} from 'redux-thunk';
+import ErrorMessage from './error-message';
 import {State} from '../../types/state';
-import {Action} from '@reduxjs/toolkit';
 import {ReducerType} from '../../consts';
 
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
 
-describe('Component: AddReviewForm', () => {
+describe('Component: ErrorMessage', () => {
+  jest.mock('../../services/error-message-handle.ts');
   const store = mockStore({
     [ReducerType.Main]: {
-      error: null,
+      error: 'It is serious error!',
     },
   });
   it('should render correctly', () => {
     render(
       <Provider store={store}>
-        <MemoryRouter>
-          <AddReviewForm />
-        </MemoryRouter>
+        <ErrorMessage />
       </Provider>
     );
-    expect(screen.getByText(/Post/i)).toBeInTheDocument();
+    expect(screen.getByText(/It is serious error!/i)).toBeInTheDocument();
   });
 });

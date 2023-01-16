@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
-import {setFavoriteFilmsLength, setGenre} from '../action';
+import {setError, setFavoriteFilmsLength, setGenre} from '../action';
 import {AppState} from '../../types/state';
 import {getFilmsCurrentGenre} from '../../components/genres-catalog/genres-catalog';
-import {changePromoFavoriteStatus, fetchFavoriteFilms, fetchFilmsAction, getPromoFilm} from '../api-actions';
+import {changePromoFavoriteStatus, fetchFavoriteFilms, fetchFilms, fetchPromoFilm} from '../api-actions';
 import {ALL_GENRES, ReducerType} from '../../consts';
 
 const initialState: AppState = {
   films: [],
   filteredFilms: [],
   favoriteFilms: [],
+  error: null,
   favoriteFilmsLength: 0,
   currentGenre: ALL_GENRES,
   dataIsLoading: false,
@@ -16,7 +17,7 @@ const initialState: AppState = {
 };
 
 export const mainReducer = createSlice({
-  name: ReducerType.MAIN,
+  name: ReducerType.Main,
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -25,18 +26,18 @@ export const mainReducer = createSlice({
         state.currentGenre = action.payload.genre;
         state.filteredFilms = getFilmsCurrentGenre(state.films, state.currentGenre);
       })
-      .addCase(fetchFilmsAction.pending, (state) => {
+      .addCase(fetchFilms.pending, (state) => {
         state.dataIsLoading = true;
       })
-      .addCase(fetchFilmsAction.fulfilled, (state, action) => {
+      .addCase(fetchFilms.fulfilled, (state, action) => {
         state.films = action.payload;
         state.filteredFilms = state.films;
         state.dataIsLoading = false;
       })
-      .addCase(fetchFilmsAction.rejected, (state) => {
+      .addCase(fetchFilms.rejected, (state) => {
         state.dataIsLoading = false;
       })
-      .addCase(getPromoFilm.fulfilled, (state, action) => {
+      .addCase(fetchPromoFilm.fulfilled, (state, action) => {
         state.promo = action.payload;
       })
       .addCase(fetchFavoriteFilms.fulfilled, (state, action) => {
@@ -49,6 +50,9 @@ export const mainReducer = createSlice({
       })
       .addCase(setFavoriteFilmsLength, (state, action) => {
         state.favoriteFilmsLength = action.payload;
+      })
+      .addCase(setError, (state, action) => {
+        state.error = action.payload;
       });
   },
 });

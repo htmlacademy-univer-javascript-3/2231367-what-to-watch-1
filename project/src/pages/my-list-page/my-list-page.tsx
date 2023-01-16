@@ -8,9 +8,9 @@ import {fetchFavoriteFilms} from '../../store/api-actions';
 import FilmCard from '../../components/film-card/film-card';
 
 function MyListPage(): JSX.Element {
-  const favoriteFilms = useAppSelector((state) => state[ReducerType.MAIN].favoriteFilms);
+  const favoriteFilms = useAppSelector((state) => state[ReducerType.Main].favoriteFilms);
   const authorizationStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
-  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.MAIN].favoriteFilmsLength);
+  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.Main].favoriteFilmsLength);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Authorized) {

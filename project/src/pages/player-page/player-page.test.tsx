@@ -17,19 +17,19 @@ const mockFilms = films;
 const mockFilm = films[0];
 
 const store = mockStore({
-  [ReducerType.USER]: {
+  [ReducerType.User]: {
     authorizationStatus: AuthorizationStatus.NonAuthorized,
     avatar: null,
   },
-  [ReducerType.MAIN]: {
+  [ReducerType.Main]: {
     favoriteFilms: mockFilms,
   },
-  [ReducerType.FILM]: {
+  [ReducerType.Film]: {
     film: mockFilm,
   }
 });
 
-describe('Player page', () => {
+describe('Page: Player page', () => {
   beforeAll(() => {
     window.HTMLVideoElement.prototype.play = jest.fn();
     window.HTMLVideoElement.prototype.load = jest.fn();
@@ -37,6 +37,7 @@ describe('Player page', () => {
   });
 
   it('should render correctly', () => {
+    jest.mock('../../services/error-message-handle.ts');
     render(
       <Provider store={store}>
         <MemoryRouter>
@@ -49,6 +50,7 @@ describe('Player page', () => {
   });
 
   it('should play and stop when button clicked', async () => {
+    jest.mock('../../services/error-message-handle.ts');
     render(
       <Provider store={store}>
         <MemoryRouter>

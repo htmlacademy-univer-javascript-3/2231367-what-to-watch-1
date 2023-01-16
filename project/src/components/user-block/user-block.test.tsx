@@ -21,16 +21,16 @@ const mockReviews = reviews;
 describe('Component: UserBlock', () => {
   it('should render correctly if not authorized', () => {
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.NonAuthorized,
         avatar: null,
       },
-      [ReducerType.FILM]: {
+      [ReducerType.Film]: {
         film: mockFilm,
         comments: mockReviews,
         similar: mockFilms,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,
@@ -56,15 +56,15 @@ describe('Component: UserBlock', () => {
 
   it('should render correctly if authorized', () => {
     const store = mockStore({
-      [ReducerType.USER]: {
+      [ReducerType.User]: {
         authorizationStatus: AuthorizationStatus.Authorized,
         avatar: null,
       },
-      [ReducerType.FILM]: {
+      [ReducerType.Film]: {
         film: mockFilm,
         similar: mockFilms,
       },
-      [ReducerType.MAIN]: {
+      [ReducerType.Main]: {
         films: mockFilms,
         filteredFilms: mockFilms,
         promo: mockFilm,

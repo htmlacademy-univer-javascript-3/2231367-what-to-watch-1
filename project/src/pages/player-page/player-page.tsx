@@ -1,7 +1,7 @@
 import {Link, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {Fragment, useCallback, useEffect, useRef, useState} from 'react';
-import {getFilm} from '../../store/api-actions';
+import {fetchFilm} from '../../store/api-actions';
 
 function PlayerPage(): JSX.Element {
   const id = Number(useParams().id);
@@ -40,7 +40,7 @@ function PlayerPage(): JSX.Element {
     }
   }, [isPlaying]);
   useEffect(() => {
-    dispatch(getFilm(id.toString()));
+    dispatch(fetchFilm(id.toString()));
   }, [id, dispatch]);
   const getTimeLeft = () => {
     const bringTimeToFormat = (time: number) => time > 9 ? time : `0${time}`;
@@ -52,12 +52,12 @@ function PlayerPage(): JSX.Element {
   };
   return (
     <div className="player">
-      <video src={currentFilm?.videoLink} className="player__video" poster={currentFilm?.backgroundImage} ref={playerRef} onTimeUpdate={() => handleProgressBar()}></video>
+      <video src={currentFilm?.videoLink} className="player__video" poster={currentFilm?.backgroundImage} ref={playerRef} onTimeUpdate={() => handleProgressBar()}/>
       <Link to={`/films/${currentFilm?.id}`} type="button" className="player__exit">Exit</Link>
       <div className="player__controls">
         <div className="player__controls-row">
           <div className="player__time">
-            <progress className="player__progress" value={progress} max="100"></progress>
+            <progress className="player__progress" value={progress} max="100"/>
             <div className="player__toggler" style={{left: `${progress}%`}}>Toggler</div>
           </div>
           <div className="player__time-value">{getTimeLeft()}</div>
@@ -67,14 +67,14 @@ function PlayerPage(): JSX.Element {
             {isPlaying ? (
               <Fragment>
                 <svg viewBox="0 0 14 21" width="14" height="21">
-                  <use xlinkHref="#pause"></use>
+                  <use xlinkHref="#pause"/>
                 </svg>
                 <span>Pause</span>
               </Fragment>
             ) : (
               <Fragment>
                 <svg viewBox="0 0 19 19" width="19" height="19">
-                  <use xlinkHref="#play-s"></use>
+                  <use xlinkHref="#play-s"/>
                 </svg>
                 <span>Play</span>
               </Fragment>
@@ -83,7 +83,7 @@ function PlayerPage(): JSX.Element {
           <div className="player__name">Transpotting</div>
           <button type="button" className="player__full-screen" onClick={handleFullScreen}>
             <svg viewBox="0 0 27 27" width="27" height="27">
-              <use xlinkHref="#full-screen"></use>
+              <use xlinkHref="#full-screen"/>
             </svg>
             <span>Full screen</span>
           </button>

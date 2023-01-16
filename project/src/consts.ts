@@ -38,10 +38,19 @@ export enum Tab {
 }
 
 export enum ReducerType {
-  USER = 'userReducer',
-  MAIN = 'mainReducer',
-  FILM = 'filmReducer'
+  User = 'userReducer',
+  Main = 'mainReducer',
+  Film = 'filmReducer'
 }
+
+export enum AuthorizationError {
+  InvalidEmailAndPassword = 'Please, enter correct email and password',
+  InvalidEmail = 'Please, enter correct email',
+  InvalidPassword = 'Please, enter correct password',
+  NoError = ''
+}
+
+export const TIMEOUT_SHOW_ERROR = 2000;
 
 export const ALL_GENRES = 'All genres';
 

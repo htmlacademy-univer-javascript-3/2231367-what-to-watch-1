@@ -7,26 +7,26 @@ import thunk from 'redux-thunk';
 import {films} from '../../mocks/films';
 import {createAPI} from '../../services/api';
 import {State} from '../../types/state';
-import {AuthorizationStatus, ReducerType} from '../../consts';
+import {AuthorizationError, AuthorizationStatus, ReducerType} from '../../consts';
 import SignInPage from './sign-in-page';
 
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
 const mockStore = configureMockStore<State, Action, ThunkDispatch<State, typeof api, Action>>(middlewares);
-const mockFilms = films;
-
 const store = mockStore({
-  [ReducerType.USER]: {
+  [ReducerType.User]: {
     authorizationStatus: AuthorizationStatus.NonAuthorized,
     avatar: null,
+    authorizationError: AuthorizationError.NoError,
   },
-  [ReducerType.MAIN]: {
-    favoriteFilms: mockFilms,
+  [ReducerType.Main]: {
+    favoriteFilms: films,
   }
 });
 
-describe('Sign in page', () => {
+describe('Page: Sign in page', () => {
   it('should render correctly', () => {
+    jest.mock('../../services/error-message-handle.ts');
     render(
       <Provider store={store}>
         <MemoryRouter>
