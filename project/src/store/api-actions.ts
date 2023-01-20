@@ -12,75 +12,107 @@ export const fetchFilms = createAsyncThunk<Film[], undefined, {
   state: State,
   extra: AxiosInstance;
 }>(
-  'data/fetchFilms', async (_arg, { extra: api }) => {
-    const {data} = await api.get<Film[]>('/films');
-    return data;
+  'data/fetchFilms', async (_arg, { extra: api, rejectWithValue }) => {
+    try {
+      const {data} = await api.get<Film[]>('/films');
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const checkAuthorization = createAsyncThunk<User, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/checkAuthorization', async (_arg, { extra: api }) => {
-    const {data} = await api.get(APIRoute.Login);
-    return data;
+  'user/checkAuthorization', async (_arg, { extra: api, rejectWithValue }) => {
+    try {
+      const {data} = await api.get(APIRoute.Login);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const login = createAsyncThunk<User, AuthorizationData, {
   state: State,
   extra: AxiosInstance;
 }>(
-  'user/login', async ({email, password}, { extra: api }) => {
-    const { data} = await api.post<User>(APIRoute.Login, {email, password});
-    return data;
+  'user/login', async ({email, password}, { extra: api, rejectWithValue }) => {
+    try {
+      const {data} = await api.post<User>(APIRoute.Login, {email, password});
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const logout = createAsyncThunk<void, undefined, {
   state: State,
   extra: AxiosInstance;
 }>(
-  'user/logout', async (_arg, { extra: api }) => {
-    await api.delete(APIRoute.Logout);
+  'user/logout', async (_arg, { extra: api, rejectWithValue }) => {
+    try {
+      await api.delete(APIRoute.Logout);
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const fetchPromoFilm = createAsyncThunk<Film, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchPromoFilm', async (_arg, { extra: api }) => {
-    const { data } = await api.get<Film>(APIRoute.Promo);
-    return data;
+  'data/fetchPromoFilm', async (_arg, { extra: api, rejectWithValue }) => {
+    try {
+      const {data} = await api.get<Film>(APIRoute.Promo);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const fetchFilm = createAsyncThunk<Film, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchFilm', async (filmId: string, { extra: api }) => {
-    const { data } = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
-    return data;
+  'data/fetchFilm', async (filmId: string, { extra: api, rejectWithValue }) => {
+    try {
+      const {data} = await api.get<Film>(`${APIRoute.Films}/${filmId}`);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const fetchSimilarFilms = createAsyncThunk<Film[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchSimilarFilms', async (filmId: string, { extra: api }) => {
-    const { data } = await api.get<Film[]>(
-      `${APIRoute.Films}/${filmId}${APIRoute.Similar}`
-    );
-    return data;
+  'data/fetchSimilarFilms', async (filmId: string, { extra: api, rejectWithValue }) => {
+    try {
+      const {data} = await api.get<Film[]>(
+        `${APIRoute.Films}/${filmId}${APIRoute.Similar}`
+      );
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const fetchFilmReviews = createAsyncThunk<Review[], string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchFilmReviews', async (filmId: string, { extra: api }) => {
-    const { data } = await api.get<Review[]>(
-      `${APIRoute.Comments}/${filmId}`
-    );
-    return data;
+  'data/fetchFilmReviews', async (filmId: string, { extra: api, rejectWithValue }) => {
+    try {
+      const {data} = await api.get<Review[]>(
+        `${APIRoute.Comments}/${filmId}`
+      );
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const postFilmReview = createAsyncThunk<void, {
@@ -94,17 +126,25 @@ export const postFilmReview = createAsyncThunk<void, {
 }
 >(
   'data/postFilmReview',
-  async ({ id, comment, rating }, { extra: api }) => {
-    await api.post<Review[]>(`${APIRoute.Comments}/${id}`, {comment, rating});
+  async ({ id, comment, rating }, { extra: api, rejectWithValue }) => {
+    try {
+      await api.post<Review[]>(`${APIRoute.Comments}/${id}`, {comment, rating});
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const fetchFavoriteFilms = createAsyncThunk<Film[], undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/fetchFavoriteFilms', async (_arg, { extra: api }) => {
-    const { data } = await api.get<Film[]>(APIRoute.Favorite);
-    return data;
+  'data/fetchFavoriteFilms', async (_arg, { extra: api, rejectWithValue }) => {
+    try {
+      const {data} = await api.get<Film[]>(APIRoute.Favorite);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const changeFilmFavoriteStatus = createAsyncThunk<Film, {
@@ -114,9 +154,13 @@ export const changeFilmFavoriteStatus = createAsyncThunk<Film, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/changeFilmFavoriteStatus', async ({ filmId: id, status: isFavorite }, { extra: api }) => {
-    const { data } = await api.post<Film>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
-    return data;
+  'data/changeFilmFavoriteStatus', async ({ filmId: id, status: isFavorite }, { extra: api, rejectWithValue }) => {
+    try {
+      const {data} = await api.post<Film>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const changePromoFavoriteStatus = createAsyncThunk<Film, {
@@ -126,9 +170,13 @@ export const changePromoFavoriteStatus = createAsyncThunk<Film, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'data/changePromoFavoriteStatus', async ({ filmId: id, status: isFavorite }, { extra: api }) => {
-    const { data } = await api.post<Film>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
-    return data;
+  'data/changePromoFavoriteStatus', async ({ filmId: id, status: isFavorite }, { extra: api, rejectWithValue }) => {
+    try {
+      const {data} = await api.post<Film>(`${APIRoute.Favorite}/${id}/${isFavorite}`);
+      return data;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   });
 
 export const clearError = createAsyncThunk< void, undefined, {
@@ -136,10 +184,14 @@ export const clearError = createAsyncThunk< void, undefined, {
   dipatch: AppDispatch;
   extra: AxiosInstance
 }>(
-  'clearError',
-  async (_arg, {dispatch}) => {
-    setTimeout(() => {
-      dispatch(setError(null));
-    }, TIMEOUT_SHOW_ERROR);
+  'error/clearError',
+  async (_arg, {dispatch, rejectWithValue}) => {
+    try {
+      setTimeout(() => {
+        dispatch(setError(null));
+      }, TIMEOUT_SHOW_ERROR);
+    } catch (e) {
+      return rejectWithValue(e);
+    }
   }
 );

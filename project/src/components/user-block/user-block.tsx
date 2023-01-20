@@ -1,12 +1,13 @@
 import {Fragment, SyntheticEvent} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
+import {AppRoute, AuthorizationStatus} from '../../consts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {logout} from '../../store/api-actions';
+import {getAuthorizationStatus, getAvatar} from '../../store/user-reducer/selector';
 
 function UserBlock(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
-  const userAvatar = useAppSelector((state) => state[ReducerType.User].avatar);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const userAvatar = useAppSelector(getAvatar);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const handleSignOut = (event: SyntheticEvent) => {

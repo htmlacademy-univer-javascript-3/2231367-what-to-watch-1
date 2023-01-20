@@ -3,15 +3,17 @@ import AddReviewForm from '../../components/add-review-form/add-review-form';
 import UserBlock from '../../components/user-block/user-block';
 import {Link, Navigate, useParams} from 'react-router-dom';
 import {useEffect} from 'react';
-import {AppRoute, AuthorizationStatus, ReducerType} from '../../consts';
+import {AppRoute, AuthorizationStatus} from '../../consts';
 import {fetchFilm} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {setDataIsLoading} from '../../store/action';
+import {getFilm} from '../../store/film-reducer/selector';
+import {getAuthorizationStatus} from '../../store/user-reducer/selector';
 
 function AddReviewPage(): JSX.Element {
   const id = Number(useParams().id);
-  const currentFilm = useAppSelector((state) => state[ReducerType.Film].film);
-  const authorizationStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
+  const currentFilm = useAppSelector(getFilm);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(setDataIsLoading(true));

@@ -52,6 +52,8 @@ describe('Page: Film page', () => {
     expect(screen.getByText(/Reviews/i)).toBeInTheDocument();
     expect(screen.getByText(/My List/i)).toBeInTheDocument();
     expect(screen.queryByText(/Add Review/i)).not.toBeInTheDocument();
+    const cardsLength = screen.getAllByTestId('film-card').length;
+    expect(cardsLength <= 4).toBeTruthy();
   });
 
   it('should render correctly if authorized', () => {

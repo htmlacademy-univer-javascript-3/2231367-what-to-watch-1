@@ -244,6 +244,126 @@ export const films: Film[] = [
     previewVideoLink:
       'https://10.react.pages.academy/static/film/video/traffic.mp4',
   },
+  {
+    name: 'Moonrise Kingdom 2',
+    posterImage:
+      'https://10.react.pages.academy/static/film/poster/Moonrise_Kingdom.jpg',
+    previewImage:
+      'https://10.react.pages.academy/static/film/preview/moonrise-kingdom.jpg',
+    backgroundImage:
+      'https://10.react.pages.academy/static/film/background/Moonrise_Kingdom.jpg',
+    backgroundColor: '#D8E3E5',
+    description:
+      'A pair of young lovers flee their New England town, which causes a local search party to fan out to find them.',
+    rating: 7.9,
+    scoresCount: 291183,
+    director: 'Wes Anderson',
+    starring: ['Jared Gilman', 'Kara Hayward', 'Bruce Willis'],
+    runTime: 94,
+    genre: 'Adventure',
+    released: 2012,
+    id: 17,
+    isFavorite: false,
+    videoLink: 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
+    previewVideoLink:
+      'https://10.react.pages.academy/static/film/video/dog.mp4',
+  },
+  {
+    name: 'Moonrise Kingdom 3',
+    posterImage:
+      'https://10.react.pages.academy/static/film/poster/Moonrise_Kingdom.jpg',
+    previewImage:
+      'https://10.react.pages.academy/static/film/preview/moonrise-kingdom.jpg',
+    backgroundImage:
+      'https://10.react.pages.academy/static/film/background/Moonrise_Kingdom.jpg',
+    backgroundColor: '#D8E3E5',
+    description:
+      'A pair of young lovers flee their New England town, which causes a local search party to fan out to find them.',
+    rating: 7.9,
+    scoresCount: 291183,
+    director: 'Wes Anderson',
+    starring: ['Jared Gilman', 'Kara Hayward', 'Bruce Willis'],
+    runTime: 94,
+    genre: 'Adventure',
+    released: 2012,
+    id: 18,
+    isFavorite: false,
+    videoLink: 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
+    previewVideoLink:
+      'https://10.react.pages.academy/static/film/video/dog.mp4',
+  },
+  {
+    name: 'Moonrise Kingdom 4',
+    posterImage:
+      'https://10.react.pages.academy/static/film/poster/Moonrise_Kingdom.jpg',
+    previewImage:
+      'https://10.react.pages.academy/static/film/preview/moonrise-kingdom.jpg',
+    backgroundImage:
+      'https://10.react.pages.academy/static/film/background/Moonrise_Kingdom.jpg',
+    backgroundColor: '#D8E3E5',
+    description:
+      'A pair of young lovers flee their New England town, which causes a local search party to fan out to find them.',
+    rating: 7.9,
+    scoresCount: 291183,
+    director: 'Wes Anderson',
+    starring: ['Jared Gilman', 'Kara Hayward', 'Bruce Willis'],
+    runTime: 94,
+    genre: 'Adventure',
+    released: 2012,
+    id: 19,
+    isFavorite: false,
+    videoLink: 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
+    previewVideoLink:
+      'https://10.react.pages.academy/static/film/video/dog.mp4',
+  },
+  {
+    name: 'Moonrise Kingdom 5',
+    posterImage:
+      'https://10.react.pages.academy/static/film/poster/Moonrise_Kingdom.jpg',
+    previewImage:
+      'https://10.react.pages.academy/static/film/preview/moonrise-kingdom.jpg',
+    backgroundImage:
+      'https://10.react.pages.academy/static/film/background/Moonrise_Kingdom.jpg',
+    backgroundColor: '#D8E3E5',
+    description:
+      'A pair of young lovers flee their New England town, which causes a local search party to fan out to find them.',
+    rating: 7.9,
+    scoresCount: 291183,
+    director: 'Wes Anderson',
+    starring: ['Jared Gilman', 'Kara Hayward', 'Bruce Willis'],
+    runTime: 94,
+    genre: 'Adventure',
+    released: 2012,
+    id: 20,
+    isFavorite: false,
+    videoLink: 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
+    previewVideoLink:
+      'https://10.react.pages.academy/static/film/video/dog.mp4',
+  },
+  {
+    name: 'Moonrise Kingdom 6',
+    posterImage:
+      'https://10.react.pages.academy/static/film/poster/Moonrise_Kingdom.jpg',
+    previewImage:
+      'https://10.react.pages.academy/static/film/preview/moonrise-kingdom.jpg',
+    backgroundImage:
+      'https://10.react.pages.academy/static/film/background/Moonrise_Kingdom.jpg',
+    backgroundColor: '#D8E3E5',
+    description:
+      'A pair of young lovers flee their New England town, which causes a local search party to fan out to find them.',
+    rating: 7.9,
+    scoresCount: 291183,
+    director: 'Wes Anderson',
+    starring: ['Jared Gilman', 'Kara Hayward', 'Bruce Willis'],
+    runTime: 94,
+    genre: 'Adventure',
+    released: 2012,
+    id: 21,
+    isFavorite: false,
+    videoLink: 'https://10.react.pages.academy/static/film/video/bubbles.mp4',
+    previewVideoLink:
+      'https://10.react.pages.academy/static/film/video/dog.mp4',
+  },
 ];
 
 export const filmId1: Film = {
