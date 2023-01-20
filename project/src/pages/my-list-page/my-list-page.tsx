@@ -2,15 +2,17 @@ import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {AuthorizationStatus, ReducerType} from '../../consts';
+import {AuthorizationStatus} from '../../consts';
 import {useEffect} from 'react';
 import {fetchFavoriteFilms} from '../../store/api-actions';
 import FilmCard from '../../components/film-card/film-card';
+import {getFavoriteFilms, getFavoriteFilmsLength} from '../../store/main-reducer/selector';
+import {getAuthorizationStatus} from '../../store/user-reducer/selector';
 
 function MyListPage(): JSX.Element {
-  const favoriteFilms = useAppSelector((state) => state[ReducerType.Main].favoriteFilms);
-  const authorizationStatus = useAppSelector((state) => state.userReducer.authorizationStatus);
-  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.Main].favoriteFilmsLength);
+  const favoriteFilms = useAppSelector(getFavoriteFilms);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const favoriteFilmsLength = useAppSelector(getFavoriteFilmsLength);
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (authorizationStatus === AuthorizationStatus.Authorized) {

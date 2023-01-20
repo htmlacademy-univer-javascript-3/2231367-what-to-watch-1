@@ -1,27 +1,33 @@
 import {Fragment, useEffect, useState} from 'react';
 import Logo from '../../components/logo/logo';
-import GenresCatalog, {
-  getAllExistingGenres,
-} from '../../components/genres-catalog/genres-catalog';
+import GenresCatalog, {getAllExistingGenres,} from '../../components/genres-catalog/genres-catalog';
 import FilmList from '../../components/film-list/film-list';
 import Footer from '../../components/footer/footer';
 import ShowMore from '../../components/show-more/show-more';
 import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {Link} from 'react-router-dom';
-import {LIST_STEP_COUNT, ReducerType} from '../../consts';
+import {Link, useNavigate} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus, LIST_STEP_COUNT} from '../../consts';
 import {changePromoFavoriteStatus, fetchFavoriteFilms} from '../../store/api-actions';
 import {setFavoriteFilmsLength} from '../../store/action';
-import {AuthorizationStatus} from '../../consts';
+import {
+  getCurrentGenre,
+  getFavoriteFilmsLength,
+  getFilms,
+  getFilteredFilms,
+  getPromoFilm
+} from '../../store/main-reducer/selector';
+import {getAuthorizationStatus} from '../../store/user-reducer/selector';
 
 function MainPage(): JSX.Element {
-  const promoFilm = useAppSelector((state) => state[ReducerType.Main].promo);
-  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
-  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.Main].favoriteFilmsLength);
-  const currentGenre = useAppSelector((state) => state[ReducerType.Main].currentGenre);
-  const films = useAppSelector((state) => state[ReducerType.Main].films);
-  const filmsCurrentGenre = useAppSelector((state) => state[ReducerType.Main].filteredFilms);
+  const promoFilm = useAppSelector(getPromoFilm);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const favoriteFilmsLength = useAppSelector(getFavoriteFilmsLength);
+  const currentGenre = useAppSelector(getCurrentGenre);
+  const films = useAppSelector(getFilms);
+  const filmsCurrentGenre = useAppSelector(getFilteredFilms);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const handleAddFavorite = () => {
     dispatch(changePromoFavoriteStatus({
       filmId: promoFilm?.id || NaN,
@@ -71,7 +77,12 @@ function MainPage(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <button type='button' className='btn btn--list film-card__button' onClick={handleAddFavorite}>
+                <button type='button' className='btn btn--list film-card__button' onClick={
+                  authorizationStatus === AuthorizationStatus.Authorized ?
+                    handleAddFavorite :
+                    () => navigate(AppRoute.SignIn)
+                }
+                >
                   {promoFilm?.isFavorite || (authorizationStatus === AuthorizationStatus.NonAuthorized) ? (
                     <svg viewBox="0 0 19 20" width="19" height="20">
                       <use xlinkHref="#in-list"/>

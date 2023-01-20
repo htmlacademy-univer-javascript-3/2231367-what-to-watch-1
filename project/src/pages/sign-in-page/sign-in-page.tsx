@@ -2,22 +2,26 @@ import {ChangeEvent, FormEvent, useState} from 'react';
 import Logo from '../../components/logo/logo';
 import Footer from '../../components/footer/footer';
 import {Navigate, useNavigate} from 'react-router-dom';
-import {AppRoute, AuthorizationError, AuthorizationStatus, ReducerType} from '../../consts';
+import {AppRoute, AuthorizationError, AuthorizationStatus} from '../../consts';
 import {AuthorizationData} from '../../types/authorization-data';
 import {login} from '../../store/api-actions';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {setAuthorizationError} from '../../store/user-reducer/user-reducer';
 import {errorMessageHandle} from '../../services/error-message-handle';
+import ErrorMessage from '../../components/error-message/error-message';
+import {unwrapResult} from '@reduxjs/toolkit';
+import {getAuthorizationError, getAuthorizationStatus} from '../../store/user-reducer/selector';
 
 function SignInPage(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
-  const authorizationError = useAppSelector((state) => state[ReducerType.User].authorizationError);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const authorizationError = useAppSelector(getAuthorizationError);
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const onSubmit = (authData: AuthorizationData) => {
     dispatch(login(authData))
+      .then(unwrapResult)
       .then(() => navigate(AppRoute.Main))
       .catch((err) => errorMessageHandle(`Something went wrong. ${err.message}`));
   };
@@ -73,6 +77,7 @@ function SignInPage(): JSX.Element {
           </div>
         </form>
       </div>
+      <ErrorMessage />
       <Footer />
     </div>
   );

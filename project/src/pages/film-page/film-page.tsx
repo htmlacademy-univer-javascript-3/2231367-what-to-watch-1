@@ -2,12 +2,12 @@ import {Fragment, useEffect} from 'react';
 import Footer from '../../components/footer/footer';
 import Logo from '../../components/logo/logo';
 import FilmList from '../../components/film-list/film-list';
-import {Link, useParams} from 'react-router-dom';
+import {Link, useNavigate, useParams} from 'react-router-dom';
 import NotFoundPage from '../not-found-page/not-found-page';
 import Tabs from '../../components/tabs/tabs';
 import UserBlock from '../../components/user-block/user-block';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {AuthorizationStatus, ReducerType} from '../../consts';
+import {AppRoute, AuthorizationStatus} from '../../consts';
 import {
   changeFilmFavoriteStatus,
   fetchFavoriteFilms,
@@ -16,14 +16,18 @@ import {
   fetchSimilarFilms
 } from '../../store/api-actions';
 import {setFavoriteFilmsLength} from '../../store/action';
+import {getAuthorizationStatus} from '../../store/user-reducer/selector';
+import {getFavoriteFilmsLength} from '../../store/main-reducer/selector';
+import {getFilm, getSimilarFilms} from '../../store/film-reducer/selector';
 
 function FilmPage(): JSX.Element {
   const currentFilmId = Number(useParams().id);
-  const currentFilm = useAppSelector((state) => state[ReducerType.Film].film);
-  const similarFilms = useAppSelector((state) => state[ReducerType.Film].similar);
-  const authorizationStatus = useAppSelector((state) => state[ReducerType.User].authorizationStatus);
-  const favoriteFilmsLength = useAppSelector((state) => state[ReducerType.Main].favoriteFilmsLength);
+  const currentFilm = useAppSelector(getFilm);
+  const similarFilms = useAppSelector(getSimilarFilms);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const favoriteFilmsLength = useAppSelector(getFavoriteFilmsLength);
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(fetchFilm(currentFilmId.toString()));
     dispatch(fetchSimilarFilms(currentFilmId.toString()));
@@ -74,7 +78,12 @@ function FilmPage(): JSX.Element {
                   </svg>
                   <span>Play</span>
                 </Link>
-                <button type='button' className='btn btn--list film-card__button' onClick={handleAddFavorite}>
+                <button type='button' className='btn btn--list film-card__button' onClick={
+                  authorizationStatus === AuthorizationStatus.Authorized ?
+                    handleAddFavorite :
+                    () => navigate(AppRoute.SignIn)
+                }
+                >
                   {currentFilm?.isFavorite && (authorizationStatus === AuthorizationStatus.Authorized) ? (
                     <svg viewBox="0 0 19 20" width="19" height="20">
                       <use xlinkHref="#in-list"/>
@@ -109,7 +118,7 @@ function FilmPage(): JSX.Element {
       <div className="page-content">
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
-          <FilmList filmList={similarFilms} currentFilm={currentFilm}/>
+          <FilmList filmList={similarFilms.slice(0, 4)} currentFilm={currentFilm}/>
         </section>
         <Footer/>
       </div>

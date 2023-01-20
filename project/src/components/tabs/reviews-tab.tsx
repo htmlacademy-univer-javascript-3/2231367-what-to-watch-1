@@ -1,8 +1,8 @@
 import {useAppSelector} from '../../hooks';
-import {ReducerType} from '../../consts';
+import {getReviews} from '../../store/film-reducer/selector';
 
 function ReviewsTab(): JSX.Element {
-  const reviews = useAppSelector((state) => state[ReducerType.Film].comments);
+  const reviews = useAppSelector(getReviews);
   return (
     <div className="film-card__reviews film-card__row">
       <div className="film-card__reviews-col">
@@ -21,7 +21,7 @@ function ReviewsTab(): JSX.Element {
                 </time>
               </footer>
             </blockquote>
-            <div className="review__rating">{review.rating}</div>
+            <div className="review__rating">{review.rating.toFixed(1)}</div>
           </div>))}
       </div>
     </div>

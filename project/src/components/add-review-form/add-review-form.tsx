@@ -1,24 +1,29 @@
 import {useNavigate, useParams} from 'react-router-dom';
 import {ChangeEvent, FormEvent, useState} from 'react';
 import {postFilmReview} from '../../store/api-actions';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {ReducerType} from '../../consts';
+import {useAppDispatch} from '../../hooks';
 import {setError} from '../../store/action';
+import {unwrapResult} from '@reduxjs/toolkit';
+import ErrorMessage from '../error-message/error-message';
 
 function AddReviewForm() {
   const id = Number(useParams().id).toString();
-  const error = useAppSelector((state) => state[ReducerType.Main].error);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [starRating, setStarRating] = useState('-1');
   const [reviewContent, setReviewContent] = useState('');
+  const [isDisabled, setIsDisabled] = useState(false);
   const handleReviewSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    setIsDisabled(true);
     dispatch(postFilmReview({id: Number(id), comment: reviewContent, rating: Number(starRating)}))
+      .then(unwrapResult)
       .then(() => {
+        setIsDisabled(false);
         navigate(`/films/${id}`);
       })
       .catch((err) => {
+        setIsDisabled(false);
         dispatch(setError(`Can't post a form: ${err.message}`));
       });
   };
@@ -27,7 +32,7 @@ function AddReviewForm() {
 
   return (
     <form action="#" className="add-review__form" onSubmit={handleReviewSubmit}>
-      <div className="rating">
+      <div className="rating" aria-disabled={isDisabled}>
         <div className="rating__stars">
           <input className="rating__input" id="star-10" type="radio" name="rating" value="10"
             onChange={(evt: ChangeEvent<HTMLInputElement>) => {
@@ -101,7 +106,7 @@ function AddReviewForm() {
           <label className="rating__label" htmlFor="star-1">Rating 1</label>
         </div>
       </div>
-      <div className="add-review__text">
+      <div className="add-review__text" aria-disabled={isDisabled}>
         <textarea className="add-review__textarea" name="review-text" id="review-text" placeholder="Review text"
           value={reviewContent} onChange={(evt: ChangeEvent<HTMLTextAreaElement>) => {
             setReviewContent(evt.target.value);
@@ -115,10 +120,7 @@ function AddReviewForm() {
         <div className="add-review__submit">
           <button className="add-review__btn" type="submit" data-testid='submit-button' disabled={postDisabledByContent || postDisabledByStar}>Post</button>
         </div>
-        { error ?
-          <p>{error}</p>
-          :
-          null}
+        <ErrorMessage />
       </div>
     </form>
   );
